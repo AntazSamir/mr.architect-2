@@ -1,11 +1,12 @@
+import { forwardRef } from 'react';
 import { Sparkles } from 'lucide-react';
 import { useLocale } from '@/contexts/LocaleContext';
 
-export function Footer() {
+export const Footer = forwardRef<HTMLElement>(function Footer(_, ref) {
   const { t } = useLocale();
 
   return (
-    <footer className="border-t border-border bg-card/50">
+    <footer ref={ref} className="border-t border-border bg-card/50">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
@@ -91,4 +92,4 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+});
