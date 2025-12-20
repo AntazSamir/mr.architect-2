@@ -1,115 +1,124 @@
-import { ClipboardList, Cpu, FileCheck, ArrowRight } from 'lucide-react';
+import { MessageSquare, Cpu, Rocket, ArrowRight, Copy } from 'lucide-react';
 import { useLocale } from '@/contexts/LocaleContext';
 
 const steps = [
   {
-    icon: ClipboardList,
-    titleKey: 'describe',
-    descKey: 'describeDesc',
+    icon: MessageSquare,
+    number: '01',
+    title: 'Describe Your Project',
+    description: 'Answer simple questions about your website type, target audience, and design preferences.',
+    color: 'text-primary',
+    bgColor: 'bg-primary/10',
+    borderColor: 'border-primary/30',
   },
   {
     icon: Cpu,
-    titleKey: 'generate',
-    descKey: 'generateDesc',
+    number: '02',
+    title: 'AI Generates Blueprint',
+    description: 'Our AI analyzes your inputs and creates a comprehensive blueprint with architecture, design, and SEO.',
+    color: 'text-accent',
+    bgColor: 'bg-accent/10',
+    borderColor: 'border-accent/30',
   },
   {
-    icon: FileCheck,
-    titleKey: 'export',
-    descKey: 'exportDesc',
+    icon: Copy,
+    number: '03',
+    title: 'Copy AI Prompts',
+    description: 'Get optimized prompts for Lovable, Cursor, Bolt.new, Replit, or V0 to start building instantly.',
+    color: 'text-success',
+    bgColor: 'bg-success/10',
+    borderColor: 'border-success/30',
+  },
+  {
+    icon: Rocket,
+    number: '04',
+    title: 'Build & Launch',
+    description: 'Paste the prompts into your favorite AI builder and watch your website come to life.',
+    color: 'text-warning',
+    bgColor: 'bg-warning/10',
+    borderColor: 'border-warning/30',
   },
 ];
 
-const stepContent = {
-  en: {
-    describe: 'Describe Your Vision',
-    describeDesc: 'Answer a few questions about your project type, target audience, and design preferences.',
-    generate: 'AI Generates Blueprint',
-    generateDesc: 'Our AI analyzes your requirements and creates comprehensive specifications in minutes.',
-    export: 'Export & Build',
-    exportDesc: 'Download your blueprint in multiple formats and start building with confidence.',
-  },
-  es: {
-    describe: 'Describe Tu Visión',
-    describeDesc: 'Responde algunas preguntas sobre el tipo de proyecto, audiencia objetivo y preferencias de diseño.',
-    generate: 'La IA Genera el Plano',
-    generateDesc: 'Nuestra IA analiza tus requisitos y crea especificaciones completas en minutos.',
-    export: 'Exportar y Construir',
-    exportDesc: 'Descarga tu plano en múltiples formatos y comienza a construir con confianza.',
-  },
-  fr: {
-    describe: 'Décrivez Votre Vision',
-    describeDesc: 'Répondez à quelques questions sur le type de projet, le public cible et les préférences de design.',
-    generate: 'L\'IA Génère le Plan',
-    generateDesc: 'Notre IA analyse vos besoins et crée des spécifications complètes en quelques minutes.',
-    export: 'Exporter et Construire',
-    exportDesc: 'Téléchargez votre plan dans plusieurs formats et commencez à construire en toute confiance.',
-  },
-};
-
 export function HowItWorksSection() {
   const { locale } = useLocale();
-  const content = stepContent[locale];
 
   return (
-    <section id="how-it-works" className="py-20 md:py-32">
-      <div className="container mx-auto px-4">
+    <section id="how-it-works" className="py-24 md:py-32 relative">
+      <div className="absolute inset-0 grid-pattern opacity-30" />
+      
+      <div className="container relative mx-auto px-4">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4">
-            {locale === 'en' ? 'How It Works' : locale === 'es' ? 'Cómo Funciona' : 'Comment Ça Marche'}
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-accent bg-accent/10 border border-accent/20 mb-4">
+            How It Works
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4 text-foreground">
+            From Idea to
+            <span className="text-gradient"> Blueprint</span> in Minutes
           </h2>
           <p className="text-lg text-muted-foreground">
-            {locale === 'en' 
-              ? 'Three simple steps to your comprehensive website blueprint'
-              : locale === 'es'
-              ? 'Tres simples pasos para tu plano de sitio web completo'
-              : 'Trois étapes simples vers votre plan de site web complet'}
+            Four simple steps to generate production-ready website specifications.
           </p>
         </div>
 
         {/* Steps */}
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            {/* Connection Line */}
-            <div className="hidden md:block absolute top-24 left-[calc(16.67%-8px)] right-[calc(16.67%-8px)] h-0.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20" />
-            
-            <div className="grid md:grid-cols-3 gap-8 md:gap-4">
-              {steps.map((step, index) => {
-                const Icon = step.icon;
-                return (
-                  <div 
-                    key={step.titleKey} 
-                    className="relative text-center animate-slide-up"
-                    style={{ animationDelay: `${index * 0.15}s` }}
-                  >
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              return (
+                <div 
+                  key={step.number}
+                  className="relative animate-slide-up"
+                  style={{ animationDelay: `${index * 0.15}s` }}
+                >
+                  {/* Connection Line */}
+                  {index < steps.length - 1 && (
+                    <div className="hidden lg:block absolute top-12 left-[calc(50%+30px)] w-[calc(100%-60px)] h-px bg-gradient-to-r from-border via-primary/30 to-border" />
+                  )}
+                  
+                  <div className={`relative p-6 rounded-2xl glass-card border ${step.borderColor} hover:border-primary/50 transition-all duration-300 h-full`}>
                     {/* Step Number */}
-                    <div className="relative inline-flex mb-6">
-                      <div className="w-16 h-16 rounded-2xl gradient-primary flex items-center justify-center shadow-lg">
-                        <Icon className="h-8 w-8 text-primary-foreground" />
-                      </div>
-                      <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-card border-2 border-primary flex items-center justify-center">
-                        <span className="text-xs font-bold text-primary">{index + 1}</span>
-                      </div>
+                    <span className={`text-xs font-mono ${step.color} mb-4 block`}>{step.number}</span>
+                    
+                    {/* Icon */}
+                    <div className={`mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl ${step.bgColor} ${step.borderColor} border`}>
+                      <Icon className={`h-6 w-6 ${step.color}`} />
                     </div>
                     
                     {/* Content */}
-                    <h3 className="font-display text-xl font-semibold mb-2">
-                      {content[step.titleKey as keyof typeof content]}
+                    <h3 className="font-display text-lg font-semibold mb-2 text-foreground">
+                      {step.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">
-                      {content[step.descKey as keyof typeof content]}
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {step.description}
                     </p>
-                    
-                    {/* Arrow (mobile) */}
-                    {index < steps.length - 1 && (
-                      <div className="md:hidden flex justify-center my-6">
-                        <ArrowRight className="h-6 w-6 text-primary/50 rotate-90" />
-                      </div>
-                    )}
                   </div>
-                );
-              })}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Bottom Prompt Preview */}
+        <div className="mt-16 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.6s' }}>
+          <div className="rounded-2xl glass-card-strong p-6 border border-primary/20">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
+              <span className="text-xs font-mono text-muted-foreground">Sample output for Lovable</span>
             </div>
+            <pre className="text-sm text-foreground/80 font-mono overflow-x-auto">
+              <code>{`Create an e-commerce website with:
+- Homepage with hero, featured products, testimonials
+- Product catalog with filters and search
+- Product detail pages with gallery and reviews
+- Shopping cart with real-time updates
+- Checkout flow with Stripe integration
+
+Tech: React, TypeScript, Tailwind CSS, shadcn/ui
+Design: Modern minimalist, primary #0891b2...`}</code>
+            </pre>
           </div>
         </div>
       </div>
