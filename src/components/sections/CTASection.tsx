@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocale } from '@/contexts/LocaleContext';
 import { useNavigate } from 'react-router-dom';
@@ -8,72 +8,74 @@ export const CTASection = forwardRef<HTMLElement>(function CTASection(_, ref) {
   const { locale } = useLocale();
   const navigate = useNavigate();
 
-  const content = {
-    en: {
-      title: 'Ready to Transform Your',
-      titleHighlight: 'Website Planning?',
-      subtitle: 'Join thousands of developers who are already building better websites, faster.',
-      cta: 'Start Free Today',
-      note: 'No credit card required. 2 free blueprints/month.',
-    },
-    es: {
-      title: '¿Listo para Transformar la',
-      titleHighlight: 'Planificación de Tu Sitio?',
-      subtitle: 'Únete a miles de desarrolladores que ya están construyendo mejores sitios web, más rápido.',
-      cta: 'Comenzar Gratis Hoy',
-      note: 'Sin tarjeta de crédito. 2 planos gratis/mes.',
-    },
-    fr: {
-      title: 'Prêt à Transformer Votre',
-      titleHighlight: 'Planification Web?',
-      subtitle: 'Rejoignez des milliers de développeurs qui construisent déjà de meilleurs sites, plus rapidement.',
-      cta: 'Commencer Gratuitement',
-      note: 'Pas de carte de crédit. 2 plans gratuits/mois.',
-    },
-  };
-
-  const c = content[locale];
-
   return (
-    <section ref={ref} className="py-20 md:py-32 relative overflow-hidden">
+    <section ref={ref} className="py-24 md:py-32 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 gradient-primary opacity-95" />
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtOS45NDEgMC0xOCA4LjA1OS0xOCAxOHM4LjA1OSAxOCAxOCAxOCAxOC04LjA1OSAxOC0xOC04LjA1OS0xOC0xOC0xOHptMCAzMmMtNy43MzIgMC0xNC02LjI2OC0xNC0xNHM2LjI2OC0xNCAxNC0xNCAxNCA2LjI2OCAxNCAxNC02LjI2OCAxNC0xNCAxNHoiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
+      <div className="absolute inset-0 grid-pattern opacity-20" />
       
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '-3s' }} />
+      {/* Glowing Orbs */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px]" />
+      <div className="absolute top-20 right-20 w-64 h-64 bg-accent/10 rounded-full blur-[100px] animate-float" />
 
       <div className="container relative mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          {/* Icon */}
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm mb-8 animate-scale-in">
-            <Sparkles className="h-8 w-8 text-white" />
-          </div>
+        <div className="max-w-4xl mx-auto">
+          {/* Main Card */}
+          <div className="relative rounded-3xl glass-card-strong border border-primary/20 p-8 md:p-12 text-center overflow-hidden">
+            {/* Decorative Corner */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-accent/20 to-transparent" />
+            
+            {/* Icon */}
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 border border-primary/30 mb-8 animate-glow-pulse">
+              <Sparkles className="h-8 w-8 text-primary" />
+            </div>
 
-          {/* Headline */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-white mb-6 animate-slide-up">
-            {c.title}
-            <br />
-            <span className="text-white/90">{c.titleHighlight}</span>
-          </h2>
+            {/* Headline */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-6">
+              Ready to Generate Your
+              <br />
+              <span className="text-gradient">Website Blueprint?</span>
+            </h2>
 
-          {/* Subtitle */}
-          <p className="text-lg text-white/80 mb-10 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            {c.subtitle}
-          </p>
+            {/* Subtitle */}
+            <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
+              Stop planning manually. Let AI create a comprehensive blueprint 
+              with architecture, design system, and ready-to-use prompts.
+            </p>
 
-          {/* CTA */}
-          <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <Button 
-              size="xl" 
-              className="bg-white text-primary hover:bg-white/90 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
-              onClick={() => navigate('/create')}
-            >
-              {c.cta}
-              <ArrowRight className="h-5 w-5 ml-2" />
-            </Button>
-            <p className="text-sm text-white/60 mt-4">{c.note}</p>
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button 
+                variant="hero"
+                size="xl" 
+                onClick={() => navigate('/create')}
+                className="group"
+              >
+                <Zap className="h-5 w-5 mr-2" />
+                Start Generating — Free
+                <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+
+            {/* Note */}
+            <p className="text-sm text-muted-foreground mt-6 font-mono">
+              No sign-up required • Unlimited blueprints
+            </p>
+
+            {/* Stats */}
+            <div className="mt-12 pt-8 border-t border-border/50 grid grid-cols-3 gap-8">
+              {[
+                { value: '< 2 min', label: 'Generation Time' },
+                { value: '5+', label: 'AI Platforms' },
+                { value: '100%', label: 'Free to Use' },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <div className="text-2xl font-bold text-primary font-mono">{stat.value}</div>
+                  <div className="text-xs text-muted-foreground">{stat.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
