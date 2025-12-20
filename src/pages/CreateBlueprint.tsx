@@ -58,8 +58,8 @@ export default function CreateBlueprint() {
     setData(finalData);
     setIsGenerating(true);
     
-    // Simulate AI generation
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    // Brief loading state for UX - blueprint generation is instant
+    await new Promise(resolve => setTimeout(resolve, 1500));
     
     setIsGenerating(false);
     setIsGenerated(true);
