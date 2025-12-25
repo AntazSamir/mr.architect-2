@@ -32,10 +32,10 @@ export const CTASection = forwardRef<HTMLElement>(function CTASection(_, ref) {
             </div>
 
             {/* Headline */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-6 text-foreground">
               Ready to Generate Your
               <br />
-              <span className="text-gradient">Website Blueprint?</span>
+              Website Blueprint?
             </h2>
 
             {/* Subtitle */}

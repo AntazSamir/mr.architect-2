@@ -19,8 +19,8 @@ export function Header() {
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 border border-primary/30 group-hover:shadow-glow-cyan transition-all duration-300">
             <Bot className="h-5 w-5 text-primary" />
           </div>
-          <span className="font-display text-xl font-bold">
-            Mr.<span className="text-gradient">Architect</span>
+          <span className="font-display text-xl font-bold text-foreground">
+            Mr.<span className="text-primary">Architect</span>
           </span>
         </a>
 

@@ -54,8 +54,7 @@ export function HowItWorksSection() {
             How It Works
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4 text-foreground">
-            From Idea to
-            <span className="text-gradient"> Blueprint</span> in Minutes
+            From Idea to Blueprint in Minutes
           </h2>
           <p className="text-lg text-muted-foreground">
             Four simple steps to generate production-ready website specifications.
