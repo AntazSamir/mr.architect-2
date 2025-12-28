@@ -19,51 +19,118 @@ export function StepDesign({ data, updateData }: StepDesignProps) {
       value: 'modern', 
       label: t.wizard.styles.modern, 
       icon: Sparkles,
-      gradient: 'from-slate-800 via-slate-700 to-slate-900',
-      accent: 'bg-primary/20 text-primary border-primary/30',
+      bg: 'bg-slate-900',
+      headerBg: 'bg-slate-800',
+      accent: 'bg-primary',
+      textColor: 'text-white',
+      mutedText: 'text-slate-400',
+      cardBg: 'bg-slate-800/50',
       description: 'Clean lines, dark themes'
     },
     { 
       value: 'minimalist', 
       label: t.wizard.styles.minimalist, 
       icon: Minus,
-      gradient: 'from-gray-100 via-white to-gray-50',
-      accent: 'bg-gray-100 text-gray-800 border-gray-300',
+      bg: 'bg-gray-50',
+      headerBg: 'bg-white',
+      accent: 'bg-gray-900',
+      textColor: 'text-gray-900',
+      mutedText: 'text-gray-500',
+      cardBg: 'bg-white',
       description: 'Simple, whitespace-focused'
     },
     { 
       value: 'bold', 
       label: t.wizard.styles.bold, 
       icon: Zap,
-      gradient: 'from-orange-500 via-red-500 to-pink-500',
-      accent: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+      bg: 'bg-orange-50',
+      headerBg: 'bg-gradient-to-r from-orange-500 to-red-500',
+      accent: 'bg-orange-500',
+      textColor: 'text-white',
+      mutedText: 'text-orange-200',
+      cardBg: 'bg-white',
       description: 'Vibrant, attention-grabbing'
     },
     { 
       value: 'playful', 
       label: t.wizard.styles.playful, 
       icon: Smile,
-      gradient: 'from-purple-400 via-pink-400 to-cyan-400',
-      accent: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+      bg: 'bg-gradient-to-br from-purple-100 via-pink-50 to-cyan-100',
+      headerBg: 'bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500',
+      accent: 'bg-purple-500',
+      textColor: 'text-white',
+      mutedText: 'text-purple-200',
+      cardBg: 'bg-white/80',
       description: 'Fun, colorful, animated'
     },
     { 
       value: 'professional', 
       label: t.wizard.styles.professional, 
       icon: Briefcase,
-      gradient: 'from-blue-900 via-blue-800 to-indigo-900',
-      accent: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+      bg: 'bg-blue-950',
+      headerBg: 'bg-blue-900',
+      accent: 'bg-blue-500',
+      textColor: 'text-white',
+      mutedText: 'text-blue-300',
+      cardBg: 'bg-blue-900/50',
       description: 'Corporate, trustworthy'
     },
     { 
       value: 'creative', 
       label: t.wizard.styles.creative, 
       icon: Palette,
-      gradient: 'from-emerald-400 via-teal-400 to-cyan-400',
-      accent: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+      bg: 'bg-gradient-to-br from-emerald-50 to-teal-100',
+      headerBg: 'bg-gradient-to-r from-emerald-500 to-teal-500',
+      accent: 'bg-emerald-500',
+      textColor: 'text-white',
+      mutedText: 'text-emerald-200',
+      cardBg: 'bg-white/90',
       description: 'Artistic, unique layouts'
     },
   ];
+
+  // Mini website preview component
+  const WebsitePreview = ({ style }: { style: typeof styles[0] }) => (
+    <div className={cn("w-full h-28 rounded-t-lg overflow-hidden", style.bg)}>
+      {/* Mini Header */}
+      <div className={cn("h-5 flex items-center px-2 gap-1", style.headerBg)}>
+        <div className={cn("w-1.5 h-1.5 rounded-full", style.accent)} />
+        <div className={cn("h-1 w-6 rounded-full opacity-60", style.textColor === 'text-white' ? 'bg-white' : 'bg-gray-400')} />
+        <div className="flex-1" />
+        <div className={cn("h-1 w-3 rounded-full opacity-40", style.textColor === 'text-white' ? 'bg-white' : 'bg-gray-400')} />
+        <div className={cn("h-1 w-3 rounded-full opacity-40", style.textColor === 'text-white' ? 'bg-white' : 'bg-gray-400')} />
+      </div>
+      
+      {/* Hero Section */}
+      <div className="p-2 space-y-1.5">
+        <div className={cn("h-2 w-16 rounded-full", style.accent)} />
+        <div className={cn("h-1 w-20 rounded-full opacity-50", style.textColor === 'text-white' ? 'bg-white' : 'bg-gray-400')} />
+        <div className={cn("h-3 w-8 rounded mt-1", style.accent)} />
+      </div>
+      
+      {/* Cards Section */}
+      <div className="px-2 flex gap-1">
+        <div className={cn("flex-1 h-8 rounded", style.cardBg)}>
+          <div className="p-1 space-y-0.5">
+            <div className={cn("h-0.5 w-4 rounded-full", style.accent)} />
+            <div className={cn("h-0.5 w-6 rounded-full opacity-30", style.textColor === 'text-white' ? 'bg-white' : 'bg-gray-400')} />
+          </div>
+        </div>
+        <div className={cn("flex-1 h-8 rounded", style.cardBg)}>
+          <div className="p-1 space-y-0.5">
+            <div className={cn("h-0.5 w-4 rounded-full", style.accent)} />
+            <div className={cn("h-0.5 w-6 rounded-full opacity-30", style.textColor === 'text-white' ? 'bg-white' : 'bg-gray-400')} />
+          </div>
+        </div>
+        <div className={cn("flex-1 h-8 rounded hidden sm:block", style.cardBg)}>
+          <div className="p-1 space-y-0.5">
+            <div className={cn("h-0.5 w-4 rounded-full", style.accent)} />
+            <div className={cn("h-0.5 w-6 rounded-full opacity-30", style.textColor === 'text-white' ? 'bg-white' : 'bg-gray-400')} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="space-y-6">
@@ -86,22 +153,17 @@ export function StepDesign({ data, updateData }: StepDesignProps) {
                     : "border-border/50 hover:border-primary/50 hover:shadow-md"
                 )}
               >
-                {/* Gradient Preview */}
-                <div className={cn(
-                  "h-20 w-full bg-gradient-to-br transition-all duration-300",
-                  style.gradient,
-                  isSelected ? "opacity-100" : "opacity-80 group-hover:opacity-100"
-                )}>
-                  {/* Pattern overlay */}
-                  <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:12px_12px]" />
-                </div>
+                {/* Live Website Preview */}
+                <WebsitePreview style={style} />
                 
                 {/* Content */}
-                <div className="p-3 bg-card">
+                <div className="p-3 bg-card border-t border-border/30">
                   <div className="flex items-center gap-2 mb-1">
                     <div className={cn(
                       "w-6 h-6 rounded-md flex items-center justify-center border transition-all",
-                      isSelected ? style.accent : "bg-secondary/50 text-muted-foreground border-border"
+                      isSelected 
+                        ? "bg-primary/20 text-primary border-primary/30" 
+                        : "bg-secondary/50 text-muted-foreground border-border"
                     )}>
                       <Icon className="h-3.5 w-3.5" />
                     </div>
@@ -119,7 +181,7 @@ export function StepDesign({ data, updateData }: StepDesignProps) {
                 
                 {/* Selected Indicator */}
                 {isSelected && (
-                  <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                  <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-primary flex items-center justify-center shadow-lg">
                     <Check className="h-3 w-3 text-primary-foreground" />
                   </div>
                 )}
