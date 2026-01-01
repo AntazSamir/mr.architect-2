@@ -30,8 +30,7 @@ export function HeroSection() {
 
           {/* Headline */}
           <h1 className="text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight mb-6 animate-slide-up">
-            <span className="text-foreground">Generate</span>{' '}
-            <span className="text-gradient text-glow">Website Blueprints</span>
+            <span className="text-foreground">Generate Blueprints</span>
             <br />
             <span className="text-foreground">for AI Builders</span>
           </h1>

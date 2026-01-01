@@ -89,38 +89,85 @@ export function BlueprintWizard({ data, setData, onComplete, isGenerating }: Blu
         <p className="text-muted-foreground">{t.wizard.subtitle}</p>
       </div>
 
-      {/* Progress Bar */}
+      {/* Step Progress */}
       <div className="mb-8">
-        <div className="flex justify-between mb-2">
-          {stepNames.map((name, index) => (
-            <div 
-              key={name}
-              className={cn(
-                "hidden sm:flex items-center gap-1.5 text-xs font-medium transition-colors",
-                index + 1 <= currentStep ? "text-primary" : "text-muted-foreground"
-              )}
-            >
-              <div className={cn(
-                "w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold border-2 transition-all",
-                index + 1 < currentStep 
-                  ? "bg-primary border-primary text-primary-foreground" 
-                  : index + 1 === currentStep
-                  ? "border-primary text-primary"
-                  : "border-muted-foreground/30 text-muted-foreground"
-              )}>
-                {index + 1 < currentStep ? <Check className="h-3 w-3" /> : index + 1}
-              </div>
-              <span className="hidden lg:inline">{name}</span>
-            </div>
-          ))}
-        </div>
-        <div className="h-2 bg-secondary rounded-full overflow-hidden">
+        <div className="relative">
+          {/* Progress Line Background */}
+          <div className="absolute top-5 left-0 right-0 h-0.5 bg-border hidden sm:block" />
+          
+          {/* Progress Line Active */}
           <motion.div 
-            className="h-full gradient-primary"
+            className="absolute top-5 left-0 h-0.5 bg-primary hidden sm:block"
             initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.3 }}
+            animate={{ width: `${((currentStep - 1) / (TOTAL_STEPS - 1)) * 100}%` }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           />
+          
+          {/* Steps */}
+          <div className="flex justify-between relative">
+            {stepNames.map((name, index) => {
+              const stepNumber = index + 1;
+              const isCompleted = stepNumber < currentStep;
+              const isCurrent = stepNumber === currentStep;
+              const isUpcoming = stepNumber > currentStep;
+              
+              return (
+                <div 
+                  key={name}
+                  className="flex flex-col items-center"
+                >
+                  {/* Step Circle */}
+                  <motion.div 
+                    className={cn(
+                      "relative z-10 w-10 h-10 rounded-full flex items-center justify-center font-mono text-sm font-bold transition-all duration-300",
+                      isCompleted && "bg-primary text-primary-foreground shadow-glow-cyan",
+                      isCurrent && "bg-primary/20 border-2 border-primary text-primary shadow-glow-cyan",
+                      isUpcoming && "bg-secondary border border-border text-muted-foreground"
+                    )}
+                    initial={false}
+                    animate={isCurrent ? { scale: [1, 1.1, 1] } : { scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {isCompleted ? (
+                      <Check className="h-5 w-5" />
+                    ) : (
+                      <span>{stepNumber}</span>
+                    )}
+                    
+                    {/* Pulse ring for current step */}
+                    {isCurrent && (
+                      <span className="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-30" />
+                    )}
+                  </motion.div>
+                  
+                  {/* Step Label */}
+                  <span className={cn(
+                    "hidden lg:block mt-3 text-xs font-medium text-center max-w-[100px] transition-colors",
+                    isCompleted && "text-primary",
+                    isCurrent && "text-primary",
+                    isUpcoming && "text-muted-foreground"
+                  )}>
+                    {name}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        
+        {/* Mobile Progress Bar */}
+        <div className="sm:hidden mt-4">
+          <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
+            <motion.div 
+              className="h-full bg-primary"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
+          <p className="text-center text-xs text-muted-foreground mt-2 font-mono">
+            {stepNames[currentStep - 1]}
+          </p>
         </div>
       </div>
 

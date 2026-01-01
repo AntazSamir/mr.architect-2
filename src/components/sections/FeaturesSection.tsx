@@ -93,8 +93,7 @@ export function FeaturesSection() {
             Features
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4 text-foreground">
-            Everything You Need to
-            <span className="text-gradient"> Build Faster</span>
+            Everything You Need to Build Faster
           </h2>
           <p className="text-lg text-muted-foreground">
             Generate comprehensive blueprints that work seamlessly with modern AI coding assistants.
