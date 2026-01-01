@@ -10,9 +10,9 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen pt-24 pb-20 overflow-hidden flex items-center">
       {/* Background Effects */}
-      <div className="absolute inset-0 gradient-hero" />
-      <div className="absolute inset-0 grid-pattern" />
-      
+      <div className="absolute inset-0 gradient-hero -z-10" />
+      <div className="absolute inset-0 grid-pattern -z-10" />
+
       {/* Animated Orbs */}
       <div className="absolute top-20 left-[10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] animate-float" />
       <div className="absolute bottom-20 right-[10%] w-[400px] h-[400px] bg-accent/15 rounded-full blur-[100px] animate-float" style={{ animationDelay: '-3s' }} />
@@ -38,17 +38,17 @@ export function HeroSection() {
 
           {/* Subtitle */}
           <p className="text-center text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            Answer a few questions and get a complete website blueprint with architecture, 
-            design system, and ready-to-use prompts for <span className="text-primary">Lovable</span>, 
-            <span className="text-accent"> Cursor</span>, <span className="text-success">Bolt.new</span>, 
+            Answer a few questions and get a complete website blueprint with architecture,
+            design system, and ready-to-use prompts for <span className="text-primary">Lovable</span>,
+            <span className="text-accent"> Cursor</span>, <span className="text-success">Bolt.new</span>,
             and <span className="text-warning">Replit</span>.
           </p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <Button 
-              variant="hero" 
-              size="xl" 
+            <Button
+              variant="hero"
+              size="xl"
               onClick={() => navigate('/create')}
               className="group"
             >
@@ -66,7 +66,7 @@ export function HeroSection() {
           <div className="flex flex-wrap items-center justify-center gap-8 mb-16 animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <span className="text-xs uppercase tracking-widest text-muted-foreground">Works with</span>
             {['Lovable', 'Cursor', 'Bolt.new', 'Replit', 'V0'].map((platform, i) => (
-              <span 
+              <span
                 key={platform}
                 className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors cursor-default"
                 style={{ animationDelay: `${0.4 + i * 0.1}s` }}
@@ -93,7 +93,7 @@ export function HeroSection() {
                 </div>
                 <Cpu className="h-4 w-4 text-primary animate-pulse" />
               </div>
-              
+
               {/* Blueprint Content Preview */}
               <div className="p-6 md:p-8 space-y-4">
                 {/* Command Line */}
@@ -105,23 +105,21 @@ export function HeroSection() {
                 </div>
 
                 {/* Progress */}
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <Zap className="h-4 w-4 text-success" />
-                    <span className="text-sm text-success font-mono">✓ Architecture analyzed</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Zap className="h-4 w-4 text-success" />
-                    <span className="text-sm text-success font-mono">✓ Design system generated</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Zap className="h-4 w-4 text-success" />
-                    <span className="text-sm text-success font-mono">✓ SEO foundation created</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Zap className="h-4 w-4 text-primary animate-pulse" />
-                    <span className="text-sm text-primary font-mono">○ Generating AI prompts...</span>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <Zap className="h-4 w-4 text-success" />
+                  <span className="text-sm text-success font-mono">Architecture analyzed</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Zap className="h-4 w-4 text-success" />
+                  <span className="text-sm text-success font-mono">Design system generated</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Zap className="h-4 w-4 text-success" />
+                  <span className="text-sm text-success font-mono">SEO foundation created</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Zap className="h-4 w-4 text-primary animate-pulse" />
+                  <span className="text-sm text-primary font-mono">Generating AI prompts...</span>
                 </div>
 
                 {/* Output Preview */}
@@ -142,7 +140,7 @@ export function HeroSection() {
                 </div>
               </div>
             </div>
-            
+
             {/* Glow Effect */}
             <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl -z-10 animate-glow-pulse" />
           </div>

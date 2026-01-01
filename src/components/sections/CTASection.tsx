@@ -13,7 +13,7 @@ export const CTASection = forwardRef<HTMLElement>(function CTASection(_, ref) {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
       <div className="absolute inset-0 grid-pattern opacity-20" />
-      
+
       {/* Glowing Orbs */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px]" />
       <div className="absolute top-20 right-20 w-64 h-64 bg-accent/10 rounded-full blur-[100px] animate-float" />
@@ -25,7 +25,7 @@ export const CTASection = forwardRef<HTMLElement>(function CTASection(_, ref) {
             {/* Decorative Corner */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/20 to-transparent" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-accent/20 to-transparent" />
-            
+
             {/* Icon */}
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 border border-primary/30 mb-8 animate-glow-pulse">
               <Sparkles className="h-8 w-8 text-primary" />
@@ -40,15 +40,15 @@ export const CTASection = forwardRef<HTMLElement>(function CTASection(_, ref) {
 
             {/* Subtitle */}
             <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Stop planning manually. Let AI create a comprehensive blueprint 
+              Stop planning manually. Let AI create a comprehensive blueprint
               with architecture, design system, and ready-to-use prompts.
             </p>
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button 
+              <Button
                 variant="hero"
-                size="xl" 
+                size="xl"
                 onClick={() => navigate('/create')}
                 className="group"
               >
@@ -60,7 +60,7 @@ export const CTASection = forwardRef<HTMLElement>(function CTASection(_, ref) {
 
             {/* Note */}
             <p className="text-sm text-muted-foreground mt-6 font-mono">
-              No sign-up required • Unlimited blueprints
+              No sign-up required | Unlimited blueprints
             </p>
 
             {/* Stats */}

@@ -53,9 +53,9 @@
     --gradient-primary: linear-gradient(135deg, hsl(180, 100%, 50%) 0%, hsl(270, 95%, 65%) 100%);
     --gradient-hero: radial-gradient(ellipse at top, hsl(230, 20%, 12%) 0%, hsl(230, 15%, 8%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(230, 15%, 13%) 0%, hsl(230, 15%, 9%) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
     --gradient-glow: linear-gradient(135deg, hsl(180, 100%, 50%) 0%, hsl(200, 100%, 50%) 50%, hsl(270, 95%, 65%) 100%);
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.3);
     --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.4), 0 2px 4px -2px hsl(0 0% 0% / 0.3);
@@ -76,9 +76,7 @@
     --sidebar-ring: 180 100% 50%;
   }
 
-  .dark {
-    /* Same as root since we're dark-first */
-  }
+
 
   .light {
     --background: 0 0% 100%;
@@ -121,7 +119,12 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display font-semibold tracking-tight;
   }
 }
@@ -165,8 +168,10 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent;
     background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   .text-glow {
@@ -175,12 +180,12 @@
 
   .glass-card {
     @apply backdrop-blur-xl border border-border/50;
-    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
   }
 
   .glass-card-strong {
     @apply backdrop-blur-2xl border border-primary/20;
-    background: linear-gradient(135deg, rgba(0,255,255,0.05) 0%, rgba(138,43,226,0.05) 100%);
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, rgba(138, 43, 226, 0.05) 100%);
   }
 
   .glow-border {
@@ -201,7 +206,7 @@
   }
 
   .grid-pattern {
-    background-image: 
+    background-image:
       linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 50px 50px;
@@ -261,9 +266,12 @@
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-20px);
   }
@@ -274,6 +282,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -285,6 +294,7 @@
     opacity: 0;
     transform: translateX(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -295,6 +305,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -305,6 +316,7 @@
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -312,9 +324,12 @@
 }
 
 @keyframes glowPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 20px hsl(180 100% 50% / 0.3);
   }
+
   50% {
     box-shadow: 0 0 40px hsl(180 100% 50% / 0.5), 0 0 60px hsl(270 95% 65% / 0.3);
   }
@@ -324,9 +339,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -337,6 +354,7 @@
     top: 0;
     opacity: 1;
   }
+
   100% {
     top: 100%;
     opacity: 0;
