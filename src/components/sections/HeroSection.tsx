@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { ArrowRight, Cpu, Zap, Bot, Code2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocale } from '@/contexts/LocaleContext';
@@ -6,6 +7,27 @@ import { useNavigate } from 'react-router-dom';
 export function HeroSection() {
   const { t } = useLocale();
   const navigate = useNavigate();
+  const [typedText, setTypedText] = useState("");
+  const [progressStep, setProgressStep] = useState(0);
+  const fullText = '"e-commerce platform"';
+
+  useEffect(() => {
+    let index = 0;
+    const intervalId = setInterval(() => {
+      setTypedText(fullText.slice(0, index));
+      index++;
+      if (index > fullText.length) {
+        clearInterval(intervalId);
+        // Start showing progress steps after typing is done
+        setTimeout(() => setProgressStep(1), 500);
+        setTimeout(() => setProgressStep(2), 1500);
+        setTimeout(() => setProgressStep(3), 2500);
+        setTimeout(() => setProgressStep(4), 3500);
+      }
+    }, 80);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <section className="relative min-h-screen pt-24 pb-20 overflow-hidden flex items-center">
@@ -99,26 +121,36 @@ export function HeroSection() {
                 <div className="flex items-center gap-2 font-mono text-sm">
                   <span className="text-primary">$</span>
                   <span className="text-muted-foreground">generating blueprint for</span>
-                  <span className="text-foreground">"e-commerce platform"</span>
+                  <span className="text-foreground min-h-[1.5rem] inline-block">{typedText}</span>
                   <span className="inline-block w-2 h-5 bg-primary animate-pulse" />
                 </div>
 
                 {/* Progress */}
-                <div className="flex items-center gap-3">
-                  <Zap className="h-4 w-4 text-success" />
-                  <span className="text-sm text-success font-mono">Architecture analyzed</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Zap className="h-4 w-4 text-success" />
-                  <span className="text-sm text-success font-mono">Design system generated</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Zap className="h-4 w-4 text-success" />
-                  <span className="text-sm text-success font-mono">SEO foundation created</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Zap className="h-4 w-4 text-primary animate-pulse" />
-                  <span className="text-sm text-primary font-mono">Generating AI prompts...</span>
+                <div className="space-y-3 min-h-[120px]">
+                  {progressStep >= 1 && (
+                    <div className="flex items-center gap-3 animate-fade-in">
+                      <Zap className="h-4 w-4 text-success" />
+                      <span className="text-sm text-success font-mono">Architecture analyzed</span>
+                    </div>
+                  )}
+                  {progressStep >= 2 && (
+                    <div className="flex items-center gap-3 animate-fade-in">
+                      <Zap className="h-4 w-4 text-success" />
+                      <span className="text-sm text-success font-mono">Design system generated</span>
+                    </div>
+                  )}
+                  {progressStep >= 3 && (
+                    <div className="flex items-center gap-3 animate-fade-in">
+                      <Zap className="h-4 w-4 text-success" />
+                      <span className="text-sm text-success font-mono">SEO foundation created</span>
+                    </div>
+                  )}
+                  {progressStep >= 4 && (
+                    <div className="flex items-center gap-3 animate-fade-in">
+                      <Zap className="h-4 w-4 text-primary animate-pulse" />
+                      <span className="text-sm text-primary font-mono">Generating AI prompts...</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Output Preview */}

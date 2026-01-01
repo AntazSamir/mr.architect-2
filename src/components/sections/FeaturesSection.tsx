@@ -1,9 +1,9 @@
-import { 
-  LayoutGrid, 
-  Palette, 
-  Search, 
-  Code2, 
-  FileOutput, 
+import {
+  LayoutGrid,
+  Palette,
+  Search,
+  Code2,
+  FileOutput,
   Terminal,
   LucideIcon
 } from 'lucide-react';
@@ -19,7 +19,7 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon: Icon, title, description, index, color }: FeatureCardProps) {
   return (
-    <div 
+    <div
       className="group relative p-6 rounded-2xl glass-card hover:glass-card-strong transition-all duration-500 animate-slide-up"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
@@ -27,13 +27,12 @@ function FeatureCard({ icon: Icon, title, description, index, color }: FeatureCa
       <div className={`mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl ${color} transition-all duration-300 group-hover:shadow-glow-cyan`}>
         <Icon className="h-6 w-6" />
       </div>
-      
+
       {/* Content */}
       <h3 className="font-display text-lg font-semibold mb-2 text-foreground">{title}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
-      
-      {/* Hover Border Glow */}
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 glow-border pointer-events-none" />
+
+
     </div>
   );
 }
@@ -85,7 +84,7 @@ export function FeaturesSection() {
       {/* Background */}
       <div className="absolute inset-0 bg-secondary/20" />
       <div className="absolute inset-0 grid-pattern opacity-50" />
-      
+
       <div className="container relative mx-auto px-4">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
