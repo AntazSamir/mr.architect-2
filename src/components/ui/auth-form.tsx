@@ -56,16 +56,7 @@ const Button: React.FC<ButtonProps> = ({ children, className, ...props }) => (
   </button>
 )
 
-const Logo: React.FC = () => (
-  <div className="mb-8 flex justify-center items-center gap-2">
-    <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center text-primary-foreground font-bold shadow-glow-cyan">
-      MA
-    </div>
-    <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">
-      Mr.Architect
-    </span>
-  </div>
-)
+const Logo: React.FC = () => null;
 
 const Header: React.FC<{ mode: "signin" | "signup" }> = ({ mode }) => (
   <div className="mb-6 text-center">

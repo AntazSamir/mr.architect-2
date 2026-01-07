@@ -77,9 +77,9 @@ export function HeroSection() {
               Generate Blueprint
               <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="heroOutline" size="xl">
+            <Button variant="heroOutline" size="xl" onClick={() => navigate('/demos')}>
               <Code2 className="h-5 w-5 mr-2" />
-              View Example
+              View Examples
             </Button>
           </div>
 

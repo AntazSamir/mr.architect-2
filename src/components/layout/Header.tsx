@@ -37,8 +37,8 @@ export function Header() {
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
           <LanguageSelector />
-          <Button 
-            variant="hero" 
+          <Button
+            variant="hero"
             size="sm"
             onClick={() => navigate('/create')}
           >
@@ -76,9 +76,9 @@ export function Header() {
           </a>
           <div className="flex items-center gap-3 pt-2 border-t border-border">
             <LanguageSelector />
-            <Button 
-              variant="hero" 
-              size="sm" 
+            <Button
+              variant="hero"
+              size="sm"
               className="flex-1"
               onClick={() => navigate('/create')}
             >

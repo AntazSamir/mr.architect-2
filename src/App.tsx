@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LocaleProvider } from "@/contexts/LocaleContext";
 import Index from "./pages/Index";
 import CreateBlueprint from "./pages/CreateBlueprint";
+import DemoBlueprints from "./pages/DemoBlueprints";
+import DemoBlueprintDetail from "./pages/DemoBlueprintDetail";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -26,6 +28,8 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/create" element={<ProtectedRoute><CreateBlueprint /></ProtectedRoute>} />
+              <Route path="/demos" element={<DemoBlueprints />} />
+              <Route path="/demo/:id" element={<DemoBlueprintDetail />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/terms" element={<TermsAndPolicy />} />
