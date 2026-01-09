@@ -23,10 +23,10 @@ export const DemoBlueprintCard = ({ blueprint }: DemoBlueprintCardProps) => {
     };
 
     return (
-        <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm">
-            <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary/10 via-accent/5 to-background">
+        <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm h-full flex flex-col">
+            <div className="relative h-32 sm:h-48 overflow-hidden bg-gradient-to-br from-primary/10 via-accent/5 to-background">
                 {blueprint.featured && (
-                    <Badge className="absolute top-4 right-4 z-10 bg-gradient-to-r from-amber-500 to-orange-500 border-0">
+                    <Badge className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 bg-gradient-to-r from-amber-500 to-orange-500 border-0 text-[10px] sm:text-xs px-1.5 py-0.5 sm:px-2.5 sm:py-0.5">
                         <Sparkles className="w-3 h-3 mr-1" />
                         Featured
                     </Badge>
@@ -37,62 +37,64 @@ export const DemoBlueprintCard = ({ blueprint }: DemoBlueprintCardProps) => {
                       group-hover:scale-110 transition-transform duration-700" />
 
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-6xl font-bold text-primary/10 group-hover:text-primary/20 transition-colors">
+                    <div className="text-4xl sm:text-6xl font-bold text-primary/10 group-hover:text-primary/20 transition-colors">
                         {blueprint.websiteType.charAt(0)}
                     </div>
                 </div>
 
                 {/* Category Badge */}
-                <Badge variant="secondary" className="absolute bottom-4 left-4">
+                <Badge variant="secondary" className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 text-[10px] sm:text-xs">
                     {blueprint.category}
                 </Badge>
             </div>
 
-            <CardHeader>
-                <CardTitle className="text-xl group-hover:text-primary transition-colors">
+            <CardHeader className="p-3 sm:p-6">
+                <CardTitle className="text-base sm:text-xl group-hover:text-primary transition-colors line-clamp-1">
                     {blueprint.projectName}
                 </CardTitle>
-                <CardDescription className="line-clamp-2">
+                <CardDescription className="line-clamp-2 text-xs sm:text-sm">
                     {blueprint.description}
                 </CardDescription>
             </CardHeader>
 
-            <CardContent>
+            <CardContent className="flex-1 p-3 pt-0 sm:p-6 sm:pt-0">
                 <div className="space-y-2 text-sm">
                     <div className="flex items-center text-muted-foreground">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        <span className="text-xs">Timeline: {blueprint.timeline}</span>
+                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+                        <span className="text-[10px] sm:text-xs">Timeline: {blueprint.timeline}</span>
                     </div>
 
-                    <div className="flex flex-wrap gap-1 mt-3">
+                    <div className="flex flex-wrap gap-1 mt-2 sm:mt-3">
                         {blueprint.kpis.slice(0, 2).map((kpi, index) => (
-                            <Badge key={index} variant="outline" className="text-xs">
+                            <Badge key={index} variant="outline" className="text-[10px] sm:text-xs px-1.5 py-0">
                                 {kpi}
                             </Badge>
                         ))}
                         {blueprint.kpis.length > 2 && (
-                            <Badge variant="outline" className="text-xs">
-                                +{blueprint.kpis.length - 2} more
+                            <Badge variant="outline" className="text-[10px] sm:text-xs px-1.5 py-0">
+                                +{blueprint.kpis.length - 2}
                             </Badge>
                         )}
                     </div>
                 </div>
             </CardContent>
 
-            <CardFooter className="flex gap-2">
+            <CardFooter className="flex gap-2 p-3 sm:p-6 pt-0 sm:pt-0">
                 <Button
                     variant="outline"
-                    className="flex-1"
+                    size="sm"
+                    className="flex-1 h-8 text-xs px-2"
                     onClick={handleViewDetails}
                 >
-                    View Details
+                    View
                 </Button>
                 <Button
-                    className="flex-1 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                    size="sm"
+                    className="flex-1 bg-gradient-to-r from-primary to-primary/80 h-8 text-xs px-2 transition-none hover:translate-y-0 hover:shadow-md"
                     onClick={handleUseTemplate}
                 >
-                    Use Template
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    Use
+                    <ArrowRight className="w-3 h-3 ml-1" />
                 </Button>
             </CardFooter>
         </Card>
