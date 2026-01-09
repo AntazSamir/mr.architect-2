@@ -90,7 +90,7 @@ export const DemoBlueprintCard = ({ blueprint }: DemoBlueprintCardProps) => {
                 </Button>
                 <Button
                     size="sm"
-                    className="flex-1 bg-gradient-to-r from-primary to-primary/80 h-8 text-xs px-2 transition-none hover:translate-y-0 hover:shadow-md"
+                    className="flex-1 bg-gradient-to-r from-primary to-primary/80 h-8 text-xs px-2 shadow-md hover:shadow-glow hover:-translate-y-0.5 transition-all duration-300"
                     onClick={handleUseTemplate}
                 >
                     Use
