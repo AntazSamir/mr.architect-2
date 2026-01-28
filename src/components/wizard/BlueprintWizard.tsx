@@ -176,10 +176,15 @@ export function BlueprintWizard({ data, setData, onComplete, isGenerating }: Blu
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, x: 40, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, x: -40, filter: 'blur(4px)' }}
+            transition={{ 
+              duration: 0.4, 
+              ease: [0.25, 0.46, 0.45, 0.94],
+              opacity: { duration: 0.3 },
+              filter: { duration: 0.3 }
+            }}
             className="p-6 sm:p-8"
           >
             {isGenerating ? (

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useLocale } from '@/contexts/LocaleContext';
 import { BlueprintData } from '@/pages/CreateBlueprint';
 import { cn } from '@/lib/utils';
@@ -26,7 +27,13 @@ export function StepDesign({ data, updateData }: StepDesignProps) {
       textColor: 'text-white',
       mutedText: 'text-slate-400',
       cardBg: 'bg-slate-800/50',
-      description: 'Clean lines, dark themes'
+      description: 'Clean lines, dark themes',
+      colors: [
+        { name: 'Background', hex: '#0F172A', class: 'bg-slate-900' },
+        { name: 'Header', hex: '#1E293B', class: 'bg-slate-800' },
+        { name: 'Accent', hex: '#22D3EE', class: 'bg-primary' },
+        { name: 'Card', hex: '#1E293B80', class: 'bg-slate-800/50' },
+      ]
     },
     { 
       value: 'minimalist', 
@@ -38,7 +45,13 @@ export function StepDesign({ data, updateData }: StepDesignProps) {
       textColor: 'text-gray-900',
       mutedText: 'text-gray-500',
       cardBg: 'bg-white',
-      description: 'Simple, whitespace-focused'
+      description: 'Simple, whitespace-focused',
+      colors: [
+        { name: 'Background', hex: '#F9FAFB', class: 'bg-gray-50' },
+        { name: 'Header', hex: '#FFFFFF', class: 'bg-white' },
+        { name: 'Accent', hex: '#111827', class: 'bg-gray-900' },
+        { name: 'Card', hex: '#FFFFFF', class: 'bg-white' },
+      ]
     },
     { 
       value: 'bold', 
@@ -50,7 +63,13 @@ export function StepDesign({ data, updateData }: StepDesignProps) {
       textColor: 'text-white',
       mutedText: 'text-orange-200',
       cardBg: 'bg-white',
-      description: 'Vibrant, attention-grabbing'
+      description: 'Vibrant, attention-grabbing',
+      colors: [
+        { name: 'Background', hex: '#FFF7ED', class: 'bg-orange-50' },
+        { name: 'Header', hex: '#F97316→EF4444', class: 'bg-gradient-to-r from-orange-500 to-red-500' },
+        { name: 'Accent', hex: '#F97316', class: 'bg-orange-500' },
+        { name: 'Card', hex: '#FFFFFF', class: 'bg-white' },
+      ]
     },
     { 
       value: 'playful', 
@@ -62,7 +81,13 @@ export function StepDesign({ data, updateData }: StepDesignProps) {
       textColor: 'text-white',
       mutedText: 'text-purple-200',
       cardBg: 'bg-white/80',
-      description: 'Fun, colorful, animated'
+      description: 'Fun, colorful, animated',
+      colors: [
+        { name: 'Background', hex: '#F3E8FF→FCE7F3', class: 'bg-gradient-to-br from-purple-100 to-pink-50' },
+        { name: 'Header', hex: '#A855F7→EC4899', class: 'bg-gradient-to-r from-purple-500 to-pink-500' },
+        { name: 'Accent', hex: '#A855F7', class: 'bg-purple-500' },
+        { name: 'Card', hex: '#FFFFFFCC', class: 'bg-white/80' },
+      ]
     },
     { 
       value: 'professional', 
@@ -74,7 +99,13 @@ export function StepDesign({ data, updateData }: StepDesignProps) {
       textColor: 'text-white',
       mutedText: 'text-blue-300',
       cardBg: 'bg-blue-900/50',
-      description: 'Corporate, trustworthy'
+      description: 'Corporate, trustworthy',
+      colors: [
+        { name: 'Background', hex: '#172554', class: 'bg-blue-950' },
+        { name: 'Header', hex: '#1E3A8A', class: 'bg-blue-900' },
+        { name: 'Accent', hex: '#3B82F6', class: 'bg-blue-500' },
+        { name: 'Card', hex: '#1E3A8A80', class: 'bg-blue-900/50' },
+      ]
     },
     { 
       value: 'creative', 
@@ -86,7 +117,13 @@ export function StepDesign({ data, updateData }: StepDesignProps) {
       textColor: 'text-white',
       mutedText: 'text-emerald-200',
       cardBg: 'bg-white/90',
-      description: 'Artistic, unique layouts'
+      description: 'Artistic, unique layouts',
+      colors: [
+        { name: 'Background', hex: '#ECFDF5→CCFBF1', class: 'bg-gradient-to-br from-emerald-50 to-teal-100' },
+        { name: 'Header', hex: '#10B981→14B8A6', class: 'bg-gradient-to-r from-emerald-500 to-teal-500' },
+        { name: 'Accent', hex: '#10B981', class: 'bg-emerald-500' },
+        { name: 'Card', hex: '#FFFFFFE6', class: 'bg-white/90' },
+      ]
     },
   ];
 
@@ -175,28 +212,29 @@ export function StepDesign({ data, updateData }: StepDesignProps) {
     </div>
   );
 
-  // Color palette component
+  // Color palette component with tooltips
   const ColorPalette = ({ style }: { style: typeof styles[0] }) => {
-    const colors = [
-      { name: 'bg', class: style.bg },
-      { name: 'header', class: style.headerBg },
-      { name: 'accent', class: style.accent },
-      { name: 'card', class: style.cardBg },
-    ];
-    
     return (
-      <div className="flex items-center gap-1 px-3 pb-2">
-        {colors.map((color, i) => (
-          <div
-            key={i}
-            className={cn(
-              "w-4 h-4 rounded-full border border-border/50 transition-transform duration-200 hover:scale-125",
-              color.class
-            )}
-            title={color.name}
-          />
-        ))}
-      </div>
+      <TooltipProvider delayDuration={100}>
+        <div className="flex items-center gap-1.5 px-3 pb-2">
+          {style.colors.map((color, i) => (
+            <Tooltip key={i}>
+              <TooltipTrigger asChild>
+                <div
+                  className={cn(
+                    "w-4 h-4 rounded-full border border-border/50 transition-all duration-200 hover:scale-125 hover:shadow-md cursor-pointer",
+                    color.class
+                  )}
+                />
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="text-xs">
+                <p className="font-medium">{color.name}</p>
+                <p className="text-muted-foreground font-mono text-[10px]">{color.hex}</p>
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </div>
+      </TooltipProvider>
     );
   };
 
