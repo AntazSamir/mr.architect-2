@@ -17,6 +17,7 @@ interface FeatureCardProps {
   description: string;
   index: number;
   variant: ColorVariant;
+  isLarge?: boolean;
 }
 
 const variantStyles: Record<ColorVariant, { icon: string; border: string; shadow: string; iconGlow: string; bg: string }> = {
@@ -50,22 +51,22 @@ const variantStyles: Record<ColorVariant, { icon: string; border: string; shadow
   },
 };
 
-function FeatureCard({ icon: Icon, title, description, index, variant }: FeatureCardProps) {
+function FeatureCard({ icon: Icon, title, description, index, variant, isLarge }: FeatureCardProps) {
   const styles = variantStyles[variant];
 
   return (
     <div
-      className={`group relative p-6 rounded-2xl glass-card hover:backdrop-blur-2xl transition-all duration-500 animate-slide-up ${styles.border} ${styles.shadow} ${styles.bg}`}
+      className={`group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card hover:backdrop-blur-2xl transition-all duration-500 animate-slide-up ${styles.border} ${styles.shadow} ${styles.bg} ${isLarge ? 'col-span-2 sm:col-span-1' : ''}`}
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       {/* Icon */}
-      <div className={`mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl transition-all duration-300 ${styles.icon} ${styles.iconGlow}`}>
-        <Icon className="h-6 w-6" />
+      <div className={`mb-3 sm:mb-4 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl transition-all duration-300 ${styles.icon} ${styles.iconGlow}`}>
+        <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
       </div>
 
       {/* Content */}
-      <h3 className="font-display text-lg font-semibold mb-2 text-foreground">{title}</h3>
-      <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
+      <h3 className="font-display text-sm sm:text-lg font-semibold mb-1 sm:mb-2 text-foreground">{title}</h3>
+      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{description}</p>
     </div>
   );
 }
@@ -137,8 +138,8 @@ export function FeaturesSection() {
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {/* Features Grid - Bento on mobile */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 max-w-6xl mx-auto">
           {features.map((feature, index) => (
             <FeatureCard
               key={feature.title}
@@ -147,6 +148,7 @@ export function FeaturesSection() {
               description={feature.description}
               variant={feature.variant}
               index={index}
+              isLarge={index === 0 || index === 3}
             />
           ))}
         </div>
