@@ -1,7 +1,14 @@
 import * as React from "react"
-import { ChevronLeft, Github, Twitter } from "lucide-react"
-import { motion } from "framer-motion"
+import { ChevronLeft, Github, Twitter, Mail, ArrowLeft, Loader2 } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Link, useNavigate } from "react-router-dom"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 interface AuthFormProps {
   mode?: "signin" | "signup"
@@ -116,71 +123,233 @@ const Divider: React.FC = () => (
 )
 
 const LoginForm: React.FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
+  const [forgotPasswordOpen, setForgotPasswordOpen] = React.useState(false)
   const handleSubmit = (e: React.FormEvent) => e.preventDefault()
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {mode === "signup" && (
+    <>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {mode === "signup" && (
+          <div className="space-y-1.5">
+            <label
+              htmlFor="name-input"
+              className="block text-sm font-medium text-muted-foreground"
+            >
+              Full Name
+            </label>
+            <input
+              id="name-input"
+              type="text"
+              placeholder="John Doe"
+              className="w-full rounded-lg border border-input bg-secondary/50 px-3 py-2 text-foreground
+              placeholder:text-muted-foreground/50
+              focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-200"
+            />
+          </div>
+        )}
         <div className="space-y-1.5">
           <label
-            htmlFor="name-input"
+            htmlFor="email-input"
             className="block text-sm font-medium text-muted-foreground"
           >
-            Full Name
+            Email
           </label>
           <input
-            id="name-input"
-            type="text"
-            placeholder="John Doe"
+            id="email-input"
+            type="email"
+            placeholder="your.email@provider.com"
             className="w-full rounded-lg border border-input bg-secondary/50 px-3 py-2 text-foreground
             placeholder:text-muted-foreground/50
             focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-200"
           />
         </div>
-      )}
-      <div className="space-y-1.5">
-        <label
-          htmlFor="email-input"
-          className="block text-sm font-medium text-muted-foreground"
-        >
-          Email
-        </label>
-        <input
-          id="email-input"
-          type="email"
-          placeholder="your.email@provider.com"
-          className="w-full rounded-lg border border-input bg-secondary/50 px-3 py-2 text-foreground
-          placeholder:text-muted-foreground/50
-          focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-200"
-        />
-      </div>
-      <div className="space-y-1.5">
-        <div className="flex items-center justify-between">
-          <label
-            htmlFor="password-input"
-            className="block text-sm font-medium text-muted-foreground"
-          >
-            Password
-          </label>
-          {mode === "signin" && (
-            <a href="#" className="text-xs text-primary hover:text-accent transition-colors">
-              Forgot password?
-            </a>
-          )}
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between">
+            <label
+              htmlFor="password-input"
+              className="block text-sm font-medium text-muted-foreground"
+            >
+              Password
+            </label>
+            {mode === "signin" && (
+              <button
+                type="button"
+                onClick={() => setForgotPasswordOpen(true)}
+                className="text-xs text-primary hover:text-accent transition-colors"
+              >
+                Forgot password?
+              </button>
+            )}
+          </div>
+          <input
+            id="password-input"
+            type="password"
+            placeholder="••••••••••••"
+            className="w-full rounded-lg border border-input bg-secondary/50 px-3 py-2 text-foreground
+            placeholder:text-muted-foreground/50
+            focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-200"
+          />
         </div>
-        <input
-          id="password-input"
-          type="password"
-          placeholder="••••••••••••"
-          className="w-full rounded-lg border border-input bg-secondary/50 px-3 py-2 text-foreground
-          placeholder:text-muted-foreground/50
-          focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-200"
-        />
-      </div>
-      <Button type="submit" className="w-full mt-2">
-        {mode === "signin" ? "Sign in" : "Sign up"}
-      </Button>
-    </form>
+        <Button type="submit" className="w-full mt-2">
+          {mode === "signin" ? "Sign in" : "Sign up"}
+        </Button>
+      </form>
+
+      <ForgotPasswordDialog 
+        open={forgotPasswordOpen} 
+        onOpenChange={setForgotPasswordOpen} 
+      />
+    </>
+  )
+}
+
+const ForgotPasswordDialog: React.FC<{
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}> = ({ open, onOpenChange }) => {
+  const [email, setEmail] = React.useState("")
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isSuccess, setIsSuccess] = React.useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    // Simulate API call - replace with actual password reset logic
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    setIsLoading(false)
+    setIsSuccess(true)
+  }
+
+  const handleClose = () => {
+    onOpenChange(false)
+    // Reset state after dialog closes
+    setTimeout(() => {
+      setEmail("")
+      setIsSuccess(false)
+    }, 200)
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={handleClose}>
+      <DialogContent className="sm:max-w-md glass-card border-border">
+        <AnimatePresence mode="wait">
+          {!isSuccess ? (
+            <motion.div
+              key="form"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <DialogHeader className="text-left">
+                <div className="mb-2 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary">
+                  <Mail className="h-6 w-6" />
+                </div>
+                <DialogTitle className="text-xl font-semibold text-foreground">
+                  Reset your password
+                </DialogTitle>
+                <DialogDescription className="text-muted-foreground">
+                  Enter your email address and we'll send you a link to reset your password.
+                </DialogDescription>
+              </DialogHeader>
+
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="reset-email"
+                    className="block text-sm font-medium text-muted-foreground"
+                  >
+                    Email address
+                  </label>
+                  <input
+                    id="reset-email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your.email@provider.com"
+                    className="w-full rounded-lg border border-input bg-secondary/50 px-3 py-2 text-foreground
+                    placeholder:text-muted-foreground/50
+                    focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-200"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoading || !email}
+                  className="w-full rounded-lg bg-gradient-to-r from-primary to-accent px-4 py-2.5 text-sm font-semibold text-primary-foreground 
+                  shadow-lg hover:shadow-glow-cyan transition-all hover:scale-[1.02] active:scale-[0.98] 
+                  disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
+                  flex items-center justify-center gap-2"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    "Send reset link"
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="w-full flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Back to sign in
+                </button>
+              </form>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="success"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className="text-center py-4"
+            >
+              <div className="mb-4 mx-auto inline-flex items-center justify-center w-16 h-16 rounded-full bg-success/10 text-success">
+                <motion.svg
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="h-8 w-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <motion.path
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </motion.svg>
+              </div>
+              <DialogTitle className="text-xl font-semibold text-foreground mb-2">
+                Check your email
+              </DialogTitle>
+              <DialogDescription className="text-muted-foreground mb-6">
+                We've sent a password reset link to<br />
+                <span className="text-foreground font-medium">{email}</span>
+              </DialogDescription>
+              <button
+                onClick={handleClose}
+                className="rounded-lg border border-border bg-card/50 px-6 py-2 text-sm font-medium text-foreground 
+                hover:bg-accent/10 hover:border-accent/50 transition-all"
+              >
+                Done
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </DialogContent>
+    </Dialog>
   )
 }
 
