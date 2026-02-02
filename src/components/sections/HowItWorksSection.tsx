@@ -100,17 +100,19 @@ export function HowItWorksSection() {
           </p>
         </div>
 
-        {/* Steps */}
+        {/* Steps - Bento grid on mobile */}
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             {steps.map((step, index) => {
               const Icon = step.icon;
               const styles = variantStyles[step.variant];
+              // First and last items span full width on mobile for bento effect
+              const isWide = index === 0 || index === 3;
 
               return (
                 <div
                   key={step.number}
-                  className="relative animate-slide-up"
+                  className={`relative animate-slide-up ${isWide ? 'col-span-2 sm:col-span-1' : ''}`}
                   style={{ animationDelay: `${index * 0.15}s` }}
                 >
                   {/* Connection Line */}
@@ -118,20 +120,20 @@ export function HowItWorksSection() {
                     <div className="hidden lg:block absolute top-12 left-[calc(50%+30px)] w-[calc(100%-60px)] h-px bg-gradient-to-r from-border via-primary/30 to-border" />
                   )}
 
-                  <div className={`relative p-6 rounded-2xl glass-card border transition-all duration-300 h-full ${styles.border} ${styles.hoverBorder} ${styles.hoverShadow} ${styles.hoverBg}`}>
+                  <div className={`relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card border transition-all duration-300 h-full ${styles.border} ${styles.hoverBorder} ${styles.hoverShadow} ${styles.hoverBg}`}>
                     {/* Step Number */}
-                    <span className={`text-xs font-mono font-bold mb-4 block ${styles.text}`}>{step.number}</span>
+                    <span className={`text-xs font-mono font-bold mb-2 sm:mb-4 block ${styles.text}`}>{step.number}</span>
 
                     {/* Icon */}
-                    <div className={`mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl border ${styles.iconBg} ${styles.border} ${styles.text}`}>
-                      <Icon className="h-6 w-6" />
+                    <div className={`mb-3 sm:mb-4 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl border ${styles.iconBg} ${styles.border} ${styles.text}`}>
+                      <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
 
                     {/* Content */}
-                    <h3 className="font-display text-lg font-semibold mb-2 text-foreground">
+                    <h3 className="font-display text-sm sm:text-lg font-semibold mb-1 sm:mb-2 text-foreground">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                       {step.description}
                     </p>
                   </div>
