@@ -134,9 +134,9 @@ export function BlueprintWizard({ data, setData, onComplete, isGenerating }: Blu
                       <span>{stepNumber}</span>
                     )}
                     
-                    {/* Pulse ring for current step */}
+                    {/* Pulse ring for current step - using opacity animation instead of ping */}
                     {isCurrent && (
-                      <span className="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-30" />
+                      <span className="absolute inset-0 rounded-full border-2 border-primary animate-pulse opacity-40" style={{ willChange: 'opacity' }} />
                     )}
                   </motion.div>
                   
@@ -176,16 +176,15 @@ export function BlueprintWizard({ data, setData, onComplete, isGenerating }: Blu
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
-            initial={{ opacity: 0, x: 40, filter: 'blur(4px)' }}
-            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, x: -40, filter: 'blur(4px)' }}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
             transition={{ 
-              duration: 0.4, 
-              ease: [0.25, 0.46, 0.45, 0.94],
-              opacity: { duration: 0.3 },
-              filter: { duration: 0.3 }
+              duration: 0.3, 
+              ease: [0.25, 0.46, 0.45, 0.94]
             }}
             className="p-6 sm:p-8"
+            style={{ willChange: 'transform, opacity' }}
           >
             {isGenerating ? (
               <div className="py-16 text-center">
