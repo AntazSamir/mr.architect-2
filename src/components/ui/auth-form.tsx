@@ -1,6 +1,7 @@
 import * as React from "react"
 import { ChevronLeft, Github, Twitter, Mail, ArrowLeft, Loader2 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { PasswordStrengthIndicator } from "./password-strength-indicator"
 import { Link, useNavigate } from "react-router-dom"
 import {
   Dialog,
@@ -124,6 +125,7 @@ const Divider: React.FC = () => (
 
 const LoginForm: React.FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
   const [forgotPasswordOpen, setForgotPasswordOpen] = React.useState(false)
+  const [password, setPassword] = React.useState("")
   const handleSubmit = (e: React.FormEvent) => e.preventDefault()
 
   return (
@@ -185,10 +187,15 @@ const LoginForm: React.FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
             id="password-input"
             type="password"
             placeholder="••••••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full rounded-lg border border-input bg-secondary/50 px-3 py-2 text-foreground
             placeholder:text-muted-foreground/50
             focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-200"
           />
+          <AnimatePresence>
+            {mode === "signup" && <PasswordStrengthIndicator password={password} />}
+          </AnimatePresence>
         </div>
         <Button type="submit" className="w-full mt-2">
           {mode === "signin" ? "Sign in" : "Sign up"}
