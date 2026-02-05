@@ -8,6 +8,7 @@ import {
   LucideIcon
 } from 'lucide-react';
 import { useLocale } from '@/contexts/LocaleContext';
+import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
 
 type ColorVariant = 'primary' | 'accent' | 'success' | 'warning';
 
@@ -55,9 +56,8 @@ function FeatureCard({ icon: Icon, title, description, index, variant, isLarge }
   const styles = variantStyles[variant];
 
   return (
-    <div
-      className={`group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card hover:backdrop-blur-2xl transition-all duration-500 animate-slide-up ${styles.border} ${styles.shadow} ${styles.bg} ${isLarge ? 'col-span-2 sm:col-span-1' : ''}`}
-      style={{ animationDelay: `${index * 0.1}s` }}
+    <StaggerItem
+      className={`group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card hover:backdrop-blur-2xl transition-all duration-500 ${styles.border} ${styles.shadow} ${styles.bg} ${isLarge ? 'col-span-2 sm:col-span-1' : ''}`}
     >
       {/* Icon */}
       <div className={`mb-3 sm:mb-4 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl transition-all duration-300 ${styles.icon} ${styles.iconGlow}`}>
@@ -67,7 +67,7 @@ function FeatureCard({ icon: Icon, title, description, index, variant, isLarge }
       {/* Content */}
       <h3 className="font-display text-sm sm:text-lg font-semibold mb-1 sm:mb-2 text-foreground">{title}</h3>
       <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{description}</p>
-    </div>
+    </StaggerItem>
   );
 }
 
@@ -126,7 +126,7 @@ export function FeaturesSection() {
 
       <div className="container relative mx-auto px-4">
         {/* Header */}
-        <div className="max-w-2xl mx-auto text-center mb-16">
+        <ScrollAnimation type="fade-up" className="max-w-2xl mx-auto text-center mb-16">
           <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-primary bg-primary/10 border border-primary/20 mb-4">
             Features
           </span>
@@ -136,10 +136,10 @@ export function FeaturesSection() {
           <p className="text-lg text-muted-foreground">
             Generate comprehensive blueprints that work seamlessly with modern AI coding assistants.
           </p>
-        </div>
+        </ScrollAnimation>
 
         {/* Features Grid - Bento on mobile */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 max-w-6xl mx-auto">
+        <StaggerContainer staggerDelay={0.1} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 max-w-6xl mx-auto">
           {features.map((feature, index) => (
             <FeatureCard
               key={feature.title}
@@ -151,7 +151,7 @@ export function FeaturesSection() {
               isLarge={index === 0 || index === 3}
             />
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

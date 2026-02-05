@@ -3,6 +3,7 @@ import { ArrowRight, Cpu, Zap, Bot, Code2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocale } from '@/contexts/LocaleContext';
 import { useNavigate } from 'react-router-dom';
+import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
 
 export function HeroSection() {
   const { t } = useLocale();
@@ -43,30 +44,37 @@ export function HeroSection() {
       <div className="container relative mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           {/* Badge */}
-          <div className="flex justify-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card-strong animate-fade-in">
-              <Bot className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-primary font-mono">AI-POWERED BLUEPRINT GENERATOR</span>
+          <ScrollAnimation type="fade-down" duration={0.8}>
+            <div className="flex justify-center mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card-strong">
+                <Bot className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium text-primary font-mono">AI-POWERED BLUEPRINT GENERATOR</span>
+              </div>
             </div>
-          </div>
+          </ScrollAnimation>
 
           {/* Headline */}
-          <h1 className="text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight mb-6 animate-slide-up">
-            <span className="text-foreground">Generate Blueprints</span>
-            <br />
-            <span className="text-foreground">for AI Builders</span>
-          </h1>
+          <ScrollAnimation type="fade-up" delay={0.1}>
+            <h1 className="text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight mb-6">
+              <span className="text-foreground">Generate Blueprints</span>
+              <br />
+              <span className="text-foreground">for AI Builders</span>
+            </h1>
+          </ScrollAnimation>
 
           {/* Subtitle */}
-          <p className="text-center text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            Answer a few questions and get a complete website blueprint with architecture,
-            design system, and ready-to-use prompts for <span className="text-primary">Lovable</span>,
-            <span className="text-accent"> Cursor</span>, <span className="text-success">Bolt.new</span>,
-            and <span className="text-warning">Replit</span>.
-          </p>
+          <ScrollAnimation type="fade-up" delay={0.2}>
+            <p className="text-center text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-10">
+              Answer a few questions and get a complete website blueprint with architecture,
+              design system, and ready-to-use prompts for <span className="text-primary">Lovable</span>,
+              <span className="text-accent"> Cursor</span>, <span className="text-success">Bolt.new</span>,
+              and <span className="text-warning">Replit</span>.
+            </p>
+          </ScrollAnimation>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <ScrollAnimation type="fade-up" delay={0.3}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Button
               variant="hero"
               size="xl"
@@ -81,24 +89,27 @@ export function HeroSection() {
               <Code2 className="h-5 w-5 mr-2" />
               View Examples
             </Button>
-          </div>
+            </div>
+          </ScrollAnimation>
 
           {/* AI Platform Logos */}
-          <div className="flex flex-wrap items-center justify-center gap-8 mb-16 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">Works with</span>
-            {['Lovable', 'Cursor', 'Bolt.new', 'Replit', 'V0'].map((platform, i) => (
-              <span
-                key={platform}
-                className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors cursor-default"
-                style={{ animationDelay: `${0.4 + i * 0.1}s` }}
-              >
-                {platform}
-              </span>
-            ))}
-          </div>
+          <ScrollAnimation type="fade-up" delay={0.4}>
+            <div className="flex flex-wrap items-center justify-center gap-8 mb-16">
+              <span className="text-xs uppercase tracking-widest text-muted-foreground">Works with</span>
+              {['Lovable', 'Cursor', 'Bolt.new', 'Replit', 'V0'].map((platform) => (
+                <span
+                  key={platform}
+                  className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors cursor-default"
+                >
+                  {platform}
+                </span>
+              ))}
+            </div>
+          </ScrollAnimation>
 
           {/* Hero Visual - Blueprint Preview */}
-          <div className="relative max-w-4xl mx-auto animate-scale-in" style={{ animationDelay: '0.4s' }}>
+          <ScrollAnimation type="scale" delay={0.5}>
+            <div className="relative max-w-4xl mx-auto">
             <div className="relative rounded-2xl glass-card-strong overflow-hidden shadow-glow">
               {/* Terminal Header */}
               <div className="flex items-center gap-2 px-4 py-3 border-b border-border/50 bg-secondary/30">
@@ -175,6 +186,7 @@ export function HeroSection() {
             {/* Glow Effect */}
             <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl -z-10 animate-glow-pulse" />
           </div>
+          </ScrollAnimation>
         </div>
       </div>
     </section>

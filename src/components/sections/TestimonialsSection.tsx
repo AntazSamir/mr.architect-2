@@ -1,5 +1,5 @@
 import { Star, Quote } from 'lucide-react';
-
+import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
 interface Testimonial {
   id: number;
   name: string;
@@ -99,7 +99,7 @@ const variantStyles: Record<ColorVariant, { border: string; quote: string; avata
   },
 };
 
-function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; index: number }) {
+function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   const styles = variantStyles[testimonial.variant];
   
   const sizeClasses = {
@@ -109,9 +109,8 @@ function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; ind
   };
 
   return (
-    <div
-      className={`group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card border transition-all duration-500 animate-slide-up ${styles.border} ${styles.glow} ${sizeClasses[testimonial.size]}`}
-      style={{ animationDelay: `${index * 0.1}s` }}
+    <StaggerItem
+      className={`group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card border transition-all duration-500 ${styles.border} ${styles.glow} ${sizeClasses[testimonial.size]}`}
     >
       {/* Quote Icon */}
       <Quote className={`absolute top-4 right-4 h-6 w-6 sm:h-8 sm:w-8 ${styles.quote}`} />
@@ -143,7 +142,7 @@ function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; ind
           </div>
         </div>
       </div>
-    </div>
+    </StaggerItem>
   );
 }
 
@@ -156,7 +155,7 @@ export function TestimonialsSection() {
 
       <div className="container relative mx-auto px-4">
         {/* Header */}
-        <div className="max-w-2xl mx-auto text-center mb-12 sm:mb-16">
+        <ScrollAnimation type="fade-up" className="max-w-2xl mx-auto text-center mb-12 sm:mb-16">
           <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-success bg-success/10 border border-success/20 mb-4">
             Testimonials
           </span>
@@ -166,34 +165,30 @@ export function TestimonialsSection() {
           <p className="text-lg text-muted-foreground">
             Join thousands of developers and founders shipping faster with Blueprint AI.
           </p>
-        </div>
+        </ScrollAnimation>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 max-w-5xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} index={index} />
+        <StaggerContainer staggerDelay={0.1} className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 max-w-5xl mx-auto">
+          {testimonials.map((testimonial) => (
+            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Stats */}
-        <div className="mt-12 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
+        <StaggerContainer staggerDelay={0.1} className="mt-12 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
           {[
             { value: '10k+', label: 'Blueprints Generated' },
             { value: '98%', label: 'Satisfaction Rate' },
             { value: '50+', label: 'Countries' },
-          ].map((stat, index) => (
-            <div 
-              key={stat.label} 
-              className="text-center animate-fade-in"
-              style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-            >
+          ].map((stat) => (
+            <StaggerItem key={stat.label} className="text-center">
               <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-gradient mb-1">
                 {stat.value}
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

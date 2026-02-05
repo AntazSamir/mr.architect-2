@@ -1,5 +1,6 @@
 import { MessageSquare, Cpu, Rocket, ArrowRight, Copy } from 'lucide-react';
 import { useLocale } from '@/contexts/LocaleContext';
+import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
 
 const steps: Array<{
   icon: any;
@@ -88,7 +89,7 @@ export function HowItWorksSection() {
 
       <div className="container relative mx-auto px-4">
         {/* Header */}
-        <div className="max-w-2xl mx-auto text-center mb-16">
+        <ScrollAnimation type="fade-up" className="max-w-2xl mx-auto text-center mb-16">
           <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-accent bg-accent/10 border border-accent/20 mb-4">
             How It Works
           </span>
@@ -98,11 +99,11 @@ export function HowItWorksSection() {
           <p className="text-lg text-muted-foreground">
             Four simple steps to generate production-ready website specifications.
           </p>
-        </div>
+        </ScrollAnimation>
 
         {/* Steps - Bento grid on mobile */}
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+          <StaggerContainer staggerDelay={0.15} className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             {steps.map((step, index) => {
               const Icon = step.icon;
               const styles = variantStyles[step.variant];
@@ -110,10 +111,9 @@ export function HowItWorksSection() {
               const isWide = index === 0 || index === 3;
 
               return (
-                <div
+                <StaggerItem
                   key={step.number}
-                  className={`relative animate-slide-up ${isWide ? 'col-span-2 sm:col-span-1' : ''}`}
-                  style={{ animationDelay: `${index * 0.15}s` }}
+                  className={`relative ${isWide ? 'col-span-2 sm:col-span-1' : ''}`}
                 >
                   {/* Connection Line */}
                   {index < steps.length - 1 && (
@@ -137,14 +137,14 @@ export function HowItWorksSection() {
                       {step.description}
                     </p>
                   </div>
-                </div>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
         </div>
 
         {/* Bottom Prompt Preview */}
-        <div className="mt-16 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        <ScrollAnimation type="fade-up" delay={0.3} className="mt-16 max-w-3xl mx-auto">
           <div className="rounded-2xl glass-card-strong p-6 border border-primary/20">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
@@ -162,7 +162,7 @@ Tech: React, TypeScript, Tailwind CSS, shadcn/ui
 Design: Modern minimalist, primary #0891b2...`}</code>
             </pre>
           </div>
-        </div>
+        </ScrollAnimation>
       </div>
     </section>
   );

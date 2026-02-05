@@ -3,6 +3,7 @@ import { getFeaturedBlueprints } from '@/data/demoBlueprints';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
 
 export const FeaturedBlueprintsSection = () => {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ export const FeaturedBlueprintsSection = () => {
         <section className="py-20 bg-gradient-to-b from-background via-accent/5 to-background">
             <div className="container mx-auto px-4">
                 {/* Section Header */}
-                <div className="text-center mb-12">
+                <ScrollAnimation type="fade-up" className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-4">
                         <Sparkles className="w-4 h-4 text-primary" />
                         <span className="text-sm font-medium text-primary">Explore Templates</span>
@@ -27,17 +28,19 @@ export const FeaturedBlueprintsSection = () => {
                         Get inspired by professionally crafted website blueprints.
                         Use them as templates or customize them for your unique needs.
                     </p>
-                </div>
+                </ScrollAnimation>
 
                 {/* Blueprints Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <StaggerContainer staggerDelay={0.15} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                     {featuredBlueprints.map(blueprint => (
-                        <DemoBlueprintCard key={blueprint.id} blueprint={blueprint} />
+                        <StaggerItem key={blueprint.id}>
+                            <DemoBlueprintCard blueprint={blueprint} />
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerContainer>
 
                 {/* View All Button */}
-                <div className="text-center">
+                <ScrollAnimation type="fade-up" delay={0.3} className="text-center">
                     <Button
                         size="lg"
                         variant="outline"
@@ -47,7 +50,7 @@ export const FeaturedBlueprintsSection = () => {
                         View All Demo Blueprints
                         <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                     </Button>
-                </div>
+                </ScrollAnimation>
             </div>
         </section>
     );
