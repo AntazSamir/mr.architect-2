@@ -1,7 +1,6 @@
 import { MessageSquare, Cpu, Rocket, ArrowRight, Copy } from 'lucide-react';
 import { useLocale } from '@/contexts/LocaleContext';
 import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
-import { motion } from 'framer-motion';
 
 const steps: Array<{
   icon: any;
@@ -123,27 +122,7 @@ export function HowItWorksSection() {
 
                   <div className={`relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card border transition-all duration-300 h-full ${styles.border} ${styles.hoverBorder} ${styles.hoverShadow} ${styles.hoverBg}`}>
                     {/* Step Number */}
-                    <motion.span
-                      className={`text-xs font-mono font-bold mb-2 sm:mb-4 block ${styles.text} relative overflow-hidden`}
-                      style={{ display: 'inline-block' }}
-                    >
-                      {step.number}
-                      <motion.span
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-current to-transparent opacity-0"
-                        style={{ mixBlendMode: 'soft-light' }}
-                        animate={{
-                          opacity: [0, 0.6, 0],
-                          x: ['-100%', '100%'],
-                        }}
-                        transition={{
-                          duration: 1.5,
-                          ease: 'easeInOut',
-                          repeat: Infinity,
-                          repeatDelay: 4.5,
-                          delay: index * 0.8,
-                        }}
-                      />
-                    </motion.span>
+                    <span className={`text-xs font-mono font-bold mb-2 sm:mb-4 block ${styles.text}`}>{step.number}</span>
 
                     {/* Icon */}
                     <div className={`mb-3 sm:mb-4 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl border ${styles.iconBg} ${styles.border} ${styles.text}`}>
