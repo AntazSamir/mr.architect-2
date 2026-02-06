@@ -1,6 +1,5 @@
-import { Star, Quote } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Testimonial {
   id: number;
@@ -171,99 +170,45 @@ function MarqueeCard({ testimonial }: { testimonial: Testimonial }) {
 
   return (
     <div
-      className={`flex-shrink-0 w-[340px] p-5 rounded-2xl glass-card border transition-all duration-500 ${styles.border} ${styles.glow}`}
+      className={`flex-shrink-0 w-[280px] sm:w-[340px] p-4 sm:p-5 rounded-xl sm:rounded-2xl glass-card border transition-all duration-500 ${styles.border} ${styles.glow}`}
     >
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
         {testimonial.avatarImage ? (
           <img
             src={testimonial.avatarImage}
             alt={testimonial.name}
-            className={`w-10 h-10 rounded-full object-cover ring-2 ${styles.avatar}`}
+            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover ring-2 ${styles.avatar}`}
           />
         ) : (
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold bg-secondary text-foreground ring-2 ${styles.avatar}`}>
+          <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold bg-secondary text-foreground ring-2 ${styles.avatar}`}>
             {testimonial.avatar}
           </div>
         )}
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <p className="text-sm font-semibold text-foreground truncate">{testimonial.name}</p>
-            <svg className="w-4 h-4 text-primary flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <p className="text-xs sm:text-sm font-semibold text-foreground truncate">{testimonial.name}</p>
+            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <p className={`text-xs ${styles.handle}`}>{testimonial.handle}</p>
+          <p className={`text-[10px] sm:text-xs ${styles.handle}`}>{testimonial.handle}</p>
         </div>
-        <span className="text-[10px] text-muted-foreground whitespace-nowrap">{testimonial.date}</span>
+        <span className="text-[9px] sm:text-[10px] text-muted-foreground whitespace-nowrap">{testimonial.date}</span>
       </div>
 
       {/* Content */}
-      <p className="text-sm text-foreground/85 leading-relaxed mb-3">
+      <p className="text-xs sm:text-sm text-foreground/85 leading-relaxed mb-2.5 sm:mb-3">
         "{testimonial.content}"
       </p>
 
       {/* Rating */}
       <div className="flex gap-0.5">
         {Array.from({ length: testimonial.rating }).map((_, i) => (
-          <Star key={i} className="h-3.5 w-3.5 fill-warning text-warning" />
+          <Star key={i} className="h-3 w-3 sm:h-3.5 sm:w-3.5 fill-warning text-warning" />
         ))}
       </div>
     </div>
-  );
-}
-
-/* ─── Bento Card (Mobile) ─── */
-function BentoCard({ testimonial }: { testimonial: Testimonial }) {
-  const styles = variantStyles[testimonial.variant];
-
-  const sizeClasses = {
-    small: 'col-span-1 row-span-1',
-    medium: 'col-span-1 sm:col-span-2 lg:col-span-1 row-span-1',
-    large: 'col-span-2 row-span-1',
-  };
-
-  return (
-    <StaggerItem
-      className={`group relative p-4 rounded-xl glass-card border transition-all duration-500 ${styles.border} ${styles.glow} ${sizeClasses[testimonial.size]}`}
-    >
-      <Quote className={`absolute top-3 right-3 h-5 w-5 ${styles.quote}`} />
-
-      <div className="flex flex-col h-full">
-        {/* Rating */}
-        <div className="flex gap-0.5 mb-2">
-          {Array.from({ length: testimonial.rating }).map((_, i) => (
-            <Star key={i} className="h-3 w-3 fill-warning text-warning" />
-          ))}
-        </div>
-
-        {/* Quote */}
-        <p className="text-xs text-foreground/90 leading-relaxed flex-1 mb-3">
-          "{testimonial.content}"
-        </p>
-
-        {/* Author */}
-        <div className="flex items-center gap-2.5 mt-auto">
-          {testimonial.avatarImage ? (
-            <img
-              src={testimonial.avatarImage}
-              alt={testimonial.name}
-              className={`w-8 h-8 rounded-full object-cover ring-2 ${styles.avatar} flex-shrink-0`}
-            />
-          ) : (
-            <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold bg-secondary text-foreground ring-2 ${styles.avatar}`}>
-              {testimonial.avatar}
-            </div>
-          )}
-          <div className="min-w-0">
-            <p className="text-xs font-medium text-foreground truncate">{testimonial.name}</p>
-            <p className="text-[10px] text-muted-foreground truncate">
-              {testimonial.role} · {testimonial.company}
-            </p>
-          </div>
-        </div>
-      </div>
-    </StaggerItem>
   );
 }
 
@@ -274,8 +219,8 @@ function MarqueeRow({ items, reverse = false }: { items: Testimonial[]; reverse?
   return (
     <div className="relative overflow-hidden">
       {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
       <div
         className={`flex gap-5 marquee-scroll ${reverse ? 'marquee-reverse' : ''}`}
@@ -291,8 +236,6 @@ function MarqueeRow({ items, reverse = false }: { items: Testimonial[]; reverse?
 
 /* ─── Main Section ─── */
 export function TestimonialsSection() {
-  const isMobile = useIsMobile();
-
   const row1 = testimonials.slice(0, 4);
   const row2 = testimonials.slice(4);
 
@@ -316,22 +259,11 @@ export function TestimonialsSection() {
           </p>
         </ScrollAnimation>
 
-        {/* Desktop: Marquee rows */}
-        {!isMobile && (
-          <ScrollAnimation type="fade-up" delay={0.2} className="space-y-5">
-            <MarqueeRow items={row1} />
-            <MarqueeRow items={row2} reverse />
-          </ScrollAnimation>
-        )}
-
-        {/* Mobile: Bento grid */}
-        {isMobile && (
-          <StaggerContainer staggerDelay={0.1} className="grid grid-cols-2 gap-3 max-w-lg mx-auto">
-            {testimonials.slice(0, 6).map((testimonial) => (
-              <BentoCard key={testimonial.id} testimonial={testimonial} />
-            ))}
-          </StaggerContainer>
-        )}
+        {/* Marquee rows */}
+        <ScrollAnimation type="fade-up" delay={0.2} className="space-y-3 sm:space-y-5">
+          <MarqueeRow items={row1} />
+          <MarqueeRow items={row2} reverse />
+        </ScrollAnimation>
 
         {/* Stats */}
         <StaggerContainer staggerDelay={0.1} className="mt-12 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
