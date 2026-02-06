@@ -1,47 +1,47 @@
 import { MessageSquare, Cpu, Rocket, ArrowRight, Copy } from 'lucide-react';
 import { useLocale } from '@/contexts/LocaleContext';
 import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
-
 const steps: Array<{
   icon: any;
   number: string;
   title: string;
   description: string;
   variant: 'primary' | 'accent' | 'success' | 'warning';
-}> = [
-    {
-      icon: MessageSquare,
-      number: '01',
-      title: 'Describe Your Project',
-      description: 'Answer simple questions about your website type, target audience, and design preferences.',
-      variant: 'primary',
-    },
-    {
-      icon: Cpu,
-      number: '02',
-      title: 'AI Generates Blueprint',
-      description: 'Our AI analyzes your inputs and creates a comprehensive blueprint with architecture, design, and SEO.',
-      variant: 'accent',
-    },
-    {
-      icon: Copy,
-      number: '03',
-      title: 'Copy AI Prompts',
-      description: 'Get optimized prompts for Lovable, Cursor, Bolt.new, Replit, or V0 to start building instantly.',
-      variant: 'success',
-    },
-    {
-      icon: Rocket,
-      number: '04',
-      title: 'Build & Launch',
-      description: 'Paste the prompts into your favorite AI builder and watch your website come to life.',
-      variant: 'warning',
-    },
-  ];
-
+}> = [{
+  icon: MessageSquare,
+  number: '01',
+  title: 'Describe Your Project',
+  description: 'Answer simple questions about your website type, target audience, and design preferences.',
+  variant: 'primary'
+}, {
+  icon: Cpu,
+  number: '02',
+  title: 'AI Generates Blueprint',
+  description: 'Our AI analyzes your inputs and creates a comprehensive blueprint with architecture, design, and SEO.',
+  variant: 'accent'
+}, {
+  icon: Copy,
+  number: '03',
+  title: 'Copy AI Prompts',
+  description: 'Get optimized prompts for Lovable, Cursor, Bolt.new, Replit, or V0 to start building instantly.',
+  variant: 'success'
+}, {
+  icon: Rocket,
+  number: '04',
+  title: 'Build & Launch',
+  description: 'Paste the prompts into your favorite AI builder and watch your website come to life.',
+  variant: 'warning'
+}];
 type ColorVariant = 'primary' | 'accent' | 'success' | 'warning';
-
-const variantStyles: Record<ColorVariant, { text: string; bg: string; border: string; hoverBorder: string; hoverShadow: string; hoverBg: string; iconBg: string }> = {
+const variantStyles: Record<ColorVariant, {
+  text: string;
+  bg: string;
+  border: string;
+  hoverBorder: string;
+  hoverShadow: string;
+  hoverBg: string;
+  iconBg: string;
+}> = {
   primary: {
     text: 'text-primary',
     bg: 'bg-primary/10',
@@ -49,7 +49,7 @@ const variantStyles: Record<ColorVariant, { text: string; bg: string; border: st
     hoverBorder: 'hover:border-primary/50',
     hoverShadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.3)]',
     hoverBg: 'hover:bg-primary/5',
-    iconBg: 'bg-primary/10',
+    iconBg: 'bg-primary/10'
   },
   accent: {
     text: 'text-accent',
@@ -58,7 +58,7 @@ const variantStyles: Record<ColorVariant, { text: string; bg: string; border: st
     hoverBorder: 'hover:border-accent/50',
     hoverShadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--accent)/0.3)]',
     hoverBg: 'hover:bg-accent/5',
-    iconBg: 'bg-accent/10',
+    iconBg: 'bg-accent/10'
   },
   success: {
     text: 'text-success',
@@ -67,7 +67,7 @@ const variantStyles: Record<ColorVariant, { text: string; bg: string; border: st
     hoverBorder: 'hover:border-success/50',
     hoverShadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--success)/0.3)]',
     hoverBg: 'hover:bg-success/5',
-    iconBg: 'bg-success/10',
+    iconBg: 'bg-success/10'
   },
   warning: {
     text: 'text-warning',
@@ -76,15 +76,14 @@ const variantStyles: Record<ColorVariant, { text: string; bg: string; border: st
     hoverBorder: 'hover:border-warning/50',
     hoverShadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--warning)/0.3)]',
     hoverBg: 'hover:bg-warning/5',
-    iconBg: 'bg-warning/10',
-  },
+    iconBg: 'bg-warning/10'
+  }
 };
-
 export function HowItWorksSection() {
-  const { locale } = useLocale();
-
-  return (
-    <section id="how-it-works" className="py-24 md:py-32 relative">
+  const {
+    locale
+  } = useLocale();
+  return <section id="how-it-works" className="py-24 md:py-32 relative">
       <div className="absolute inset-0 grid-pattern opacity-30" />
 
       <div className="container relative mx-auto px-4">
@@ -105,20 +104,13 @@ export function HowItWorksSection() {
         <div className="max-w-5xl mx-auto">
           <StaggerContainer staggerDelay={0.15} className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             {steps.map((step, index) => {
-              const Icon = step.icon;
-              const styles = variantStyles[step.variant];
-              // First and last items span full width on mobile for bento effect
-              const isWide = index === 0 || index === 3;
-
-              return (
-                <StaggerItem
-                  key={step.number}
-                  className={`relative ${isWide ? 'col-span-2 sm:col-span-1' : ''}`}
-                >
+            const Icon = step.icon;
+            const styles = variantStyles[step.variant];
+            // First and last items span full width on mobile for bento effect
+            const isWide = index === 0 || index === 3;
+            return <StaggerItem key={step.number} className={`relative ${isWide ? 'col-span-2 sm:col-span-1' : ''}`}>
                   {/* Connection Line */}
-                  {index < steps.length - 1 && (
-                    <div className="hidden lg:block absolute top-12 left-[calc(50%+30px)] w-[calc(100%-60px)] h-px bg-gradient-to-r from-border via-primary/30 to-border" />
-                  )}
+                  {index < steps.length - 1}
 
                   <div className={`relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card border transition-all duration-300 h-full ${styles.border} ${styles.hoverBorder} ${styles.hoverShadow} ${styles.hoverBg}`}>
                     {/* Step Number */}
@@ -137,9 +129,8 @@ export function HowItWorksSection() {
                       {step.description}
                     </p>
                   </div>
-                </StaggerItem>
-              );
-            })}
+                </StaggerItem>;
+          })}
           </StaggerContainer>
         </div>
 
@@ -164,6 +155,5 @@ Design: Modern minimalist, primary #0891b2...`}</code>
           </div>
         </ScrollAnimation>
       </div>
-    </section>
-  );
+    </section>;
 }
