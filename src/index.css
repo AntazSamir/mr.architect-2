@@ -272,6 +272,20 @@
     will-change: background-position;
   }
 
+  /* Marquee scroll - GPU accelerated */
+  .marquee-scroll {
+    animation: marqueeScroll 30s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-scroll:hover {
+    animation-play-state: paused;
+  }
+
+  .marquee-reverse {
+    animation-direction: reverse;
+  }
+
   /* GPU acceleration helpers */
   .gpu-accelerated {
     transform: translateZ(0);
@@ -371,6 +385,16 @@
   100% {
     top: 100%;
     opacity: 0;
+  }
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
   }
 }
 
