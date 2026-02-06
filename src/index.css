@@ -274,7 +274,7 @@
 
   /* Marquee scroll - GPU accelerated */
   .marquee-scroll {
-    animation: marqueeScroll 30s linear infinite;
+    animation: marqueeScroll 50s linear infinite;
     will-change: transform;
   }
 
