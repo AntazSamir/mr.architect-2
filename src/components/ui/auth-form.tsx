@@ -11,6 +11,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { useAuth } from "@/contexts/AuthContext"
+import { supabase } from "@/integrations/supabase/client"
+import { toast } from "sonner"
 
 interface AuthFormProps {
   mode?: "signin" | "signup"
@@ -128,7 +131,32 @@ const LoginForm: React.FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
   const [forgotPasswordOpen, setForgotPasswordOpen] = React.useState(false)
   const [password, setPassword] = React.useState("")
   const [email, setEmail] = React.useState("")
-  const handleSubmit = (e: React.FormEvent) => e.preventDefault()
+  const [isLoading, setIsLoading] = React.useState(false)
+  const { signIn, signUp } = useAuth()
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    const { error } = mode === "signin"
+      ? await signIn(email, password)
+      : await signUp(email, password)
+
+    setIsLoading(false)
+
+    if (error) {
+      toast.error(error)
+      return
+    }
+
+    if (mode === "signup") {
+      toast.success("Check your email to confirm your account!")
+    } else {
+      toast.success("Signed in successfully!")
+      navigate("/")
+    }
+  }
 
   return (
     <>
@@ -204,8 +232,15 @@ const LoginForm: React.FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
             {mode === "signup" && <PasswordStrengthIndicator password={password} />}
           </AnimatePresence>
         </div>
-        <Button type="submit" className="w-full mt-2">
-          {mode === "signin" ? "Sign in" : "Sign up"}
+        <Button type="submit" className="w-full mt-2" disabled={isLoading}>
+          {isLoading ? (
+            <span className="flex items-center justify-center gap-2">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              {mode === "signin" ? "Signing in..." : "Signing up..."}
+            </span>
+          ) : (
+            mode === "signin" ? "Sign in" : "Sign up"
+          )}
         </Button>
       </form>
 
@@ -228,9 +263,14 @@ const ForgotPasswordDialog: React.FC<{
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    // Simulate API call - replace with actual password reset logic
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin,
+    })
     setIsLoading(false)
+    if (error) {
+      toast.error(error.message)
+      return
+    }
     setIsSuccess(true)
   }
 
