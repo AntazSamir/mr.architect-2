@@ -14,6 +14,8 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import TermsAndPolicy from "./pages/TermsAndPolicy";
+import ArchitectureDetail from "./pages/ArchitectureDetail";
+import DesignSystemDetail from "./pages/DesignSystemDetail";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,8 @@ const App = () => (
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/terms" element={<TermsAndPolicy />} />
+              <Route path="/features/architecture" element={<ArchitectureDetail />} />
+              <Route path="/features/design-system" element={<DesignSystemDetail />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

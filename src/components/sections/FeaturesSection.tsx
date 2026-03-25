@@ -5,9 +5,11 @@ import {
   Code2,
   FileOutput,
   Terminal,
-  LucideIcon
+  LucideIcon,
+  ArrowRight
 } from 'lucide-react';
 import { useLocale } from '@/contexts/LocaleContext';
+import { useNavigate } from 'react-router-dom';
 import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
 
 type ColorVariant = 'primary' | 'accent' | 'success' | 'warning';
@@ -18,6 +20,7 @@ interface FeatureCardProps {
   description: string;
   index: number;
   variant: ColorVariant;
+  onClick?: () => void;
   isLarge?: boolean;
 }
 
@@ -52,12 +55,13 @@ const variantStyles: Record<ColorVariant, { icon: string; border: string; shadow
   },
 };
 
-function FeatureCard({ icon: Icon, title, description, index, variant, isLarge }: FeatureCardProps) {
+function FeatureCard({ icon: Icon, title, description, index, variant, onClick, isLarge }: FeatureCardProps) {
   const styles = variantStyles[variant];
 
   return (
     <StaggerItem
-      className={`group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card hover:backdrop-blur-2xl transition-all duration-500 ${styles.border} ${styles.shadow} ${styles.bg} ${isLarge ? 'col-span-2 sm:col-span-1' : ''}`}
+      onClick={onClick}
+      className={`group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card transition-all duration-500 ${styles.border} ${styles.shadow} ${styles.bg} ${isLarge ? 'col-span-2 sm:col-span-1' : ''} ${onClick ? 'cursor-pointer hover:scale-[1.02]' : ''}`}
     >
       {/* Icon */}
       <div className={`mb-3 sm:mb-4 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl transition-all duration-300 ${styles.icon} ${styles.iconGlow}`}>
@@ -66,31 +70,42 @@ function FeatureCard({ icon: Icon, title, description, index, variant, isLarge }
 
       {/* Content */}
       <h3 className="font-display text-sm sm:text-lg font-semibold mb-1 sm:mb-2 text-foreground">{title}</h3>
-      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{description}</p>
+      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4">{description}</p>
+      
+      {onClick && (
+        <div className="flex items-center text-xs font-mono text-primary group-hover:translate-x-1 transition-transform">
+          EXPLORE DEEPER
+          <ArrowRight className="w-3 h-3 ml-2" />
+        </div>
+      )}
     </StaggerItem>
   );
 }
 
 export function FeaturesSection() {
   const { t } = useLocale();
+  const navigate = useNavigate();
 
   const features: Array<{
     icon: LucideIcon;
     title: string;
     description: string;
     variant: ColorVariant;
+    path?: string;
   }> = [
       {
         icon: LayoutGrid,
         title: 'Complete Architecture',
         description: 'Get a detailed sitemap, page hierarchy, and component structure tailored to your project needs.',
         variant: 'primary',
+        path: '/features/architecture'
       },
       {
         icon: Palette,
-        title: 'Design System',
-        description: 'Receive color palettes, typography scales, and spacing guidelines ready for implementation.',
+        title: 'Smart Design System',
+        description: 'Auto-generate a consistent design system that reflects your brand identity and scales effortlessly across multi-AI builders.',
         variant: 'accent',
+        path: '/features/design-system'
       },
       {
         icon: Search,
@@ -138,7 +153,7 @@ export function FeaturesSection() {
           </p>
         </ScrollAnimation>
 
-        {/* Features Grid - Bento on mobile */}
+        {/* Features Grid */}
         <StaggerContainer staggerDelay={0.1} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 max-w-6xl mx-auto">
           {features.map((feature, index) => (
             <FeatureCard
@@ -149,6 +164,7 @@ export function FeaturesSection() {
               variant={feature.variant}
               index={index}
               isLarge={index === 0 || index === 3}
+              onClick={feature.path ? () => navigate(feature.path) : undefined}
             />
           ))}
         </StaggerContainer>
