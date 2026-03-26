@@ -22,7 +22,9 @@ import {
   Brain,
   Sparkles,
   TrendingUp,
-  Loader2
+  Loader2,
+  Bot,
+  ShieldCheck
 } from 'lucide-react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 const mockGraphData = [
@@ -234,137 +236,165 @@ export default function SeoFoundationDetail() {
 
     const sections = [
         {
-            title: "Site Architecture & Internal Linking",
-            description: "A logical, shallow structure ensures search engines can crawl and index your site efficiently.",
+            title: "AI SEO / Generative Search Optimization",
+            description: "Traffic is shifting from 'clicking websites' to getting instant AI answers via Google SGE, ChatGPT, and Bing Copilot.",
+            icon: Bot,
+            content: (
+                <div className="space-y-4">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                        Modern search engines summarize content using Generative AI. You must structure content so AI models can easily extract it.
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2 p-4 rounded-xl bg-success/10 border border-success/20">
+                            <h4 className="font-bold text-sm text-success">First-Paragraph Strategy</h4>
+                            <p className="text-xs text-muted-foreground">
+                                Answer the user's intent immediately in the first 50 words concisely. No fluff.
+                            </p>
+                        </div>
+                        <div className="space-y-2 p-4 rounded-xl bg-primary/10 border border-primary/20">
+                            <h4 className="font-bold text-sm text-primary">Structured Answers & FAQ</h4>
+                            <p className="text-xs text-muted-foreground">
+                                Use precise FAQ blocks. AI models heavily pull from structured Q&A formats.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="p-4 rounded-xl border border-border text-sm text-muted-foreground">
+                        <strong className="text-foreground block mb-2">SGE Checklist:</strong>
+                        <ul className="list-disc pl-5 space-y-1">
+                            <li><strong className="text-foreground">Entity Clarity:</strong> Clearly define your brand, service, and location so LLMs don't guess.</li>
+                            <li>Write concise, structured answers avoiding complex jargon unless necessary.</li>
+                            <li>Maintain strong Semantic SEO parameters (already covered below).</li>
+                        </ul>
+                    </div>
+                </div>
+            )
+        },
+        {
+            title: "Site Architecture & Topical Authority",
+            description: "A logical structure using a comprehensive Hub-and-Spoke model builds true topical authority.",
             icon: LinkIcon,
             content: (
                 <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
                     <p>
-                        A modern SEO architecture uses a "flat" or "shallow" hierarchy where any page is reachable within 3 clicks from the homepage.
+                        A modern SEO architecture uses a "flat" or "shallow" hierarchy where any page is reachable within 3 clicks from the homepage, mapped into clusters.
                     </p>
+                    <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 text-sm mt-3 mb-3">
+                        <h4 className="font-bold text-primary mb-2 flex items-center gap-2">Topical Authority Matrix (Hub & Spoke)</h4>
+                        <p className="text-muted-foreground text-xs mb-3">Build pillar pages ("Hubs") with comprehensive, supporting cluster content ("Spokes") linked bidirectionally (not just top-down).</p>
+                        <div className="bg-background/80 rounded border border-border/50 p-3 text-xs font-mono space-y-2">
+                            <div className="text-foreground font-bold border-b border-border/50 pb-1">📌 Main Hub: /facebook-ads-guide</div>
+                            <div className="text-muted-foreground pl-4 flex items-center gap-2">↳ <span className="text-accent">Spoke:</span> /budget-strategy</div>
+                            <div className="text-muted-foreground pl-4 flex items-center gap-2">↳ <span className="text-accent">Spoke:</span> /targeting-best-practices</div>
+                            <div className="text-muted-foreground pl-4 flex items-center gap-2">↳ <span className="text-accent">Spoke:</span> /ai-ad-creatives</div>
+                        </div>
+                    </div>
                     <ul className="space-y-2 list-disc pl-5">
-                        <li><strong className="text-foreground">URL Structure:</strong> Keep URLs descriptive, lowercase, and use hyphens (e.g., <code className="text-xs bg-secondary px-1 rounded">/services/web-development</code>). Avoid parameters where possible.</li>
-                        <li><strong className="text-foreground">Siloing:</strong> Group related content into thematic clusters (e.g., a main category page linking to sub-categories and specific articles).</li>
-                        <li><strong className="text-foreground">Contextual Internal Links:</strong> Use descriptive anchor text to link relevant pages together. This distributes page equity (link juice) and establishes a semantic relationship between topics.</li>
-                        <li><strong className="text-foreground">XML Sitemap & Robots.txt:</strong> Maintain a dynamic XML sitemap submitted to Google Search Console. Use robots.txt to keep crawlers out of admin panels or low-value parameter pages.</li>
+                        <li><strong className="text-foreground">URL Structure:</strong> Keep URLs descriptive, lowercase, and use hyphens. Avoid parameters.</li>
+                        <li><strong className="text-foreground">Contextual Internal Links:</strong> Use descriptive anchor text to link relevant pages. This distributes page equity and establishes semantic relationships.</li>
+                        <li><strong className="text-foreground">XML Sitemap & Robots.txt:</strong> Maintain dynamic XML sitemaps mapped to Search Console.</li>
                     </ul>
                 </div>
             )
         },
         {
-            title: "Core Web Vitals & Page Speed",
-            description: "Google uses real-world user metrics (Core Web Vitals) as a direct ranking factor.",
+            title: "Core Web Vitals & Real User Monitoring",
+            description: "Google uses real-world user field data (Core Web Vitals) as a direct ranking factor.",
             icon: Gauge,
             content: (
                 <div className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div className="p-4 rounded-xl bg-secondary/30 border border-border/50">
-                            <h4 className="font-bold text-primary mb-1 text-sm">LCP <span className="text-xs font-normal text-muted-foreground">(Largest Contentful Paint)</span></h4>
-                            <p className="text-xs text-muted-foreground mb-2">Measures loading performance.</p>
+                            <h4 className="font-bold text-primary mb-1 text-sm">LCP <span className="text-xs font-normal text-muted-foreground">(Loading)</span></h4>
                             <Badge variant="outline" className="text-success border-success/30 bg-success/10 text-[10px]">Target: &lt; 2.5s</Badge>
                         </div>
                         <div className="p-4 rounded-xl bg-secondary/30 border border-border/50">
-                            <h4 className="font-bold text-accent mb-1 text-sm">INP <span className="text-xs font-normal text-muted-foreground">(Interaction to Next Paint)</span></h4>
-                            <p className="text-xs text-muted-foreground mb-2">Measures interactivity overhead.</p>
+                            <h4 className="font-bold text-accent mb-1 text-sm">INP <span className="text-xs font-normal text-muted-foreground">(Interactivity)</span></h4>
                             <Badge variant="outline" className="text-success border-success/30 bg-success/10 text-[10px]">Target: &lt; 200ms</Badge>
                         </div>
                         <div className="p-4 rounded-xl bg-secondary/30 border border-border/50">
-                            <h4 className="font-bold text-warning mb-1 text-sm">CLS <span className="text-xs font-normal text-muted-foreground">(Cumulative Layout Shift)</span></h4>
-                            <p className="text-xs text-muted-foreground mb-2">Measures visual stability.</p>
+                            <h4 className="font-bold text-warning mb-1 text-sm">CLS <span className="text-xs font-normal text-muted-foreground">(Stability)</span></h4>
                             <Badge variant="outline" className="text-success border-success/30 bg-success/10 text-[10px]">Target: &lt; 0.1</Badge>
                         </div>
                     </div>
                     <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 space-y-2 text-sm text-muted-foreground">
-                        <p><strong className="text-foreground">Optimization Techniques:</strong></p>
+                        <p><strong className="text-foreground">Real User Monitoring (RUM) & Tooling:</strong></p>
                         <ul className="list-disc pl-5 space-y-1">
-                            <li>Implement edge caching via CDNs (Vercel, Cloudflare).</li>
-                            <li>Serve next-gen image formats (WebP/AVIF) with explicit <code className="text-xs">width</code> and <code className="text-xs">height</code> attributes to prevent CLS.</li>
-                            <li>Defer non-critical third-party scripts (analytics, ads).</li>
+                            <li><strong className="text-foreground">Chrome UX Report (CrUX):</strong> Google ranks based on this REAL user field data, not lab tests!</li>
+                            <li><strong className="text-foreground">Google PageSpeed Insights:</strong> Best for controlled laboratory debugging and diagnostics.</li>
+                            <li><strong className="text-foreground">Optimization:</strong> Cache via CDNs, serve WebP/AVIF with explicit dimensions, defer 3rd-party scripts.</li>
                         </ul>
                     </div>
                 </div>
             )
         },
         {
-            title: "Mobile Responsiveness",
-            description: "Mobile-first indexing means Google uses your mobile site to rank pages.",
+            title: "Mobile Optimization & Conversion UX",
+            description: "Mobile-first indexing ranks your site. But Ranking ≠ Money. Conversion UX = Revenue.",
             icon: Smartphone,
             content: (
                 <div className="space-y-4 text-sm text-muted-foreground">
                     <p>
-                        A responsive design isn't just about fitting the screen; it's about optimizing the mobile user journey.
+                        A responsive design fits the screen; a Conversion UX design optimizes the business impact of that screen space.
                     </p>
                     <ul className="space-y-2 list-disc pl-5">
-                        <li><strong className="text-foreground">Dynamic Serving/Responsive Layouts:</strong> Use CSS Grid/Flexbox to adapt layouts without complex redirects.</li>
-                        <li><strong className="text-foreground">Touch Targets:</strong> Buttons and links must be at least 48x48 CSS pixels with adequate spacing to prevent accidental clicks.</li>
-                        <li><strong className="text-foreground">Legible Font Sizes:</strong> Base text should be at least 16px to prevent users from needing to double-tap to zoom.</li>
-                        <li><strong className="text-foreground">Avoid Interstitials:</strong> Pop-ups that cover the main content on mobile entry are actively penalized by Google.</li>
+                        <li><strong className="text-foreground">Conversion Elements:</strong> Implement sticky CTA buttons at the bottom of the viewport, click-to-call numbers, or accessible WhatsApp chat triggers.</li>
+                        <li><strong className="text-foreground">Fast Checkout / Form UX:</strong> Reduce friction heavily. Enable autofill autocomplete, use huge tap targets, limit input fields, and eliminate required account creation.</li>
+                        <li><strong className="text-foreground">Dynamic Layouts:</strong> Use CSS Grid/Flexbox to adapt layouts without complex redirects.</li>
+                        <li><strong className="text-foreground">Avoid Interstitials:</strong> Pop-ups that cover the main content on mobile entry are actively penalized.</li>
                     </ul>
                 </div>
             )
         },
         {
-            title: "Content Strategy & Keyword Optimization",
-            description: "Addressing search intent through comprehensive, semantic clustering.",
+            title: "Content Strategy & Semantic SEO",
+            description: "Addressing search intent through comprehensive clustering and demonstrating true expertise.",
             icon: FileText,
             content: (
                 <div className="space-y-4">
+                    <div className="mt-2 p-4 rounded-xl bg-gradient-to-br from-warning/10 to-transparent border border-warning/20">
+                        <h4 className="font-bold text-warning mb-2 flex items-center gap-2"><ShieldCheck className="w-4 h-4"/> E-E-A-T (Experience, Expertise, Authority, Trust)</h4>
+                        <p className="text-xs text-muted-foreground mb-3">Critical for Service providers, Agencies, Freelancers, and YMYL topics.</p>
+                        <ul className="list-disc pl-5 space-y-1 text-xs text-muted-foreground">
+                            <li><strong className="text-foreground">Author Proof:</strong> Display real person bios, credentials, and linked professional profiles.</li>
+                            <li><strong className="text-foreground">Validation:</strong> Embed real images, verified case studies, and exact metrics/results. Avoid stock photos.</li>
+                            <li><strong className="text-foreground">Trust Pages:</strong> Build an extensive 'About' page and clearly visible terms/policies.</li>
+                        </ul>
+                    </div>
+                    
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2 p-4 rounded-xl bg-secondary/20">
                             <Target className="w-5 h-5 text-accent" />
                             <h4 className="font-bold text-sm text-foreground">Intent Matching</h4>
                             <p className="text-xs text-muted-foreground">
-                                Understand what the user wants. Is it Informational (guides), Navigational (brand searches), or Transactional (product pages)? Structure your page to immediately answer that intent.
+                                Answer exactly what the user wants: Informational (guides), Navigational, or Transactional (product).
                             </p>
                         </div>
                         <div className="space-y-2 p-4 rounded-xl bg-secondary/20">
                             <BarChart className="w-5 h-5 text-primary" />
-                            <h4 className="font-bold text-sm text-foreground">Semantic SEO (TF-IDF/NLP)</h4>
+                            <h4 className="font-bold text-sm text-foreground">Semantic SEO (TF-IDF)</h4>
                             <p className="text-xs text-muted-foreground">
-                                Move beyond keyword stuffing. Use related entities, LSI keywords, and comprehensive topic coverage. Answer exact questions people ask (e.g., in FAQs).
+                                Beyond keyword stuffing: use related entities, LSI concepts, and answer exact user FAQs.
                             </p>
                         </div>
-                    </div>
-                    <div className="p-4 rounded-xl border border-border text-sm text-muted-foreground">
-                        <strong className="text-foreground block mb-2">On-Page Checklist:</strong>
-                        <ul className="list-disc pl-5 space-y-1">
-                            <li>Primary keyword in exactly one <code className="text-xs">&lt;h1&gt;</code>.</li>
-                            <li>Engaging Meta Title (under ~60 chars) and Meta Description (under ~155 chars).</li>
-                            <li>Proper hierarchy: <code className="text-xs">&lt;h2&gt;</code>, <code className="text-xs">&lt;h3&gt;</code> for logical document outlining.</li>
-                            <li>Alt text on all meaningful images containing descriptive, naturally flowing keywords.</li>
-                        </ul>
                     </div>
                 </div>
             )
         },
         {
-            title: "Technical SEO & Schema Markup",
-            description: "Helping machines understand the exact meaning of your content.",
+            title: "Technical SEO & Indexing Control",
+            description: "Helping machines understand exact meaning and managing how they crawl your application.",
             icon: Code2,
             content: (
                 <div className="space-y-4">
                     <p className="text-sm text-muted-foreground">
-                        Technical elements act as the foundation that allows indexing and rich results.
+                        Technical elements are the engine of your SEO. Control exactly what gets crawled and indexed to conserve Google's crawl budget.
                     </p>
                     <div className="space-y-3">
-                        <div className="p-4 rounded-xl bg-background/50 border border-border/50 font-mono text-xs overflow-x-auto text-muted-foreground">
-                            {`// Example JSON-LD Structured Data
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Mr. Architect",
-  "url": "https://mrarchitect.com",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://mrarchitect.com/search?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}`}
-                        </div>
                         <ul className="space-y-2 list-disc pl-5 text-sm text-muted-foreground">
-                            <li><strong className="text-foreground">Canonical Tags:</strong> Define the "master" version of a page to prevent duplicate content penalties (<code className="text-xs">&lt;link rel="canonical"&gt;</code>).</li>
-                            <li><strong className="text-foreground">Hreflang:</strong> Necessary for multi-regional sites to serve the correct language version.</li>
-                            <li><strong className="text-foreground">JSON-LD Schema:</strong> Implement Organization, LocalBusiness, Article, FAQPage, or Product schemas to trigger Google Rich Snippets (stars, prices, FAQ drop-downs).</li>
+                            <li><strong className="text-foreground">Indexing Controls:</strong> Actively use <code className="text-xs bg-secondary px-1 rounded">noindex, nofollow</code> tags on thin content, author paginations, or tag pages to preserve crawl budget and avoid penalty.</li>
+                            <li><strong className="text-foreground">Log File Analysis:</strong> A powerful advanced technique to verify exactly which paths Googlebot is hitting and where it is getting stuck.</li>
+                            <li><strong className="text-foreground">Canonical Tags:</strong> Define the "master" version of a page to prevent duplicate content flags (<code className="text-xs">&lt;link rel="canonical"&gt;</code>).</li>
+                            <li><strong className="text-foreground">JSON-LD Schema:</strong> Implement Organization, Article, FAQPage, or Product structured data to trigger Rich Snippets.</li>
                         </ul>
                     </div>
                 </div>
