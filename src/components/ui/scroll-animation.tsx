@@ -3,7 +3,7 @@ import { motion, useInView, Variants } from "framer-motion"
 
 type AnimationType = "fade-up" | "fade-down" | "fade-left" | "fade-right" | "scale" | "blur"
 
-interface ScrollAnimationProps {
+interface ScrollAnimationProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDragStart' | 'onDragEnd' | 'onAnimationStart' | 'onDragOver'> {
   children: React.ReactNode
   type?: AnimationType
   delay?: number
@@ -47,7 +47,8 @@ export const ScrollAnimation: React.FC<ScrollAnimationProps> = ({
   duration = 0.6,
   className = "",
   once = true,
-  threshold = 0.2
+  threshold = 0.2,
+  ...props
 }) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once, amount: threshold })
@@ -65,6 +66,7 @@ export const ScrollAnimation: React.FC<ScrollAnimationProps> = ({
       }}
       className={className}
       style={{ willChange: "transform, opacity" }}
+      {...(props as any)}
     >
       {children}
     </motion.div>
@@ -72,7 +74,7 @@ export const ScrollAnimation: React.FC<ScrollAnimationProps> = ({
 }
 
 // Stagger container for animating children in sequence
-interface StaggerContainerProps {
+interface StaggerContainerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDragStart' | 'onDragEnd' | 'onAnimationStart' | 'onDragOver'> {
   children: React.ReactNode
   staggerDelay?: number
   className?: string
@@ -83,7 +85,8 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
   children,
   staggerDelay = 0.1,
   className = "",
-  once = true
+  once = true,
+  ...props
 }) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once, amount: 0.2 })
@@ -102,6 +105,7 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
         }
       }}
       className={className}
+      {...(props as any)}
     >
       {children}
     </motion.div>
@@ -109,7 +113,7 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
 }
 
 // Child component for stagger animations
-interface StaggerItemProps {
+interface StaggerItemProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDragStart' | 'onDragEnd' | 'onAnimationStart' | 'onDragOver'> {
   children: React.ReactNode
   className?: string
   type?: AnimationType
@@ -118,7 +122,8 @@ interface StaggerItemProps {
 export const StaggerItem: React.FC<StaggerItemProps> = ({
   children,
   className = "",
-  type = "fade-up"
+  type = "fade-up",
+  ...props
 }) => {
   return (
     <motion.div
@@ -126,6 +131,7 @@ export const StaggerItem: React.FC<StaggerItemProps> = ({
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       className={className}
       style={{ willChange: "transform, opacity" }}
+      {...(props as any)}
     >
       {children}
     </motion.div>
