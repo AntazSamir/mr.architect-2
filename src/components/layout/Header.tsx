@@ -29,6 +29,12 @@ export function Header() {
           <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.features}
           </a>
+          <button 
+            onClick={() => navigate('/demos')}
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+          >
+            Blueprints
+          </button>
           <a href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.howItWorks}
           </a>
@@ -64,13 +70,22 @@ export function Header() {
       <div
         className={cn(
           "md:hidden absolute top-16 left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border shadow-lg transition-all duration-300 overflow-hidden",
-          mobileMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+          mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         )}
       >
         <div className="container mx-auto px-4 py-4 space-y-4">
           <a href="#features" className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.features}
           </a>
+          <button 
+            onClick={() => {
+              navigate('/demos');
+              setMobileMenuOpen(false);
+            }}
+            className="block w-full text-left py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+          >
+            Blueprints
+          </button>
           <a href="#how-it-works" className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.howItWorks}
           </a>
@@ -80,7 +95,10 @@ export function Header() {
               variant="hero"
               size="sm"
               className="flex-1"
-              onClick={() => navigate('/create')}
+              onClick={() => {
+                navigate('/create');
+                setMobileMenuOpen(false);
+              }}
             >
               <Sparkles className="h-4 w-4 mr-2" />
               Generate Blueprint
