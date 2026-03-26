@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
@@ -24,11 +24,9 @@ import {
 } from 'lucide-react';
 import { ScrollAnimation } from '@/components/ui/scroll-animation';
 
-import { AnimatedTabs } from '@/components/ui/animated-tabs';
-
 export default function DesignSystemDetail() {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = React.useState('lovable');
+    const [activeTab, setActiveTab] = useState("lovable");
 
     const platforms = [
         {
@@ -194,13 +192,37 @@ Reference this Figma design: [Link].
                 <div className="container mx-auto px-4 pb-32">
                     <div className="max-w-6xl mx-auto">
                         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-16">
-                            <div className="flex justify-center mt-4">
-                                <AnimatedTabs 
-                                    tabs={platforms.map(p => ({ id: p.id, label: p.name, icon: p.icon }))}
-                                    activeTab={activeTab}
-                                    onTabChange={setActiveTab}
-                                    className="scale-90 md:scale-100"
-                                />
+                            <div className="flex justify-center">
+                                <TabsList className="inline-flex items-center justify-center p-1.5 bg-background/60 backdrop-blur-2xl border border-border/50 rounded-full shadow-2xl overflow-x-auto hidden-scrollbar w-full md:w-auto mt-4 max-w-full relative">
+                                    {platforms.map((p) => {
+                                        const isActive = activeTab === p.id;
+                                        return (
+                                            <TabsTrigger 
+                                                key={p.id} 
+                                                value={p.id}
+                                                className="relative px-6 py-3 rounded-full data-[state=active]:bg-transparent data-[state=active]:text-primary-foreground data-[state=active]:shadow-none transition-all min-w-[120px] z-10 overflow-visible"
+                                            >
+                                                <div className="flex items-center gap-2 relative z-20">
+                                                    <p.icon className={`w-4 h-4 transition-colors duration-300 ${isActive ? 'text-white' : 'text-muted-foreground'}`} />
+                                                    <span className={`font-semibold transition-colors duration-300 ${isActive ? 'text-white' : 'text-muted-foreground'}`}>{p.name}</span>
+                                                </div>
+                                                {isActive && (
+                                                    <motion.div
+                                                        layoutId="active-pill"
+                                                        className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary rounded-full shadow-lg z-10"
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        transition={{
+                                                            type: "spring",
+                                                            stiffness: 400,
+                                                            damping: 30,
+                                                        }}
+                                                    />
+                                                )}
+                                            </TabsTrigger>
+                                        );
+                                    })}
+                                </TabsList>
                             </div>
 
                             {platforms.map((p) => (
