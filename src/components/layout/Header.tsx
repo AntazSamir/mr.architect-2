@@ -38,10 +38,10 @@ export function Header() {
         <div className="hidden md:flex items-center gap-3">
           <LanguageSelector />
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
-            className="border-primary/30 hover:bg-primary/5"
             onClick={() => navigate('/demos')}
+            className="text-muted-foreground hover:text-primary"
           >
             Blueprints
           </Button>
@@ -72,7 +72,7 @@ export function Header() {
       <div
         className={cn(
           "md:hidden absolute top-16 left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border shadow-lg transition-all duration-300 overflow-hidden",
-          mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          mobileMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         )}
       >
         <div className="container mx-auto px-4 py-4 space-y-4">
@@ -82,30 +82,16 @@ export function Header() {
           <a href="#how-it-works" className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.howItWorks}
           </a>
-          <div className="flex flex-col gap-3 pt-2 border-t border-border">
-            <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-muted-foreground">Language</span>
-                <LanguageSelector />
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full border-primary/30"
-              onClick={() => {
-                navigate('/demos');
-                setMobileMenuOpen(false);
-              }}
-            >
-              All Blueprints
-            </Button>
+          <a onClick={() => navigate('/demos')} className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors cursor-pointer">
+            Blueprints
+          </a>
+          <div className="flex flex-col sm:flex-row items-center gap-3 pt-2 border-t border-border">
+            <LanguageSelector />
             <Button
               variant="hero"
               size="sm"
               className="w-full"
-              onClick={() => {
-                navigate('/create');
-                setMobileMenuOpen(false);
-              }}
+              onClick={() => navigate('/create')}
             >
               <Sparkles className="h-4 w-4 mr-2" />
               Generate Blueprint
