@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
@@ -16,8 +18,160 @@ import {
   ListChecks,
   Target,
   BarChart,
-  Zap
+  Zap,
+  Brain,
+  Sparkles,
+  TrendingUp,
+  Loader2
 } from 'lucide-react';
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+const mockGraphData = [
+  { month: 'Month 1', visibility: 120 },
+  { month: 'Month 2', visibility: 210 },
+  { month: 'Month 3', visibility: 430 },
+  { month: 'Month 4', visibility: 850 },
+  { month: 'Month 5', visibility: 1200 },
+  { month: 'Month 6', visibility: 2300 },
+];
+
+function AiKeywordResearchTool() {
+    const [query, setQuery] = useState("");
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [results, setResults] = useState<null | any>(null);
+
+    const handleResearch = () => {
+        if (!query) return;
+        setIsAnalyzing(true);
+        setResults(null);
+        // Simulate AI API call
+        setTimeout(() => {
+            setResults({
+                primary: [`${query} guide`, `best ${query}`, `${query} tutorial`, `what is ${query}`],
+                secondary: [`${query} vs alternative`, `how to use ${query}`, `${query} architecture`, `${query} examples`],
+                longTail: [`step by step ${query} implementation`, `advanced ${query} performance optimization`, `common ${query} errors and fixes`]
+            });
+            setIsAnalyzing(false);
+        }, 2000);
+    };
+
+    return (
+        <Card className="glass-card mb-8">
+            <CardHeader className="border-b border-border/50 bg-secondary/10">
+                <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                        <Brain className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                        <CardTitle className="text-xl font-display flex items-center gap-2">
+                            AI Keyword Intelligence
+                            <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20 text-[10px] ml-2">Live AI</Badge>
+                        </CardTitle>
+                        <CardDescription>Enter a seed topic to generate a 3-layer semantic keyword strategy and visibility projection.</CardDescription>
+                    </div>
+                </div>
+            </CardHeader>
+            <CardContent className="pt-6">
+                <div className="flex flex-col sm:flex-row gap-3 mb-8">
+                    <Input 
+                        placeholder="e.g. 'React Native Architecture'" 
+                        value={query} 
+                        onChange={(e) => setQuery(e.target.value)} 
+                        className="bg-background/50 border-border/50 h-11 flex-1"
+                        onKeyDown={(e) => e.key === 'Enter' && handleResearch()}
+                    />
+                    <Button onClick={handleResearch} disabled={isAnalyzing || !query} className="h-11 px-6 w-full sm:w-auto">
+                        {isAnalyzing ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2 text-primary-foreground" />}
+                        {isAnalyzing ? "Analyzing..." : "Research Topic"}
+                    </Button>
+                </div>
+
+                {isAnalyzing && (
+                    <div className="h-64 flex flex-col items-center justify-center text-muted-foreground border border-border/50 rounded-xl bg-secondary/5">
+                        <Loader2 className="w-8 h-8 animate-spin text-primary mb-4" />
+                        <p className="animate-pulse">AI is mapping SERP intent & semantic clusters...</p>
+                    </div>
+                )}
+
+                {results && !isAnalyzing && (
+                    <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
+                        {/* Visibility Graph */}
+                        <div className="space-y-4">
+                            <h4 className="font-bold text-foreground flex items-center gap-2 text-sm">
+                                <TrendingUp className="w-4 h-4 text-accent" />
+                                Projected Niche Visibility Trend (6 Months)
+                            </h4>
+                            <div className="h-64 w-full p-4 rounded-xl border border-border/50 bg-background/30">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <AreaChart data={mockGraphData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                        <defs>
+                                            <linearGradient id="colorVisibility" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                                                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                                            </linearGradient>
+                                        </defs>
+                                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                                        <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                        <Tooltip 
+                                            contentStyle={{ backgroundColor: 'hsl(var(--background))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
+                                            itemStyle={{ color: 'hsl(var(--primary))' }}
+                                        />
+                                        <Area type="monotone" dataKey="visibility" stroke="hsl(var(--primary))" strokeWidth={3} fillOpacity={1} fill="url(#colorVisibility)" />
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+
+                        {/* 3 Layers of Keywords */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Layer 1 */}
+                            <div className="p-4 rounded-xl border border-primary/20 bg-primary/5 space-y-3">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">1</div>
+                                    <h4 className="font-bold text-sm text-foreground">Core / Head Terms</h4>
+                                </div>
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">High Vol • High Diff</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {results.primary.map((kw: string, i: number) => (
+                                        <Badge key={i} variant="secondary" className="bg-background hover:bg-background/80 border-border/50 text-xs font-normal">{kw}</Badge>
+                                    ))}
+                                </div>
+                            </div>
+                            {/* Layer 2 */}
+                            <div className="p-4 rounded-xl border border-accent/20 bg-accent/5 space-y-3">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-xs">2</div>
+                                    <h4 className="font-bold text-sm text-foreground">Secondary / LSI</h4>
+                                </div>
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Med Vol • Semantic</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {results.secondary.map((kw: string, i: number) => (
+                                        <Badge key={i} variant="secondary" className="bg-background hover:bg-background/80 border-border/50 text-xs font-normal">{kw}</Badge>
+                                    ))}
+                                </div>
+                            </div>
+                            {/* Layer 3 */}
+                            <div className="p-4 rounded-xl border border-success/20 bg-success/5 space-y-3">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <div className="w-6 h-6 rounded-full bg-success/20 flex items-center justify-center text-success font-bold text-xs">3</div>
+                                    <h4 className="font-bold text-sm text-foreground">Long-Tail Queries</h4>
+                                </div>
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Low Vol • High Intent</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {results.longTail.map((kw: string, i: number) => (
+                                        <Badge key={i} variant="secondary" className="bg-background hover:bg-background/80 border-border/50 text-xs font-normal">{kw}</Badge>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                )}
+            </CardContent>
+        </Card>
+    );
+}
 
 export default function SeoFoundationDetail() {
     const navigate = useNavigate();
@@ -210,6 +364,10 @@ export default function SeoFoundationDetail() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Main Content Area */}
                         <div className="lg:col-span-2 space-y-8">
+                            
+                            {/* AI Research Tool */}
+                            <AiKeywordResearchTool />
+
                             <StaggerContainer>
                                 {sections.map((section, idx) => (
                                     <StaggerItem key={idx}>
