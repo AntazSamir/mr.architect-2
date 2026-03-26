@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -23,8 +24,11 @@ import {
 } from 'lucide-react';
 import { ScrollAnimation } from '@/components/ui/scroll-animation';
 
+import { AnimatedTabs } from '@/components/ui/animated-tabs';
+
 export default function DesignSystemDetail() {
     const navigate = useNavigate();
+    const [activeTab, setActiveTab] = React.useState('lovable');
 
     const platforms = [
         {
@@ -189,22 +193,14 @@ Reference this Figma design: [Link].
 
                 <div className="container mx-auto px-4 pb-32">
                     <div className="max-w-6xl mx-auto">
-                        <Tabs defaultValue="lovable" className="space-y-16">
-                            <div className="flex justify-center">
-                                <TabsList className="inline-flex items-center justify-center p-1.5 bg-background/60 backdrop-blur-2xl border border-border/50 rounded-full shadow-2xl overflow-x-auto hidden-scrollbar w-full md:w-auto mt-4 max-w-full">
-                                    {platforms.map((p) => (
-                                        <TabsTrigger 
-                                            key={p.id} 
-                                            value={p.id}
-                                            className="px-6 py-3 rounded-full data-[state=active]:bg-gradient-to-br data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all min-w-[120px]"
-                                        >
-                                            <div className="flex items-center gap-2">
-                                                <p.icon className="w-4 h-4" />
-                                                <span className="font-semibold">{p.name}</span>
-                                            </div>
-                                        </TabsTrigger>
-                                    ))}
-                                </TabsList>
+                        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-16">
+                            <div className="flex justify-center mt-4">
+                                <AnimatedTabs 
+                                    tabs={platforms.map(p => ({ id: p.id, label: p.name, icon: p.icon }))}
+                                    activeTab={activeTab}
+                                    onTabChange={setActiveTab}
+                                    className="scale-90 md:scale-100"
+                                />
                             </div>
 
                             {platforms.map((p) => (
