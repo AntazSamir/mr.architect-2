@@ -102,17 +102,17 @@ export function HowItWorksSection() {
         </ScrollAnimation>
 
         {/* Animated Connector Line (Desktop) */}
-        <div className="hidden lg:block absolute top-[60%] left-1/2 -translate-x-1/2 w-full max-w-5xl h-px pointer-events-none z-0">
-          <svg width="100%" height="100" viewBox="0 0 1000 100" fill="none" className="overflow-visible">
+        <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[200px] pointer-events-none z-0 -translate-y-1/2 drop-shadow-[0_0_15px_rgba(0,255,255,0.1)]">
+          <svg width="100%" height="100%" viewBox="0 0 1000 100" fill="none" className="overflow-visible">
             <motion.path
               d="M0,50 Q250,0 500,50 T1000,50"
               stroke="url(#gradient-line)"
-              strokeWidth="2"
-              strokeDasharray="10,10"
+              strokeWidth="3"
+              strokeDasharray="12,12"
               initial={{ pathLength: 0, opacity: 0 }}
-              whileInView={{ pathLength: 1, opacity: 0.3 }}
-              viewport={{ once: true }}
-              transition={{ duration: 2, ease: "easeInOut" }}
+              whileInView={{ pathLength: 1, opacity: 0.4 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 2.5, ease: "easeInOut" }}
             />
             <defs>
               <linearGradient id="gradient-line" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -136,7 +136,7 @@ export function HowItWorksSection() {
                   <div className={`relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card border transition-all duration-500 h-full overflow-hidden ${styles.border} ${styles.hoverBorder} ${styles.hoverShadow} ${styles.hoverBg}`}>
                     
                     {/* Background Fluid Illustration/Number */}
-                    <div className="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none select-none">
+                    <div className="absolute -right-4 -bottom-4 opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-500 pointer-events-none select-none">
                       <span className="text-8xl sm:text-9xl font-display font-bold leading-none tracking-tighter">
                         {step.number}
                       </span>
