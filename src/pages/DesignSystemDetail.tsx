@@ -285,7 +285,7 @@ Reference this Figma design: [Link].
                                                 </CardHeader>
                                                 <CardContent className="p-0">
                                                     <div className="p-6 bg-[#09090b] backdrop-blur-md">
-                                                        <pre className="text-[11px] sm:text-xs font-mono text-primary-foreground/90 overflow-x-auto leading-loose selection:bg-primary/30">
+                                                        <pre className="text-[11px] sm:text-xs font-mono text-foreground/90 overflow-x-auto leading-loose selection:bg-primary/30">
                                                             <code>{p.code}</code>
                                                         </pre>
                                                     </div>
