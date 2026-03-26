@@ -273,7 +273,7 @@ Reference this Figma design: [Link].
                                         <div className="lg:col-span-5 space-y-8">
                                             
                                             {/* Code Block */}
-                                            <Card className="rounded-3xl bg-secondary/20 border-border/50 overflow-hidden shadow-2xl pt-2 lg:sticky lg:top-24">
+                                            <Card className="rounded-3xl bg-secondary/20 border-border/50 overflow-hidden shadow-2xl pt-2">
                                                 <CardHeader className="bg-transparent border-b border-border/20 pb-4">
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex items-center gap-2">
