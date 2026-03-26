@@ -112,6 +112,7 @@ export function FeaturesSection() {
         title: 'SEO Foundation',
         description: 'Built-in meta tags, structured data, and content strategies for search visibility.',
         variant: 'success',
+        path: '/features/seo-foundation'
       },
       {
         icon: Code2,

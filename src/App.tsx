@@ -17,6 +17,8 @@ import TermsAndPolicy from "./pages/TermsAndPolicy";
 import ArchitectureDetail from "./pages/ArchitectureDetail";
 import DesignSystemDetail from "./pages/DesignSystemDetail";
 
+import SeoFoundationDetail from "./pages/SeoFoundationDetail";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -37,6 +39,7 @@ const App = () => (
               <Route path="/terms" element={<TermsAndPolicy />} />
               <Route path="/features/architecture" element={<ArchitectureDetail />} />
               <Route path="/features/design-system" element={<DesignSystemDetail />} />
+              <Route path="/features/seo-foundation" element={<SeoFoundationDetail />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
