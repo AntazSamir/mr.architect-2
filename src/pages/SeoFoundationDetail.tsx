@@ -40,19 +40,75 @@ function AiKeywordResearchTool() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [results, setResults] = useState<null | any>(null);
 
-    const handleResearch = () => {
+    const handleResearch = async () => {
         if (!query) return;
+        
+        // This expects VITE_GEMINI_API_KEY in your local .env file.
+        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+        
+        if (!apiKey) {
+            alert("⚠️ Missing API Key! Please create a .env file and add VITE_GEMINI_API_KEY=your_google_gemini_api_key_here");
+            return;
+        }
+
         setIsAnalyzing(true);
         setResults(null);
-        // Simulate AI API call
-        setTimeout(() => {
-            setResults({
-                primary: [`${query} guide`, `best ${query}`, `${query} tutorial`, `what is ${query}`],
-                secondary: [`${query} vs alternative`, `how to use ${query}`, `${query} architecture`, `${query} examples`],
-                longTail: [`step by step ${query} implementation`, `advanced ${query} performance optimization`, `common ${query} errors and fixes`]
+
+        try {
+            const prompt = `Act as an expert SEO analyst and keyword planner.
+Given the seed topic: "${query}", generate a comprehensive 3-layer keyword strategy and hypothetical visibility trend data for a 6-month SEO campaign.
+
+Format your response EXACTLY as the following JSON object without any additional text or markdown formatting:
+{
+  "graphData": [
+    {"month": "Month 1", "visibility": <number>},
+    {"month": "Month 2", "visibility": <number>},
+    {"month": "Month 3", "visibility": <number>},
+    {"month": "Month 4", "visibility": <number>},
+    {"month": "Month 5", "visibility": <number>},
+    {"month": "Month 6", "visibility": <number>}
+  ],
+  "primary": ["keyword 1", "keyword 2", "keyword 3", "keyword 4"],
+  "secondary": ["kw 1", "kw 2", "kw 3", "kw 4", "kw 5"],
+  "longTail": ["query 1", "query 2", "query 3", "query 4", "query 5"]
+}
+
+Rules:
+- 'primary' list is highly competitive, top-level head terms for this topic.
+- 'secondary' list is LSI variations and medium search volume semantic matches.
+- 'longTail' list incorporates very specific, high-intent user queries (low volume).
+- 'graphData' numbers should represent an exponential or upward 6-month growth trend in projected SEO traffic based on this topic. Provide raw numbers.
+- Output MUST be valid JSON.`;
+
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: { responseMimeType: "application/json" }
+                })
             });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch from Gemini API");
+            }
+
+            const data = await response.json();
+            const jsonString = data.candidates[0].content.parts[0].text;
+            const aiResults = JSON.parse(jsonString);
+
+            setResults({
+                graphData: aiResults.graphData,
+                primary: aiResults.primary,
+                secondary: aiResults.secondary,
+                longTail: aiResults.longTail
+            });
+        } catch (error) {
+            console.error("AI Analysis Failed:", error);
+            alert("AI Analysis Failed. Check browser console for details.");
+        } finally {
             setIsAnalyzing(false);
-        }, 2000);
+        }
     };
 
     return (
@@ -67,7 +123,7 @@ function AiKeywordResearchTool() {
                             AI Keyword Intelligence
                             <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20 text-[10px] ml-2">Live AI</Badge>
                         </CardTitle>
-                        <CardDescription>Enter a seed topic to generate a 3-layer semantic keyword strategy and visibility projection.</CardDescription>
+                        <CardDescription>Powered by Google Gemini 1.5 Flash. Enter a seed topic to generate a 3-layer semantic keyword strategy and visibility projection.</CardDescription>
                     </div>
                 </div>
             </CardHeader>
@@ -89,7 +145,7 @@ function AiKeywordResearchTool() {
                 {isAnalyzing && (
                     <div className="h-64 flex flex-col items-center justify-center text-muted-foreground border border-border/50 rounded-xl bg-secondary/5">
                         <Loader2 className="w-8 h-8 animate-spin text-primary mb-4" />
-                        <p className="animate-pulse">AI is mapping SERP intent & semantic clusters...</p>
+                        <p className="animate-pulse">Gemini AI is analyzing SERP intent & semantic clusters...</p>
                     </div>
                 )}
 
@@ -103,7 +159,7 @@ function AiKeywordResearchTool() {
                             </h4>
                             <div className="h-64 w-full p-4 rounded-xl border border-border/50 bg-background/30">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <AreaChart data={mockGraphData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                    <AreaChart data={results.graphData || mockGraphData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                                         <defs>
                                             <linearGradient id="colorVisibility" x1="0" y1="0" x2="0" y2="1">
                                                 <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
