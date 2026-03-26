@@ -29,12 +29,6 @@ export function Header() {
           <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.features}
           </a>
-          <button 
-            onClick={() => navigate('/demos')}
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-          >
-            Blueprints
-          </button>
           <a href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.howItWorks}
           </a>
@@ -43,6 +37,14 @@ export function Header() {
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
           <LanguageSelector />
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-primary/30 hover:bg-primary/5"
+            onClick={() => navigate('/demos')}
+          >
+            Blueprints
+          </Button>
           <Button
             variant="hero"
             size="sm"
@@ -77,24 +79,29 @@ export function Header() {
           <a href="#features" className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.features}
           </a>
-          <button 
-            onClick={() => {
-              navigate('/demos');
-              setMobileMenuOpen(false);
-            }}
-            className="block w-full text-left py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-          >
-            Blueprints
-          </button>
           <a href="#how-it-works" className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.howItWorks}
           </a>
-          <div className="flex items-center gap-3 pt-2 border-t border-border">
-            <LanguageSelector />
+          <div className="flex flex-col gap-3 pt-2 border-t border-border">
+            <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-muted-foreground">Language</span>
+                <LanguageSelector />
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full border-primary/30"
+              onClick={() => {
+                navigate('/demos');
+                setMobileMenuOpen(false);
+              }}
+            >
+              All Blueprints
+            </Button>
             <Button
               variant="hero"
               size="sm"
-              className="flex-1"
+              className="w-full"
               onClick={() => {
                 navigate('/create');
                 setMobileMenuOpen(false);
