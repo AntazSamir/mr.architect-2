@@ -145,11 +145,6 @@ export function HowItWorksSection() {
                     {/* Animated Glow Disk */}
                     <div className={`absolute -top-12 -left-12 w-24 h-24 rounded-full blur-[40px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none ${styles.bg}`} />
 
-                    {/* Step Number */}
-                    <span className={`text-xs font-mono font-bold mb-2 sm:mb-4 block transition-transform group-hover:-translate-y-1 ${styles.text}`}>
-                      {step.number}
-                    </span>
-
                     {/* Icon Container with subtle float */}
                     <motion.div 
                       whileHover={{ y: -5, scale: 1.05 }}
