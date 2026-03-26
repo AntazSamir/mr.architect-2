@@ -29,6 +29,12 @@ export function Header() {
           <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.features}
           </a>
+          <button 
+            onClick={() => navigate('/demos')} 
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+          >
+            Blueprints
+          </button>
           <a href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.howItWorks}
           </a>
@@ -37,14 +43,6 @@ export function Header() {
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
           <LanguageSelector />
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate('/demos')}
-            className="text-muted-foreground hover:text-primary"
-          >
-            Blueprints
-          </Button>
           <Button
             variant="hero"
             size="sm"
@@ -79,11 +77,11 @@ export function Header() {
           <a href="#features" className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             {t.nav.features}
           </a>
-          <a href="#how-it-works" className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-            {t.nav.howItWorks}
-          </a>
           <a onClick={() => navigate('/demos')} className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors cursor-pointer">
             Blueprints
+          </a>
+          <a href="#how-it-works" className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+            {t.nav.howItWorks}
           </a>
           <div className="flex flex-col sm:flex-row items-center gap-3 pt-2 border-t border-border">
             <LanguageSelector />
