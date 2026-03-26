@@ -15,8 +15,10 @@ import {
   Database, 
   ShieldCheck,
   Zap,
-  Bot
+  Bot,
+  Box
 } from 'lucide-react';
+import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
 
 export default function ArchitectureDetail() {
     const navigate = useNavigate();
@@ -251,121 +253,126 @@ export default function ArchitectureDetail() {
     ];
 
     return (
-        <div className="min-h-screen flex flex-col bg-background">
+        <div className="min-h-screen border-t-2 border-primary/20 bg-background selection:bg-primary/30 flex flex-col">
             <Header />
 
-            <main className="flex-1 pt-24 pb-20">
-                {/* Hero Section */}
-                <div className="relative py-16 mb-12 overflow-hidden">
-                    <div className="absolute inset-0 bg-primary/5 -z-10" />
-                    <div className="absolute inset-0 grid-pattern opacity-30 -z-10" />
-                    
-                    <div className="container mx-auto px-4">
-                        <div className="max-w-4xl mx-auto">
-                            <Button 
-                                variant="ghost" 
-                                onClick={() => navigate('/')}
-                                className="mb-8 hover:bg-primary/10"
-                            >
-                                <ArrowLeft className="w-4 h-4 mr-2" />
-                                Back to Home
-                            </Button>
-                            
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono mb-6">
-                                <Zap className="w-3 h-3" />
-                                <span>DEEP ANALYSIS ENABLED</span>
-                            </div>
-                            
-                            <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold mb-6 tracking-tight">
-                                Complete <span className="text-gradient">Architecture</span>
-                            </h1>
-                            
-                            <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                                Our platform doesn't just generate code; it engineers scalable systems.
-                                Explore the underlying blueprint architecture that powers every component.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="container mx-auto px-4">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid lg:grid-cols-12 gap-12">
-                            {/* Navigation Sidebar */}
-                            <div className="lg:col-span-4 space-y-4">
-                                <div className="sticky top-24">
-                                    <h3 className="text-sm font-mono text-muted-foreground uppercase tracking-wider mb-6">Architecture Modules</h3>
-                                    <div className="space-y-2">
-                                        {sections.map((section) => (
-                                            <button 
-                                                key={section.title}
-                                                onClick={() => {
-                                                    const element = document.getElementById(section.title.toLowerCase().replace(/\s+/g, '-'));
-                                                    element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                                }}
-                                                className="w-full flex items-center gap-3 p-4 rounded-xl glass-card hover:bg-primary/10 transition-colors text-left group"
-                                            >
-                                                <section.icon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                                                <span className="font-medium">{section.title}</span>
-                                            </button>
-                                        ))}
-                                    </div>
-
-                                    <div className="mt-12 p-6 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30">
-                                        <Bot className="w-8 h-8 text-primary mb-4" />
-                                        <h4 className="font-bold mb-2">AI-Optimized</h4>
-                                        <p className="text-sm text-muted-foreground leading-relaxed">
-                                            This structure is specifically designed to be read and understood by LLMs for seamless building.
-                                        </p>
-                                    </div>
+            <main className="flex-1 pt-24 pb-16">
+                <div className="container mx-auto px-4 max-w-5xl">
+                    <div className="mb-8">
+                        <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-muted-foreground hover:text-foreground mb-6"
+                            onClick={() => navigate('/')}
+                        >
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Back to Home
+                        </Button>
+                        
+                        <ScrollAnimation type="fade-up">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="p-3 rounded-xl bg-primary/10 border border-primary/30 shadow-sm">
+                                    <Zap className="w-6 h-6 text-primary" />
                                 </div>
+                                <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight">Complete Architecture</h1>
                             </div>
+                            <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
+                                Our platform doesn't just generate code; it engineers scalable systems.
+                                Explore the underlying blueprint architecture that powers every generated component, 
+                                ensuring robustness from the DB layer to the edge.
+                            </p>
+                        </ScrollAnimation>
+                    </div>
 
-                            {/* Main Content */}
-                            <div className="lg:col-span-8 space-y-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        {/* Main Content Area */}
+                        <div className="lg:col-span-2 space-y-8">
+                            
+                            <StaggerContainer>
                                 {sections.map((section, idx) => (
-                                    <Card 
-                                        key={idx} 
-                                        id={section.title.toLowerCase().replace(/\s+/g, '-')}
-                                        className="bg-card/40 backdrop-blur-md border-border/50 overflow-hidden group scroll-mt-24"
-                                    >
-                                        <CardHeader className="p-8 pb-4">
-                                            <div className="flex items-center gap-4 mb-4">
-                                                <div className="p-3 rounded-2xl bg-primary/10 text-primary">
-                                                    <section.icon className="w-6 h-6" />
+                                    <StaggerItem key={idx}>
+                                        <Card className="glass-card mb-8 scroll-mt-24 shadow-sm" id={`section-${idx}`}>
+                                            <CardHeader className="border-b border-border/50 bg-secondary/20 pb-4">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="p-2 rounded-lg bg-background border border-border shadow-sm">
+                                                        <section.icon className="w-5 h-5 text-foreground" />
+                                                    </div>
+                                                    <div>
+                                                        <CardTitle className="text-xl font-display">{section.title}</CardTitle>
+                                                        <CardDescription className="mt-1">{section.description}</CardDescription>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <CardTitle className="text-2xl">{section.title}</CardTitle>
-                                                    <CardDescription className="text-base mt-1">{section.description}</CardDescription>
-                                                </div>
-                                            </div>
-                                        </CardHeader>
-                                        <CardContent className="p-8 pt-0">
-                                            {section.content}
-                                        </CardContent>
-                                    </Card>
+                                            </CardHeader>
+                                            <CardContent className="pt-6">
+                                                {section.content}
+                                            </CardContent>
+                                        </Card>
+                                    </StaggerItem>
                                 ))}
-                            </div>
+                            </StaggerContainer>
                         </div>
 
-                        {/* Export/CTA */}
-                        <div className="mt-24 p-8 md:p-16 rounded-[2.5rem] bg-secondary/30 border border-border/50 relative overflow-hidden text-center">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full" />
-                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 blur-[100px] rounded-full" />
-                            
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6">Want this logic for your project?</h2>
-                            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-                                Generate a custom architecture blueprint in seconds and start building with your favorite AI tools.
-                            </p>
-                            <Button 
-                                size="xl" 
-                                variant="hero" 
-                                onClick={() => navigate('/create')}
-                                className="group"
-                            >
-                                <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-                                Generate Custom Blueprint
-                            </Button>
+                        {/* Sidebar - Nav & Tools */}
+                        <div className="space-y-6 lg:sticky lg:top-24 max-h-[calc(100vh-8rem)] overflow-y-auto hidden-scrollbar pb-8">
+                            <Card className="glass-card border-border/50">
+                                <CardHeader className="pb-4 border-b border-border/50 bg-secondary/10">
+                                    <CardTitle className="text-sm font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                                        <Map className="w-4 h-4 text-primary" /> Blueprint Layout
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="pt-4 space-y-2">
+                                    {sections.map((section, idx) => (
+                                        <button
+                                            key={section.title}
+                                            onClick={() => {
+                                                const element = document.getElementById(`section-${idx}`);
+                                                element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                            }}
+                                            className="w-full text-left text-sm py-2 px-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-3 group"
+                                        >
+                                            <section.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                                            <span className="truncate">{section.title}</span>
+                                        </button>
+                                    ))}
+                                </CardContent>
+                            </Card>
+
+                            <Card className="glass-card border-border/50">
+                                <CardHeader className="pb-4 border-b border-border/50 bg-secondary/10">
+                                    <CardTitle className="text-sm font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                                        <Layers className="w-4 h-4 text-accent" /> Tech Stack Model
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="pt-4 space-y-4">
+                                    <div className="space-y-1">
+                                        <div className="text-foreground font-medium text-sm flex items-center gap-2">
+                                            <Box className="w-4 h-4 text-primary" /> React Server Components
+                                        </div>
+                                        <div className="text-xs text-muted-foreground">Streaming HTML and modular views.</div>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <div className="text-foreground font-medium text-sm flex items-center gap-2">
+                                            <Database className="w-4 h-4 text-success" /> PostgreSQL + Node
+                                        </div>
+                                        <div className="text-xs text-muted-foreground">ACID compliant relational storage.</div>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <div className="text-foreground font-medium text-sm flex items-center gap-2">
+                                            <ShieldCheck className="w-4 h-4 text-warning" /> RBAC Row Level Sec
+                                        </div>
+                                        <div className="text-xs text-muted-foreground">Granular permission control mapping.</div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                            <div className="p-5 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/20">
+                                <Bot className="w-6 h-6 text-primary mb-3" />
+                                <h4 className="font-bold text-sm mb-1 text-foreground">AI-Optimized Standard</h4>
+                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                    This structure is specifically formatted and constrained to be generated accurately 
+                                    by LLMs without hallucinations.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
