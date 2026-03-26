@@ -191,7 +191,7 @@ Reference this Figma design: [Link].
                     <div className="max-w-6xl mx-auto">
                         <Tabs defaultValue="lovable" className="space-y-16">
                             <div className="flex justify-center">
-                                <TabsList className="inline-flex items-center justify-center p-1.5 bg-background/60 backdrop-blur-2xl border border-border/50 rounded-full shadow-2xl overflow-x-auto w-full md:w-auto mt-4 max-w-full">
+                                <TabsList className="inline-flex items-center justify-center p-1.5 bg-background/60 backdrop-blur-2xl border border-border/50 rounded-full shadow-2xl overflow-x-auto hidden-scrollbar w-full md:w-auto mt-4 max-w-full">
                                     {platforms.map((p) => (
                                         <TabsTrigger 
                                             key={p.id} 
