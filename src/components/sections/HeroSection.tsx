@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, Cpu, Zap, Bot, Code2, Sparkles } from 'lucide-react';
+import { ArrowRight, Cpu, Zap, Bot, Code2, Sparkles, Terminal as TerminalIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocale } from '@/contexts/LocaleContext';
 import { useNavigate } from 'react-router-dom';
 import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
+import { motion } from 'framer-motion';
 
 export function HeroSection() {
   const { t } = useLocale();
   const navigate = useNavigate();
   const [typedText, setTypedText] = useState("");
   const [progressStep, setProgressStep] = useState(0);
-  const fullText = '"e-commerce platform"';
+  const fullText = '"modern e-commerce platform"';
 
   useEffect(() => {
     let index = 0;
@@ -19,7 +20,6 @@ export function HeroSection() {
       index++;
       if (index > fullText.length) {
         clearInterval(intervalId);
-        // Start showing progress steps after typing is done
         setTimeout(() => setProgressStep(1), 500);
         setTimeout(() => setProgressStep(2), 1500);
         setTimeout(() => setProgressStep(3), 2500);
@@ -31,162 +31,178 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen pt-24 pb-20 overflow-hidden flex items-center">
-      {/* Background Effects */}
-      <div className="absolute inset-0 gradient-hero -z-10" />
-      <div className="absolute inset-0 grid-pattern -z-10" />
+    <section className="relative min-h-screen pt-32 pb-20 overflow-hidden flex items-center bg-[#0a0e14]">
+      {/* Cinematic Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#10141a] to-[#0a0e14] -z-10" />
+      <div className="absolute inset-0 grid-pattern opacity-20 -z-10" />
+      
+      {/* Architectural Wireframe Glows */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
+        <div className="absolute top-[10%] left-[5%] w-[40%] h-[1px] bg-primary/20 blur-[1px] rotate-12" />
+        <div className="absolute top-[20%] right-[10%] w-[30%] h-[1px] bg-accent/20 blur-[1px] -rotate-12" />
+        <div className="absolute bottom-[15%] left-[20%] w-[50%] h-[1px] bg-success/20 blur-[1px] rotate-3" />
+      </div>
 
-      {/* Animated Orbs */}
-      <div className="absolute top-20 left-[10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] animate-float" />
-      <div className="absolute bottom-20 right-[10%] w-[400px] h-[400px] bg-accent/15 rounded-full blur-[100px] animate-float" style={{ animationDelay: '-3s' }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px]" />
-
-      <div className="container relative mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
-          {/* Badge */}
-          <ScrollAnimation type="fade-down" duration={0.8}>
-            <div className="flex justify-center mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card-strong">
-                <Bot className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium text-primary font-mono">AI-POWERED BLUEPRINT GENERATOR</span>
+      <div className="container relative mx-auto px-6">
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Content Column */}
+          <div className="lg:col-span-7 space-y-8 text-left">
+            <ScrollAnimation type="fade-right">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-mono tracking-[0.2em] text-primary uppercase">
+                <Bot className="h-3 w-3" />
+                AI ARCHITECT ENGINE v2.0
               </div>
-            </div>
-          </ScrollAnimation>
+            </ScrollAnimation>
 
-          {/* Headline */}
-          <ScrollAnimation type="fade-up" delay={0.1}>
-            <h1 className="text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight mb-6">
-              <span className="text-foreground">Generate Blueprints</span>
-              <br />
-              <span className="text-foreground">for AI Builders</span>
-            </h1>
-          </ScrollAnimation>
+            <ScrollAnimation type="fade-right" delay={100}>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tighter leading-[0.9] text-white">
+                Code <span className="text-primary/90">Architecture</span> <br />
+                Synthesized.
+              </h1>
+            </ScrollAnimation>
 
-          {/* Subtitle */}
-          <ScrollAnimation type="fade-up" delay={0.2}>
-            <p className="text-center text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-10">
-              Answer a few questions and get a complete website blueprint with architecture,
-              design system, and ready-to-use prompts for <span className="text-primary">Lovable</span>,
-              <span className="text-accent"> Cursor</span>, <span className="text-success">Bolt.new</span>,
-              and <span className="text-warning">Replit</span>.
-            </p>
-          </ScrollAnimation>
+            <ScrollAnimation type="fade-right" delay={200}>
+              <p className="text-lg md:text-xl text-muted-foreground/80 max-w-2xl leading-relaxed font-sans">
+                Stop prompting into a void. Generate comprehensive <span className="text-white font-semibold">Technical Blueprints</span> designed for the world's most powerful AI coding agents.
+              </p>
+            </ScrollAnimation>
 
-          {/* CTAs */}
-          <ScrollAnimation type="fade-up" delay={0.3}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-              <Button
-                variant="hero"
-                size="xl"
-                onClick={() => navigate('/create')}
-                className="group"
-              >
-                <Sparkles className="h-5 w-5 mr-2 group-hover:animate-pulse" />
-                Generate Blueprint
-                <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button variant="heroOutline" size="xl" onClick={() => navigate('/demos')}>
-                <Code2 className="h-5 w-5 mr-2" />
-                View Examples
-              </Button>
-            </div>
-          </ScrollAnimation>
-
-          {/* AI Platform Logos */}
-          <ScrollAnimation type="fade-up" delay={0.4}>
-            <div className="flex flex-wrap items-center justify-center gap-8 mb-16">
-              <span className="text-xs uppercase tracking-widest text-muted-foreground">Works with</span>
-              {['Lovable', 'Cursor', 'Bolt.new', 'Replit', 'V0'].map((platform) => (
-                <span
-                  key={platform}
-                  className="text-sm font-mono text-muted-foreground hover:text-primary transition-colors cursor-default"
+            <ScrollAnimation type="fade-right" delay={300}>
+              <div className="flex flex-wrap items-center gap-4">
+                <Button
+                  variant="hero"
+                  size="xl"
+                  onClick={() => navigate('/create')}
+                  className="group relative overflow-hidden bg-primary text-black rounded-sm px-8 hover:scale-105 transition-transform"
                 >
-                  {platform}
-                </span>
-              ))}
-            </div>
-          </ScrollAnimation>
+                  <Sparkles className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform" />
+                  <span className="relative z-10 font-bold">GENERATE SYSTEM</span>
+                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                </Button>
+                
+                <Button 
+                  variant="ghost" 
+                  size="xl" 
+                  onClick={() => navigate('/demos')}
+                  className="group border border-white/10 hover:bg-white/5 text-white/70 hover:text-white rounded-sm px-8"
+                >
+                  <Code2 className="h-5 w-5 mr-3 opacity-50 group-hover:opacity-100" />
+                  EXPLORE BLUEPRINTS
+                </Button>
+              </div>
+            </ScrollAnimation>
 
-          {/* Hero Visual - Blueprint Preview */}
-          <ScrollAnimation type="scale" delay={0.5}>
-            <div className="relative max-w-4xl mx-auto">
-              <div className="relative rounded-2xl glass-card-strong overflow-hidden shadow-glow">
-                {/* Terminal Header */}
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-border/50 bg-secondary/30">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-destructive/80" />
-                    <div className="w-3 h-3 rounded-full bg-warning/80" />
-                    <div className="w-3 h-3 rounded-full bg-success/80" />
-                  </div>
-                  <div className="flex-1 mx-4">
-                    <div className="max-w-md mx-auto h-6 rounded-md bg-secondary/50 flex items-center px-3">
-                      <span className="text-xs text-muted-foreground font-mono">mrarchitect.ai/blueprint/new</span>
-                    </div>
-                  </div>
-                  <Cpu className="h-4 w-4 text-primary animate-pulse" />
-                </div>
-
-                {/* Blueprint Content Preview */}
-                <div className="p-6 md:p-8 space-y-4">
-                  {/* Command Line */}
-                  <div className="flex items-center gap-2 font-mono text-sm">
-                    <span className="text-primary">$</span>
-                    <span className="text-muted-foreground">generating blueprint for</span>
-                    <span className="text-foreground min-h-[1.5rem] inline-block">{typedText}</span>
-                    <span className="inline-block w-2 h-5 bg-primary animate-pulse" />
-                  </div>
-
-                  {/* Progress */}
-                  <div className="space-y-3 min-h-[120px]">
-                    {progressStep >= 1 && (
-                      <div className="flex items-center gap-3 animate-fade-in">
-                        <Zap className="h-4 w-4 text-success" />
-                        <span className="text-sm text-success font-mono">Architecture analyzed</span>
-                      </div>
-                    )}
-                    {progressStep >= 2 && (
-                      <div className="flex items-center gap-3 animate-fade-in">
-                        <Zap className="h-4 w-4 text-success" />
-                        <span className="text-sm text-success font-mono">Design system generated</span>
-                      </div>
-                    )}
-                    {progressStep >= 3 && (
-                      <div className="flex items-center gap-3 animate-fade-in">
-                        <Zap className="h-4 w-4 text-success" />
-                        <span className="text-sm text-success font-mono">SEO foundation created</span>
-                      </div>
-                    )}
-                    {progressStep >= 4 && (
-                      <div className="flex items-center gap-3 animate-fade-in">
-                        <Zap className="h-4 w-4 text-primary animate-pulse" />
-                        <span className="text-sm text-primary font-mono">Generating AI prompts...</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Output Preview */}
-                  <div className="mt-6 p-4 rounded-xl bg-secondary/30 border border-border/50">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {[
-                        { label: 'Pages', value: '12' },
-                        { label: 'Components', value: '34' },
-                        { label: 'API Routes', value: '8' },
-                        { label: 'AI Prompts', value: '5' },
-                      ].map((stat) => (
-                        <div key={stat.label} className="text-center">
-                          <div className="text-2xl font-bold text-primary font-mono">{stat.value}</div>
-                          <div className="text-xs text-muted-foreground">{stat.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+            {/* Platform Integration Bar */}
+            <ScrollAnimation type="fade-up" delay={400} className="pt-8">
+              <div className="flex flex-col gap-4">
+                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground/50">Native Synthesis For</span>
+                <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+                  {['Lovable', 'Cursor', 'Bolt.new', 'Replit', 'V0'].map((platform) => (
+                    <span
+                      key={platform}
+                      className="text-sm font-mono font-bold text-muted-foreground/40 hover:text-primary transition-all cursor-default hover:tracking-widest"
+                    >
+                      {platform}
+                    </span>
+                  ))}
                 </div>
               </div>
+            </ScrollAnimation>
+          </div>
 
-              {/* Glow Effect */}
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl -z-10 animate-glow-pulse" />
-            </div>
-          </ScrollAnimation>
+          {/* Visual/Terminal Column */}
+          <div className="lg:col-span-5 relative">
+            <ScrollAnimation type="scale" delay={500}>
+              <div className="relative">
+                {/* The Video Perspective Container */}
+                <div className="relative rounded-lg overflow-hidden border border-white/10 bg-[#09090b] shadow-[0_0_100px_-20px_rgba(0,255,255,0.2)]">
+                  {/* Terminal Chrome */}
+                  <div className="flex items-center justify-between px-4 py-3 bg-secondary/20 border-b border-white/5">
+                    <div className="flex gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                    </div>
+                    <div className="text-[10px] font-mono text-muted-foreground/60 uppercase tracking-widest">Active Synthesis</div>
+                    <TerminalIcon className="h-3 w-3 text-primary/50" />
+                  </div>
+
+                  {/* Video Background Layer */}
+                  <div className="relative h-[400px] w-full overflow-hidden grayscale contrast-125 opacity-30">
+                    <video 
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover scale-110"
+                    >
+                      <source src="/Blueprint_Hero_Load.mp4" type="video/mp4" />
+                    </video>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent" />
+                  </div>
+
+                  {/* Terminal Overlay Content */}
+                  <div className="absolute inset-0 p-8 flex flex-col pointer-events-none bg-gradient-to-br from-transparent to-[#09090b]/40">
+                    <div className="mt-auto space-y-6">
+                      <div className="flex items-center gap-3 font-mono text-xs text-primary/80">
+                        <span className="animate-pulse">●</span>
+                        <span className="tracking-tighter uppercase">Initializing Machine Architect...</span>
+                      </div>
+                      
+                      <div className="font-mono text-sm space-y-2">
+                        <div className="flex gap-2">
+                          <span className="text-primary/50">&gt;</span>
+                          <span className="text-white/40">target:</span>
+                          <span className="text-white underline decoration-primary/30">{typedText}</span>
+                          <span className="w-2 h-4 bg-primary animate-pulse inline-block" />
+                        </div>
+
+                        <div className="space-y-1 pt-4">
+                          {progressStep >= 1 && (
+                            <motion.div initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-3 text-[10px] text-success/70 font-mono">
+                              <Zap className="h-3 w-3" /> ANALYZING_HIERARCHY_OK
+                            </motion.div>
+                          )}
+                          {progressStep >= 2 && (
+                            <motion.div initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-3 text-[10px] text-success/70 font-mono">
+                              <Zap className="h-3 w-3" /> GENERATING_DS_TOKENS_OK
+                            </motion.div>
+                          )}
+                          {progressStep >= 3 && (
+                            <motion.div initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-3 text-[10px] text-success/70 font-mono">
+                              <Zap className="h-3 w-3" /> SEO_META_SYNTHESIS_OK
+                            </motion.div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Stat Grid Overlay */}
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: progressStep >= 4 ? 1 : 0, y: progressStep >= 4 ? 0 : 10 }}
+                        className="grid grid-cols-2 gap-4 p-4 rounded-md border border-white/5 bg-white/5 backdrop-blur-md"
+                      >
+                         <div className="space-y-1">
+                            <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Pages</div>
+                            <div className="text-xl font-display font-bold text-primary">12</div>
+                         </div>
+                         <div className="space-y-1">
+                            <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Nodes</div>
+                            <div className="text-xl font-display font-bold text-accent">84</div>
+                         </div>
+                      </motion.div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl -z-10 animate-pulse" />
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-accent/20 rounded-full blur-3xl -z-10 animate-float" />
+              </div>
+            </ScrollAnimation>
+          </div>
+
         </div>
       </div>
     </section>
