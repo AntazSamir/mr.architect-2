@@ -313,7 +313,7 @@ export default function ArchitectureDetail() {
                         </div>
 
                         {/* Sidebar - Nav & Tools */}
-                        <div className="space-y-6 lg:sticky lg:top-24 max-h-[calc(100vh-8rem)] overflow-y-auto hidden-scrollbar pb-8">
+                        <div className="space-y-6 lg:sticky lg:top-24 max-h-none lg:max-h-[calc(100vh-8rem)] overflow-y-auto hidden-scrollbar pb-8 lg:col-span-1">
                             <Card className="glass-card border-border/50">
                                 <CardHeader className="pb-4 border-b border-border/50 bg-secondary/10">
                                     <CardTitle className="text-sm font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">

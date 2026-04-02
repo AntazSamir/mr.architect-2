@@ -12,7 +12,7 @@ export function Header() {
   const navigate = useNavigate();
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 pointer-events-none">
+    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-6 pt-4 pointer-events-none">
       <header
         className={cn(
           'pointer-events-auto w-full max-w-4xl',

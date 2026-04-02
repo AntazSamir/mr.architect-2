@@ -75,20 +75,20 @@ export function HeroSection() {
           {/* CTAs */}
           <ScrollAnimation type="fade-up" delay={0.3}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <Button
-              variant="hero"
-              size="xl"
-              onClick={() => navigate('/create')}
-              className="group"
-            >
-              <Sparkles className="h-5 w-5 mr-2 group-hover:animate-pulse" />
-              Generate Blueprint
-              <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button variant="heroOutline" size="xl" onClick={() => navigate('/demos')}>
-              <Code2 className="h-5 w-5 mr-2" />
-              View Examples
-            </Button>
+              <Button
+                variant="hero"
+                size="xl"
+                onClick={() => navigate('/create')}
+                className="group"
+              >
+                <Sparkles className="h-5 w-5 mr-2 group-hover:animate-pulse" />
+                Generate Blueprint
+                <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              <Button variant="heroOutline" size="xl" onClick={() => navigate('/demos')}>
+                <Code2 className="h-5 w-5 mr-2" />
+                View Examples
+              </Button>
             </div>
           </ScrollAnimation>
 
@@ -107,11 +107,11 @@ export function HeroSection() {
             </div>
           </ScrollAnimation>
 
-          {/* Hero Visual - Video Preview */}
+          {/* Hero Visual - Blueprint Preview */}
           <ScrollAnimation type="scale" delay={0.5}>
             <div className="relative max-w-4xl mx-auto">
               <div className="relative rounded-2xl glass-card-strong overflow-hidden shadow-glow">
-                {/* Terminal Header Chrome */}
+                {/* Terminal Header */}
                 <div className="flex items-center gap-2 px-4 py-3 border-b border-border/50 bg-secondary/30">
                   <div className="flex gap-1.5">
                     <div className="w-3 h-3 rounded-full bg-destructive/80" />
@@ -126,15 +126,61 @@ export function HeroSection() {
                   <Cpu className="h-4 w-4 text-primary animate-pulse" />
                 </div>
 
-                {/* Video */}
-                <video
-                  src="/Blueprint_Hero_Load.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-auto block"
-                />
+                {/* Blueprint Content Preview */}
+                <div className="p-6 md:p-8 space-y-4">
+                  {/* Command Line */}
+                  <div className="flex items-center gap-2 font-mono text-sm">
+                    <span className="text-primary">$</span>
+                    <span className="text-muted-foreground">generating blueprint for</span>
+                    <span className="text-foreground min-h-[1.5rem] inline-block">{typedText}</span>
+                    <span className="inline-block w-2 h-5 bg-primary animate-pulse" />
+                  </div>
+
+                  {/* Progress */}
+                  <div className="space-y-3 min-h-[120px]">
+                    {progressStep >= 1 && (
+                      <div className="flex items-center gap-3 animate-fade-in">
+                        <Zap className="h-4 w-4 text-success" />
+                        <span className="text-sm text-success font-mono">Architecture analyzed</span>
+                      </div>
+                    )}
+                    {progressStep >= 2 && (
+                      <div className="flex items-center gap-3 animate-fade-in">
+                        <Zap className="h-4 w-4 text-success" />
+                        <span className="text-sm text-success font-mono">Design system generated</span>
+                      </div>
+                    )}
+                    {progressStep >= 3 && (
+                      <div className="flex items-center gap-3 animate-fade-in">
+                        <Zap className="h-4 w-4 text-success" />
+                        <span className="text-sm text-success font-mono">SEO foundation created</span>
+                      </div>
+                    )}
+                    {progressStep >= 4 && (
+                      <div className="flex items-center gap-3 animate-fade-in">
+                        <Zap className="h-4 w-4 text-primary animate-pulse" />
+                        <span className="text-sm text-primary font-mono">Generating AI prompts...</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Output Preview */}
+                  <div className="mt-6 p-4 rounded-xl bg-secondary/30 border border-border/50">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {[
+                        { label: 'Pages', value: '12' },
+                        { label: 'Components', value: '34' },
+                        { label: 'API Routes', value: '8' },
+                        { label: 'AI Prompts', value: '5' },
+                      ].map((stat) => (
+                        <div key={stat.label} className="text-center">
+                          <div className="text-2xl font-bold text-primary font-mono">{stat.value}</div>
+                          <div className="text-xs text-muted-foreground">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Glow Effect */}

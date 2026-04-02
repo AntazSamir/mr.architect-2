@@ -261,7 +261,7 @@ Reference this Figma design: [Link].
                                                                 {i + 1}
                                                             </div>
                                                             <h4 className="font-bold text-sm mb-2 text-foreground">{s.step}</h4>
-                                                            <p className="text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
+                                                            <p className="text-xs text-foreground/70 leading-relaxed">{s.desc}</p>
                                                         </div>
                                                     ))}
                                                 </div>
