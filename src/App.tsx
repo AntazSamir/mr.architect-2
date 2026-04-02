@@ -16,8 +16,8 @@ import SignUp from "./pages/SignUp";
 import TermsAndPolicy from "./pages/TermsAndPolicy";
 import ArchitectureDetail from "./pages/ArchitectureDetail";
 import DesignSystemDetail from "./pages/DesignSystemDetail";
-
 import SeoFoundationDetail from "./pages/SeoFoundationDetail";
+import Documentation from "./pages/Documentation";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +40,7 @@ const App = () => (
               <Route path="/features/architecture" element={<ArchitectureDetail />} />
               <Route path="/features/design-system" element={<DesignSystemDetail />} />
               <Route path="/features/seo-foundation" element={<SeoFoundationDetail />} />
+              <Route path="/docs" element={<Documentation />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

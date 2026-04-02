@@ -133,33 +133,29 @@ const testimonials: Testimonial[] = [
 
 type ColorVariant = 'primary' | 'accent' | 'success' | 'warning';
 
-const variantStyles: Record<ColorVariant, { border: string; quote: string; avatar: string; glow: string; handle: string }> = {
+const variantStyles: Record<ColorVariant, { border: string; glow: string; text: string; handle: string }> = {
   primary: {
-    border: 'border-primary/20 hover:border-primary/50',
-    quote: 'text-primary/30',
-    avatar: 'ring-primary/30',
-    glow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.3)]',
+    border: 'group-hover:border-primary/50',
+    glow: 'group-hover:shadow-[0_0_20px_-5px_hsl(var(--primary)/0.4)]',
+    text: 'text-primary',
     handle: 'text-primary/60',
   },
   accent: {
-    border: 'border-accent/20 hover:border-accent/50',
-    quote: 'text-accent/30',
-    avatar: 'ring-accent/30',
-    glow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--accent)/0.3)]',
+    border: 'group-hover:border-accent/50',
+    glow: 'group-hover:shadow-[0_0_20px_-5px_hsl(var(--accent)/0.4)]',
+    text: 'text-accent',
     handle: 'text-accent/60',
   },
   success: {
-    border: 'border-success/20 hover:border-success/50',
-    quote: 'text-success/30',
-    avatar: 'ring-success/30',
-    glow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--success)/0.3)]',
+    border: 'group-hover:border-success/50',
+    glow: 'group-hover:shadow-[0_0_20px_-5px_hsl(var(--success)/0.4)]',
+    text: 'text-success',
     handle: 'text-success/60',
   },
   warning: {
-    border: 'border-warning/20 hover:border-warning/50',
-    quote: 'text-warning/30',
-    avatar: 'ring-warning/30',
-    glow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--warning)/0.3)]',
+    border: 'group-hover:border-warning/50',
+    glow: 'group-hover:shadow-[0_0_20px_-5px_hsl(var(--warning)/0.4)]',
+    text: 'text-warning',
     handle: 'text-warning/60',
   },
 };
@@ -170,43 +166,48 @@ function MarqueeCard({ testimonial }: { testimonial: Testimonial }) {
 
   return (
     <div
-      className={`flex-shrink-0 w-[280px] sm:w-[340px] p-4 sm:p-5 rounded-xl sm:rounded-2xl glass-card border transition-all duration-500 ${styles.border} ${styles.glow}`}
+      className={`flex-shrink-0 w-[300px] sm:w-[380px] p-6 rounded-sm bg-[#0d1117] border border-white/5 transition-all duration-500 overflow-hidden ${styles.border} ${styles.glow}`}
     >
-      {/* Header */}
-      <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
-        {testimonial.avatarImage ? (
-          <img
-            src={testimonial.avatarImage}
-            alt={testimonial.name}
-            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover ring-2 ${styles.avatar}`}
-          />
-        ) : (
-          <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold bg-secondary text-foreground ring-2 ${styles.avatar}`}>
-            {testimonial.avatar}
-          </div>
-        )}
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <p className="text-xs sm:text-sm font-semibold text-foreground truncate">{testimonial.name}</p>
-            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <p className={`text-[10px] sm:text-xs ${styles.handle}`}>{testimonial.handle}</p>
+      {/* Node ID Decor */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="text-[8px] font-mono text-muted-foreground/30 select-none uppercase tracking-widest">
+          USER_FEEDBACK_NODE::0{testimonial.id}
         </div>
-        <span className="text-[9px] sm:text-[10px] text-muted-foreground whitespace-nowrap">{testimonial.date}</span>
+        <div className="flex gap-0.5">
+          {Array.from({ length: testimonial.rating }).map((_, i) => (
+            <Star key={i} className={`h-2 w-2 fill-primary text-primary opacity-50`} />
+          ))}
+        </div>
       </div>
 
       {/* Content */}
-      <p className="text-xs sm:text-sm text-foreground/85 leading-relaxed mb-2.5 sm:mb-3">
+      <p className="text-sm text-white/70 leading-relaxed font-sans mb-8 italic">
         "{testimonial.content}"
       </p>
 
-      {/* Rating */}
-      <div className="flex gap-0.5">
-        {Array.from({ length: testimonial.rating }).map((_, i) => (
-          <Star key={i} className="h-3 w-3 sm:h-3.5 sm:w-3.5 fill-warning text-warning" />
-        ))}
+      {/* User Info */}
+      <div className="flex items-center gap-3 pt-6 border-t border-white/5">
+        <div className="relative">
+          {testimonial.avatarImage ? (
+            <img
+              src={testimonial.avatarImage}
+              alt={testimonial.name}
+              className={`w-10 h-10 rounded-sm object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all`}
+            />
+          ) : (
+            <div className="w-10 h-10 rounded-sm bg-primary/10 border border-primary/20 flex items-center justify-center text-xs font-mono text-primary">
+              {testimonial.avatar}
+            </div>
+          )}
+        </div>
+        <div className="min-w-0">
+          <p className="text-sm font-display font-bold text-white tracking-tight uppercase">{testimonial.name}</p>
+          <div className="flex items-center gap-2">
+             <p className={`text-[10px] font-mono ${styles.handle}`}>{testimonial.handle}</p>
+             <div className="w-1 h-1 rounded-full bg-white/10" />
+             <p className="text-[10px] font-mono text-muted-foreground/30 uppercase">{testimonial.role}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -218,12 +219,8 @@ function MarqueeRow({ items, reverse = false }: { items: Testimonial[]; reverse?
 
   return (
     <div className="relative overflow-hidden">
-      {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
       <div
-        className={`flex gap-5 marquee-scroll ${reverse ? 'marquee-reverse' : ''}`}
+        className={`flex gap-6 marquee-scroll ${reverse ? 'marquee-reverse' : ''}`}
         style={{ width: 'max-content' }}
       >
         {doubled.map((t, i) => (
@@ -240,43 +237,46 @@ export function TestimonialsSection() {
   const row2 = testimonials.slice(4);
 
   return (
-    <section id="testimonials" className="py-24 md:py-32 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-secondary/20" />
-      <div className="absolute inset-0 grid-pattern opacity-30" />
+    <section id="testimonials" className="py-24 md:py-32 relative bg-[#0a0e14] overflow-hidden">
+      {/* Background Schema */}
+      <div className="absolute inset-0 grid-pattern opacity-10 -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.03)_0%,transparent_70%)] -z-10" />
 
-      <div className="container relative mx-auto px-4">
-        {/* Header */}
-        <ScrollAnimation type="fade-up" className="max-w-2xl mx-auto text-center mb-12 sm:mb-16">
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-success bg-success/10 border border-success/20 mb-4">
-            Testimonials
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4 text-foreground">
-            Loved by Builders Worldwide
+      <div className="container relative mx-auto px-6">
+        {/* Cinematic Header */}
+        <ScrollAnimation type="fade-up" className="max-w-4xl mx-auto text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-mono tracking-[0.2em] text-primary uppercase mb-6">
+            SIGNAL_FEEDBACK_STREAM v1.0
+          </div>
+          <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tighter text-white mb-8">
+            Engineered for <span className="text-primary italic">Performance</span>.
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Join thousands of developers and founders shipping faster with Blueprint AI.
+          <p className="text-lg md:text-xl text-muted-foreground/60 max-w-2xl mx-auto leading-relaxed font-sans">
+            Validated by elite developers and founders integrating autonomous 
+            synthesis across global engineering workflows.
           </p>
         </ScrollAnimation>
 
-        {/* Marquee rows */}
-        <ScrollAnimation type="fade-up" delay={0.2} className="space-y-3 sm:space-y-5">
+        {/* Technical Marquee rows */}
+        <ScrollAnimation type="fade-up" delay={0.2} className="space-y-6">
           <MarqueeRow items={row1} />
           <MarqueeRow items={row2} reverse />
         </ScrollAnimation>
 
-        {/* Stats */}
-        <StaggerContainer staggerDelay={0.1} className="mt-12 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
+        {/* Global Statistics Panel */}
+        <StaggerContainer staggerDelay={0.1} className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto pt-16 border-t border-white/5">
           {[
-            { value: '10k+', label: 'Blueprints Generated' },
-            { value: '98%', label: 'Satisfaction Rate' },
-            { value: '50+', label: 'Countries' },
+            { value: '10K+', label: 'SYS_BLUEPRINTS_SYNTHESIZED' },
+            { value: '98%', label: 'CORE_DEPLOYMENT_SUCCESS' },
+            { value: '50+', label: 'GLOBAL_NODE_REGISTRY' },
           ].map((stat) => (
-            <StaggerItem key={stat.label} className="text-center">
-              <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-gradient mb-1">
+            <StaggerItem key={stat.label} className="text-center group">
+              <p className="text-3xl md:text-5xl font-display font-bold text-white mb-3 tracking-tighter group-hover:text-primary transition-colors">
                 {stat.value}
               </p>
-              <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
+              <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-muted-foreground/40 uppercase group-hover:text-muted-foreground transition-colors">
+                {stat.label}
+              </p>
             </StaggerItem>
           ))}
         </StaggerContainer>

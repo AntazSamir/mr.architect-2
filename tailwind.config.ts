@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         sans: ["Space Grotesk", "system-ui", "sans-serif"],
         display: ["Space Grotesk", "system-ui", "sans-serif"],
+        inter: ["Inter", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
       colors: {

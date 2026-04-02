@@ -141,7 +141,7 @@ Reference this Figma design: [Link].
     ];
 
     return (
-        <div className="min-h-screen flex flex-col bg-background selection:bg-primary/30">
+        <div className="min-h-screen flex flex-col bg-background selection:bg-primary/30 font-inter">
             <Header />
 
             <main className="flex-1">
@@ -172,7 +172,7 @@ Reference this Figma design: [Link].
                             </ScrollAnimation>
                             
                             <ScrollAnimation type="fade-up" delay={100}>
-                                <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6 tracking-tighter leading-tight">
+                                <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tighter leading-tight">
                                     Intelligent <br className="hidden md:block"/>
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-success">
                                         Design Systems
@@ -236,10 +236,10 @@ Reference this Figma design: [Link].
                                                 <div className="absolute -top-10 -right-10 p-8 opacity-10 group-hover:opacity-20 transition-opacity duration-500 transform group-hover:scale-110 group-hover:rotate-12">
                                                     <p.icon className="w-64 h-64 text-primary" />
                                                 </div>
-                                                <Badge className="mb-6 bg-primary/20 text-primary border-primary/30 uppercase tracking-widest text-xs font-mono">
+                                                <Badge className="mb-6 bg-primary/20 text-primary border-primary/30 uppercase tracking-widest text-xs">
                                                     {p.tagline}
                                                 </Badge>
-                                                <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">{p.name} Blueprint</h2>
+                                                <h2 className="text-4xl md:text-5xl font-bold mb-4">{p.name} Blueprint</h2>
                                                 <p className="text-lg text-muted-foreground leading-relaxed relative z-10 max-w-xl">
                                                     {p.description}
                                                 </p>

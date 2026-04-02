@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight, Cpu, Zap, Bot, Code2, Sparkles, Terminal as TerminalIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocale } from '@/contexts/LocaleContext';
 import { useNavigate } from 'react-router-dom';
-import { ScrollAnimation, StaggerContainer, StaggerItem } from '@/components/ui/scroll-animation';
-import { motion } from 'framer-motion';
+import { ScrollAnimation } from '@/components/ui/scroll-animation';
 
 export function HeroSection() {
   const { t } = useLocale();
@@ -25,13 +25,13 @@ export function HeroSection() {
         setTimeout(() => setProgressStep(3), 2500);
         setTimeout(() => setProgressStep(4), 3500);
       }
-    }, 80);
+    }, 100);
 
     return () => clearInterval(intervalId);
   }, []);
 
   return (
-    <section className="relative min-h-screen pt-32 pb-20 overflow-hidden flex items-center bg-[#0a0e14]">
+    <section className="relative min-h-[90vh] pt-32 pb-20 overflow-hidden flex items-center bg-[#0a0e14]">
       {/* Cinematic Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#10141a] to-[#0a0e14] -z-10" />
       <div className="absolute inset-0 grid-pattern opacity-20 -z-10" />
@@ -39,7 +39,7 @@ export function HeroSection() {
       {/* Architectural Wireframe Glows */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
         <div className="absolute top-[10%] left-[5%] w-[40%] h-[1px] bg-primary/20 blur-[1px] rotate-12" />
-        <div className="absolute top-[20%] right-[10%] w-[30%] h-[1px] bg-accent/20 blur-[1px] -rotate-12" />
+        <div className="absolute top-[20%] right-[10%] w-[300px] h-[1px] bg-accent/20 blur-[1px] -rotate-12" />
         <div className="absolute bottom-[15%] left-[20%] w-[50%] h-[1px] bg-success/20 blur-[1px] rotate-3" />
       </div>
 
@@ -48,27 +48,27 @@ export function HeroSection() {
           
           {/* Content Column */}
           <div className="lg:col-span-7 space-y-8 text-left">
-            <ScrollAnimation type="fade-right">
+            <ScrollAnimation type="fade-right" threshold={0.05}>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-mono tracking-[0.2em] text-primary uppercase">
                 <Bot className="h-3 w-3" />
                 AI ARCHITECT ENGINE v2.0
               </div>
             </ScrollAnimation>
 
-            <ScrollAnimation type="fade-right" delay={100}>
+            <ScrollAnimation type="fade-right" delay={0.1} threshold={0.05}>
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tighter leading-[0.9] text-white">
                 Code <span className="text-primary/90">Architecture</span> <br />
                 Synthesized.
               </h1>
             </ScrollAnimation>
 
-            <ScrollAnimation type="fade-right" delay={200}>
+            <ScrollAnimation type="fade-right" delay={0.2} threshold={0.05}>
               <p className="text-lg md:text-xl text-muted-foreground/80 max-w-2xl leading-relaxed font-sans">
                 Stop prompting into a void. Generate comprehensive <span className="text-white font-semibold">Technical Blueprints</span> designed for the world's most powerful AI coding agents.
               </p>
             </ScrollAnimation>
 
-            <ScrollAnimation type="fade-right" delay={300}>
+            <ScrollAnimation type="fade-right" delay={0.3} threshold={0.05}>
               <div className="flex flex-wrap items-center gap-4">
                 <Button
                   variant="hero"
@@ -77,12 +77,12 @@ export function HeroSection() {
                   className="group relative overflow-hidden bg-primary text-black rounded-sm px-8 hover:scale-105 transition-transform"
                 >
                   <Sparkles className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform" />
-                  <span className="relative z-10 font-bold">GENERATE SYSTEM</span>
+                  <span className="relative z-10 font-bold uppercase tracking-wider">GENERATE SYSTEM</span>
                   <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 </Button>
                 
                 <Button 
-                  variant="ghost" 
+                  variant="heroOutline" 
                   size="xl" 
                   onClick={() => navigate('/demos')}
                   className="group border border-white/10 hover:bg-white/5 text-white/70 hover:text-white rounded-sm px-8"
@@ -94,7 +94,7 @@ export function HeroSection() {
             </ScrollAnimation>
 
             {/* Platform Integration Bar */}
-            <ScrollAnimation type="fade-up" delay={400} className="pt-8">
+            <ScrollAnimation type="fade-up" delay={0.4} threshold={0.05} className="pt-8">
               <div className="flex flex-col gap-4">
                 <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground/50">Native Synthesis For</span>
                 <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
@@ -113,11 +113,11 @@ export function HeroSection() {
 
           {/* Visual/Terminal Column */}
           <div className="lg:col-span-5 relative">
-            <ScrollAnimation type="scale" delay={500}>
+            <ScrollAnimation type="scale" delay={0.5} threshold={0.05}>
               <div className="relative">
                 {/* The Video Perspective Container */}
                 <div className="relative rounded-lg overflow-hidden border border-white/10 bg-[#09090b] shadow-[0_0_100px_-20px_rgba(0,255,255,0.2)]">
-                  {/* Terminal Chrome */}
+                  {/* Terminal Header */}
                   <div className="flex items-center justify-between px-4 py-3 bg-secondary/20 border-b border-white/5">
                     <div className="flex gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
@@ -128,18 +128,21 @@ export function HeroSection() {
                     <TerminalIcon className="h-3 w-3 text-primary/50" />
                   </div>
 
-                  {/* Video Background Layer */}
-                  <div className="relative h-[400px] w-full overflow-hidden grayscale contrast-125 opacity-30">
+                  {/* Video Background Layer with Fallback */}
+                  <div className="relative h-[400px] w-full overflow-hidden bg-[#09090b]">
+                    {/* Fallback Static Grid if video fails */}
+                    <div className="absolute inset-0 grid-pattern opacity-10 animate-pulse-slow" />
+                    
                     <video 
                       autoPlay 
                       muted 
                       loop 
                       playsInline
-                      className="absolute inset-0 w-full h-full object-cover scale-110"
+                      className="absolute inset-0 w-full h-full object-cover scale-110 grayscale contrast-125 opacity-30 mix-blend-screen"
                     >
                       <source src="/Blueprint_Hero_Load.mp4" type="video/mp4" />
                     </video>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-80" />
                   </div>
 
                   {/* Terminal Overlay Content */}
@@ -181,7 +184,7 @@ export function HeroSection() {
                       <motion.div 
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: progressStep >= 4 ? 1 : 0, y: progressStep >= 4 ? 0 : 10 }}
-                        className="grid grid-cols-2 gap-4 p-4 rounded-md border border-white/5 bg-white/5 backdrop-blur-md"
+                        className="grid grid-cols-2 gap-4 p-4 rounded-md border border-white/5 bg-[#0a0e14]/60 backdrop-blur-md"
                       >
                          <div className="space-y-1">
                             <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Pages</div>
@@ -202,7 +205,6 @@ export function HeroSection() {
               </div>
             </ScrollAnimation>
           </div>
-
         </div>
       </div>
     </section>

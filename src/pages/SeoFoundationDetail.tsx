@@ -434,7 +434,7 @@ export default function SeoFoundationDetail() {
     ];
 
     return (
-        <div className="min-h-screen bg-background selection:bg-success/30 flex flex-col">
+        <div className="min-h-screen bg-background selection:bg-success/30 flex flex-col font-inter">
             <Header />
             
             <main className="flex-1 pt-24 pb-16">

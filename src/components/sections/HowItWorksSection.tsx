@@ -42,6 +42,8 @@ const variantStyles: Record<ColorVariant, {
   hoverShadow: string;
   hoverBg: string;
   iconBg: string;
+  groupHoverText: string;
+  groupHoverBorder: string;
 }> = {
   primary: {
     text: 'text-primary',
@@ -50,7 +52,9 @@ const variantStyles: Record<ColorVariant, {
     hoverBorder: 'hover:border-primary/50',
     hoverShadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.3)]',
     hoverBg: 'hover:bg-primary/5',
-    iconBg: 'bg-primary/10'
+    iconBg: 'bg-primary/10',
+    groupHoverText: 'group-hover:text-primary',
+    groupHoverBorder: 'group-hover:border-primary/30'
   },
   accent: {
     text: 'text-accent',
@@ -59,7 +63,9 @@ const variantStyles: Record<ColorVariant, {
     hoverBorder: 'hover:border-accent/50',
     hoverShadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--accent)/0.3)]',
     hoverBg: 'hover:bg-accent/5',
-    iconBg: 'bg-accent/10'
+    iconBg: 'bg-accent/10',
+    groupHoverText: 'group-hover:text-accent',
+    groupHoverBorder: 'group-hover:border-accent/30'
   },
   success: {
     text: 'text-success',
@@ -68,7 +74,9 @@ const variantStyles: Record<ColorVariant, {
     hoverBorder: 'hover:border-success/50',
     hoverShadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--success)/0.3)]',
     hoverBg: 'hover:bg-success/5',
-    iconBg: 'bg-success/10'
+    iconBg: 'bg-success/10',
+    groupHoverText: 'group-hover:text-success',
+    groupHoverBorder: 'group-hover:border-success/30'
   },
   warning: {
     text: 'text-warning',
@@ -77,120 +85,122 @@ const variantStyles: Record<ColorVariant, {
     hoverBorder: 'hover:border-warning/50',
     hoverShadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--warning)/0.3)]',
     hoverBg: 'hover:bg-warning/5',
-    iconBg: 'bg-warning/10'
+    iconBg: 'bg-warning/10',
+    groupHoverText: 'group-hover:text-warning',
+    groupHoverBorder: 'group-hover:border-warning/30'
   }
 };
 export function HowItWorksSection() {
-  const {
-    locale
-  } = useLocale();
-  return <section id="how-it-works" className="py-24 md:py-32 relative">
-    <div className="absolute inset-0 grid-pattern opacity-30" />
+  const { locale } = useLocale();
 
-    <div className="container relative mx-auto px-4">
-      {/* Header */}
-      <ScrollAnimation type="fade-up" className="max-w-2xl mx-auto text-center mb-16">
-        <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-accent bg-accent/10 border border-accent/20 mb-4">
-          How It Works
-        </span>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4 text-foreground">
-          From Idea to Blueprint in Minutes
-        </h2>
-        <p className="text-lg text-muted-foreground">
-          Four simple steps to generate production-ready website specifications.
-        </p>
-      </ScrollAnimation>
+  return (
+    <section id="how-it-works" className="py-24 md:py-32 relative bg-[#0a0e14] overflow-hidden">
+      {/* Blueprint Grid Background */}
+      <div className="absolute inset-0 grid-pattern opacity-[0.15] -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent -z-10" />
 
-      {/* Animated Connector Line (Tablet & Desktop) */}
-      <div className="hidden md:block absolute top-[60%] left-1/2 -translate-x-1/2 w-full max-w-5xl h-px pointer-events-none z-0">
-        <svg width="100%" height="100" viewBox="0 0 1000 100" fill="none" className="overflow-visible">
-          <motion.path
-            d="M0,50 Q250,0 500,50 T1000,50"
-            stroke="url(#gradient-line)"
-            strokeWidth="2"
-            strokeDasharray="10,10"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 0.3 }}
-            viewport={{ once: true }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-          />
-          <defs>
-            <linearGradient id="gradient-line" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="hsl(var(--primary))" />
-              <stop offset="50%" stopColor="hsl(var(--accent))" />
-              <stop offset="100%" stopColor="hsl(var(--success))" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+      <div className="container relative mx-auto px-6">
+        {/* Technical Header */}
+        <ScrollAnimation type="fade-up" className="max-w-3xl mx-auto text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-[10px] font-mono tracking-widest text-accent uppercase mb-6">
+            <Cpu className="h-3 w-3" /> SYSTEM_WORKFLOW_v1.0
+          </div>
+          <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tighter text-white mb-6">
+            Architectural <span className="text-primary italic">Synthesis</span>
+          </h2>
+          <p className="text-lg text-muted-foreground/70 max-w-2xl mx-auto leading-relaxed">
+            The protocol for transforming abstract concepts into production-grade 
+            technical blueprints for AI autonomous builders.
+          </p>
+        </ScrollAnimation>
 
-      {/* Steps */}
-      <div className="max-w-5xl mx-auto relative z-10">
-        <StaggerContainer staggerDelay={0.15} className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-          {steps.map((step, index) => {
-            const Icon = step.icon;
-            const styles = variantStyles[step.variant];
-            // First and last items span full width on mobile for bento effect
-            const isWide = index === 0 || index === 3;
-            return <StaggerItem key={step.number} className={`relative group ${isWide ? 'col-span-2 sm:col-span-1' : ''}`}>
-              <div className={`relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card border transition-all duration-500 h-full overflow-hidden ${styles.border} ${styles.hoverBorder} ${styles.hoverShadow} ${styles.hoverBg}`}>
+        {/* Steps Grid */}
+        <div className="max-w-6xl mx-auto">
+          <StaggerContainer staggerDelay={0.1}>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {steps.map((step, index) => {
+                const Icon = step.icon;
+                const styles = variantStyles[step.variant];
+                
+                return (
+                  <StaggerItem key={step.number}>
+                    <div className="group relative h-full">
+                      {/* Card Container */}
+                      <div className={`relative h-full p-8 rounded-sm bg-[#0d1117] border border-white/5 ${styles.hoverBorder} transition-all duration-500 overflow-hidden shadow-2xl`}>
+                        
+                        {/* Blueprint Number Background */}
+                        <div className="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-700 pointer-events-none select-none">
+                          <span className="text-9xl font-display font-bold tracking-tighter text-white">
+                            {step.number}
+                          </span>
+                        </div>
 
-                {/* Background Fluid Illustration/Number */}
-                <div className="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none select-none">
-                  <span className="text-8xl sm:text-9xl font-display font-bold leading-none tracking-tighter">
-                    {step.number}
-                  </span>
+                        {/* Technical Step Number */}
+                        <div className="flex items-center justify-between mb-8">
+                          <div className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${styles.border} ${styles.text} bg-white/5`}>
+                            STEP_{step.number}
+                          </div>
+                          <Icon className={`h-5 w-5 ${styles.text} opacity-50 group-hover:opacity-100 transition-opacity`} />
+                        </div>
+
+                        {/* Content */}
+                        <h3 className={`text-xl font-display font-bold text-white mb-4 tracking-tight ${styles.groupHoverText} transition-colors`}>
+                          {step.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground/60 leading-relaxed font-sans mb-12">
+                          {step.description}
+                        </p>
+
+                        {/* Decorative Line */}
+                        <div className="absolute bottom-0 left-0 w-full h-[2px] overflow-hidden">
+                          <div className={`w-0 group-hover:w-full h-full ${styles.bg.replace('/10', '/50')} transition-all duration-700 ease-in-out`} />
+                        </div>
+
+                        {/* Corner Accents */}
+                        <div className={`absolute top-0 right-0 w-8 h-8 border-t border-r border-white/0 ${styles.groupHoverBorder} transition-all duration-500`} />
+                        <div className={`absolute bottom-0 left-0 w-8 h-8 border-b border-l border-white/0 ${styles.groupHoverBorder} transition-all duration-500`} />
+                      </div>
+                    </div>
+                  </StaggerItem>
+                );
+              })}
+            </div>
+          </StaggerContainer>
+        </div>
+
+        {/* Bottom Technical Logs Panel */}
+        <ScrollAnimation type="fade-up" delay={0.4} className="mt-24 max-w-4xl mx-auto">
+          <div className="relative rounded-lg overflow-hidden border border-white/10 bg-[#09090b] shadow-2xl">
+            {/* Window Header */}
+            <div className="flex items-center justify-between px-4 py-2 bg-secondary/20 border-b border-white/5">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+              </div>
+              <div className="text-[10px] font-mono text-muted-foreground/40 uppercase tracking-widest">SYSTEM_OUTPUT::Lovable_v1.2</div>
+              <div className="w-8" />
+            </div>
+
+            {/* Code Body */}
+            <div className="p-6 font-mono text-sm">
+              <div className="flex gap-4">
+                <div className="text-muted-foreground/20 text-right select-none w-4">
+                  {['01', '02', '03', '04', '05', '06'].map(n => <div key={n}>{n}</div>)}
                 </div>
-
-                {/* Animated Glow Disk */}
-                <div className={`absolute -top-12 -left-12 w-24 h-24 rounded-full blur-[40px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none ${styles.bg}`} />
-
-                {/* Icon Container with subtle float */}
-                <motion.div
-                  whileHover={{ y: -5, scale: 1.05 }}
-                  className={`mb-3 sm:mb-4 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl border shadow-sm transition-colors ${styles.iconBg} ${styles.border} ${styles.text}`}
-                >
-                  <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                </motion.div>
-
-                {/* Content */}
-                <h3 className="font-display text-sm sm:text-lg font-semibold mb-1 sm:mb-2 text-foreground group-hover:text-primary transition-colors">
-                  {step.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed group-hover:text-muted-foreground/80 transition-colors">
-                  {step.description}
-                </p>
-
-                {/* Active Corner Sparkle */}
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <Sparkles className={`w-3 h-3 ${styles.text} animate-pulse`} />
+                <div className="text-white/60 space-y-1">
+                  <div className="text-primary/70">CREATE SYSTEM INTERFACE</div>
+                  <div>- Architecture: Fully Decoupled SaaS</div>
+                  <div>- Design System: BluePrint Noir v2</div>
+                  <div>- Components: 34 Pre-configured Atomic units</div>
+                  <div>- Prompt Status: Synthesized for [Cursor/Bolt/Lovable]</div>
+                  <div className="animate-pulse">_</div>
                 </div>
               </div>
-            </StaggerItem>;
-          })}
-        </StaggerContainer>
-      </div>
-
-      {/* Bottom Prompt Preview */}
-      <ScrollAnimation type="fade-up" delay={0.3} className="mt-16 max-w-3xl mx-auto">
-        <div className="rounded-2xl glass-card-strong p-6 border border-primary/20">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-            <span className="text-xs font-mono text-muted-foreground">Sample output for Lovable</span>
+            </div>
           </div>
-          <pre className="text-sm text-foreground/80 font-mono overflow-x-auto">
-            <code>{`Create an e-commerce website with:
-- Homepage with hero, featured products, testimonials
-- Product catalog with filters and search
-- Product detail pages with gallery and reviews
-- Shopping cart with real-time updates
-- Checkout flow with Stripe integration
-
-Tech: React, TypeScript, Tailwind CSS, shadcn/ui
-Design: Modern minimalist, primary #0891b2...`}</code>
-          </pre>
-        </div>
-      </ScrollAnimation>
-    </div>
-  </section>;
-}
+        </ScrollAnimation>
+      </div>
+    </section>
+  );
+}

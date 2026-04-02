@@ -35,53 +35,56 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section className="py-20 md:py-32 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="faq" className="py-24 md:py-32 relative bg-[#0a0e14] overflow-hidden">
+      {/* Blueprint Grid Background */}
+      <div className="absolute inset-0 grid-pattern opacity-10 -z-10" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.05)_0%,transparent_70%)] -z-10" />
+
+      <div className="container relative mx-auto px-6">
+        {/* Cinematic Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-20 md:mb-24"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            FAQ
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Frequently Asked{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Questions
-            </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-mono tracking-[0.2em] text-primary uppercase mb-6">
+            KNOWLEDGE_BASE v2.0
+          </div>
+          <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tighter text-white mb-8">
+            Expert <span className="text-primary italic">Inquiry</span>.
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to know about Mr. Architect and how it can help you build better applications.
+          <p className="text-lg text-muted-foreground/60 max-w-2xl mx-auto leading-relaxed">
+            Technical clarification for the Mr. Architect synthesis protocol and 
+            deployment workflows.
           </p>
         </motion.div>
 
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+        {/* Technical FAQ Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
           {/* Left Column */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="glass-card rounded-2xl p-6 border border-border/50"
+            className="space-y-6"
           >
-            <Accordion type="single" collapsible className="space-y-2">
+            <Accordion type="single" collapsible className="space-y-4">
               {faqs.slice(0, 3).map((faq, index) => (
-                <AccordionItem 
-                  key={index} 
+                <AccordionItem
+                  key={index}
                   value={`item-${index}`}
-                  className="border-border/50 data-[state=open]:border-primary/30"
+                  className="bg-[#0d1117] border border-white/5 px-6 rounded-sm data-[state=open]:border-primary/30 transition-all duration-300"
                 >
-                  <AccordionTrigger className="text-left text-sm md:text-base font-medium hover:text-primary transition-colors py-4">
-                    {faq.question}
+                  <AccordionTrigger className="text-left text-base md:text-lg font-display font-bold text-white/80 hover:text-primary transition-colors py-6 uppercase tracking-tight">
+                    <div className="flex items-center gap-4">
+                      <span className="text-[10px] font-mono text-muted-foreground/30">NODE_QUERY::0{index + 1}</span>
+                      {faq.question}
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-4">
+                  <AccordionContent className="text-muted-foreground/60 text-sm leading-relaxed pb-8 font-sans border-t border-white/5 pt-6">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -95,19 +98,22 @@ const FAQSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="glass-card rounded-2xl p-6 border border-border/50"
+            className="space-y-6"
           >
-            <Accordion type="single" collapsible className="space-y-2">
+            <Accordion type="single" collapsible className="space-y-4">
               {faqs.slice(3, 6).map((faq, index) => (
-                <AccordionItem 
-                  key={index + 3} 
+                <AccordionItem
+                  key={index + 3}
                   value={`item-${index + 3}`}
-                  className="border-border/50 data-[state=open]:border-primary/30"
+                  className="bg-[#0d1117] border border-white/5 px-6 rounded-sm data-[state=open]:border-primary/30 transition-all duration-300"
                 >
-                  <AccordionTrigger className="text-left text-sm md:text-base font-medium hover:text-primary transition-colors py-4">
-                    {faq.question}
+                  <AccordionTrigger className="text-left text-base md:text-lg font-display font-bold text-white/80 hover:text-primary transition-colors py-6 uppercase tracking-tight">
+                    <div className="flex items-center gap-4">
+                      <span className="text-[10px] font-mono text-muted-foreground/30">NODE_QUERY::0{index + 4}</span>
+                      {faq.question}
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-4">
+                  <AccordionContent className="text-muted-foreground/60 text-sm leading-relaxed pb-8 font-sans border-t border-white/5 pt-6">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -122,12 +128,12 @@ const FAQSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-center mt-12"
+          className="text-center mt-24 border-t border-white/5 pt-12"
         >
-          <p className="text-muted-foreground">
-            Still have questions?{" "}
-            <a href="mailto:support@mrarchitect.ai" className="text-primary hover:text-accent transition-colors font-medium">
-              Contact our support team
+          <p className="text-sm font-mono text-muted-foreground/40 uppercase tracking-[0.2em]">
+            Protocol unresolved?{" "}
+            <a href="mailto:support@mrarchitect.ai" className="text-primary hover:text-white transition-all underline decoration-primary/20 hover:decoration-white">
+              INITIALIZE_SUPPORT_LINK
             </a>
           </p>
         </motion.div>

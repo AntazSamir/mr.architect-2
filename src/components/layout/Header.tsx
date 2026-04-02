@@ -12,59 +12,71 @@ export function Header() {
   const navigate = useNavigate();
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-6 pt-4 pointer-events-none">
+    <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-6 pointer-events-none">
       <header
         className={cn(
-          'pointer-events-auto w-full max-w-4xl',
-          'rounded-2xl border border-border/40 shadow-2xl shadow-black/30',
-          'bg-background/70 supports-[backdrop-filter]:bg-background/60 backdrop-blur-2xl',
-          'transition-all duration-300'
+          'pointer-events-auto w-full max-w-5xl transition-all duration-500',
+          'rounded-sm border border-white/5 shadow-2xl shadow-black/50',
+          'bg-[#0d1117]/80 backdrop-blur-xl group'
         )}
       >
-        <nav className="flex h-14 items-center justify-between px-4 gap-4">
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-2 group flex-shrink-0">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 border border-primary/30 group-hover:shadow-glow-cyan transition-all duration-300">
-              <Bot className="h-4 w-4 text-primary" />
+        <nav className="flex h-16 items-center justify-between px-6 gap-8">
+          {/* Technical Brand Node */}
+          <a href="/" className="flex items-center gap-3 flex-shrink-0">
+            <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-primary/10 border border-primary/20 group-hover:border-primary transition-all duration-300">
+              <Bot className="h-5 w-5 text-primary" />
             </div>
-            <span className="font-display text-lg font-bold text-foreground">
-              Mr.<span className="text-primary">Architect</span>
-            </span>
+            <div className="flex flex-col">
+              <span className="font-display text-lg font-bold text-white tracking-widest uppercase italic leading-none">Mr.Architect</span>
+              <span className="text-[7px] font-mono text-muted-foreground/30 tracking-[0.4em] uppercase mt-1">SYS_ACTIVE</span>
+            </div>
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
-            <a href="#features" className="px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-200">
-              {t.nav.features}
-            </a>
-            <button
-              onClick={() => navigate('/demos')}
-              className="px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-200 cursor-pointer"
-            >
-              Blueprints
-            </button>
-            <a href="#how-it-works" className="px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-200">
-              {t.nav.howItWorks}
-            </a>
+          {/* Desktop Navigation Node */}
+          <div className="hidden md:flex items-center gap-2">
+            {[
+              { label: 'Protocols', href: '/#features' },
+              { label: 'Blueprints', onClick: () => navigate('/demos') },
+              { label: 'Workflow', href: '/#how-it-works' },
+              { label: 'Docs', onClick: () => navigate('/docs') },
+              { label: 'FAQ', href: '/#faq' }
+            ].map((item) => (
+              item.href ? (
+                <a 
+                  key={item.label}
+                  href={item.href} 
+                  className="px-4 py-2 text-[10px] font-mono font-bold text-muted-foreground/60 hover:text-primary transition-all uppercase tracking-[0.2em]"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <button
+                  key={item.label}
+                  onClick={item.onClick}
+                  className="px-4 py-2 text-[10px] font-mono font-bold text-muted-foreground/60 hover:text-primary transition-all uppercase tracking-[0.2em] cursor-pointer"
+                >
+                  {item.label}
+                </button>
+              )
+            ))}
           </div>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+          {/* Desktop Action Registry */}
+          <div className="hidden md:flex items-center gap-4 flex-shrink-0">
             <LanguageSelector />
             <Button
               variant="hero"
               size="sm"
               onClick={() => navigate('/create')}
-              className="rounded-xl"
+              className="bg-primary text-black font-bold text-[10px] font-mono uppercase tracking-[0.2em] px-6 rounded-none hover:bg-primary/90 transition-all"
             >
-              <Sparkles className="h-3.5 w-3.5 mr-1.5" />
-              Generate Blueprint
+              INITIALIZE_SYNTHESIS
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Terminal Trigger */}
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
+            className="md:hidden p-2 text-muted-foreground hover:text-primary transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
@@ -75,33 +87,48 @@ export function Header() {
           </button>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Terminal Overlay */}
         <div
           className={cn(
-            "md:hidden border-t border-border/30 transition-all duration-300 overflow-hidden",
-            mobileMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+            "md:hidden transition-all duration-500 overflow-hidden bg-[#0d1117] border-t border-white/5",
+            mobileMenuOpen ? "max-h-[500px] opacity-100 py-6" : "max-h-0 opacity-0"
           )}
         >
-          <div className="px-4 py-4 space-y-1">
-            <a href="#features" className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
-              {t.nav.features}
-            </a>
-            <a onClick={() => navigate('/demos')} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-colors cursor-pointer">
-              Blueprints
-            </a>
-            <a href="#how-it-works" className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
-              {t.nav.howItWorks}
-            </a>
-            <div className="flex flex-col sm:flex-row items-center gap-3 pt-3 mt-2 border-t border-border/30">
+          <div className="px-6 space-y-2">
+            {[
+              { label: 'Protocols', href: '/#features' },
+              { label: 'Blueprints', onClick: () => navigate('/demos') },
+              { label: 'Workflow', href: '/#how-it-works' },
+              { label: 'Docs', onClick: () => navigate('/docs') },
+              { label: 'FAQ', href: '/#faq' }
+            ].map((item) => (
+              item.href ? (
+                <a 
+                  key={item.label}
+                  href={item.href} 
+                  className="block px-4 py-3 text-xs font-mono font-bold text-muted-foreground/60 hover:text-primary bg-white/5 rounded-sm transition-all uppercase tracking-[0.2em]"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <button
+                  key={item.label}
+                  onClick={item.onClick}
+                  className="w-full text-left block px-4 py-3 text-xs font-mono font-bold text-muted-foreground/60 hover:text-primary bg-white/5 rounded-sm transition-all uppercase tracking-[0.2em] cursor-pointer"
+                >
+                  {item.label}
+                </button>
+              )
+            ))}
+            <div className="flex flex-col gap-4 pt-6 border-t border-white/5 mt-4">
               <LanguageSelector />
               <Button
                 variant="hero"
-                size="sm"
-                className="w-full rounded-xl"
+                size="lg"
+                className="w-full bg-primary text-black font-bold text-[10px] font-mono uppercase tracking-[0.3em] rounded-none"
                 onClick={() => navigate('/create')}
               >
-                <Sparkles className="h-3.5 w-3.5 mr-1.5" />
-                Generate Blueprint
+                INITIALIZE_SYNTHESIS
               </Button>
             </div>
           </div>

@@ -23,80 +23,97 @@ export const DemoBlueprintCard = ({ blueprint }: DemoBlueprintCardProps) => {
     };
 
     return (
-        <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm h-full flex flex-col">
-            <div className="relative h-32 sm:h-48 overflow-hidden bg-gradient-to-br from-primary/10 via-accent/5 to-background">
+        <Card className="group relative overflow-hidden bg-transparent border-white/5 rounded-sm h-full flex flex-col transition-all duration-500 hover:border-primary/30">
+            {/* Asset ID Decor */}
+            <div className="absolute top-4 left-4 z-20 flex items-center gap-2 group-hover:opacity-0 transition-opacity">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <span className="text-[8px] font-mono text-muted-foreground/40 tracking-widest uppercase">NODE::SYNTH_{blueprint.id}</span>
+            </div>
+
+            <div className="relative h-56 overflow-hidden bg-[#090e14] border-b border-white/5">
                 {blueprint.featured && (
-                    <Badge className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 bg-gradient-to-r from-amber-500 to-orange-500 border-0 text-[10px] sm:text-xs px-1.5 py-0.5 sm:px-2.5 sm:py-0.5">
-                        <Sparkles className="w-3 h-3 mr-1" />
-                        Featured
+                    <Badge className="absolute top-4 right-4 z-30 bg-primary/10 border border-primary/30 text-primary text-[8px] font-mono tracking-widest px-2 py-0.5 rounded-none uppercase backdrop-blur-md">
+                        FEATURED_ASSET
                     </Badge>
                 )}
 
-                {/* Placeholder for thumbnail - will be animated gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-secondary/20 
-                      group-hover:scale-110 transition-transform duration-700" />
+                {/* Perspective Grid Background */}
+                <div className="absolute inset-0 opacity-20 group-hover:opacity-10 transition-opacity z-10 pointer-events-none">
+                    <div className="absolute inset-0 grid-pattern scale-[2] rotate-12 origin-center" />
+                </div>
 
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-4xl sm:text-6xl font-bold text-primary/10 group-hover:text-primary/20 transition-colors">
-                        {blueprint.websiteType.charAt(0)}
+                {/* Asset Image Node */}
+                <div className="absolute inset-0 z-0">
+                  <img 
+                    src={blueprint.thumbnail} 
+                    alt={blueprint.projectName}
+                    className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#090e14] via-transparent to-transparent opacity-90" />
+                </div>
+
+                {/* Type Identifier Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                    <div className="text-8xl font-display font-bold text-white/[0.03] group-hover:text-primary/[0.08] transition-all duration-700 select-none">
+                        {blueprint.category.substring(0, 2).toUpperCase()}
                     </div>
                 </div>
 
                 {/* Category Badge */}
-                <Badge variant="secondary" className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 text-[10px] sm:text-xs">
-                    {blueprint.category}
-                </Badge>
+                <div className="absolute bottom-4 left-4 z-30">
+                  <span className="text-[9px] font-mono text-primary/80 tracking-widest uppercase bg-[#0a0e14]/80 backdrop-blur-md border border-primary/20 px-2 py-1">
+                      {blueprint.category}
+                  </span>
+                </div>
             </div>
 
-            <CardHeader className="p-3 sm:p-6">
-                <CardTitle className="text-base sm:text-xl group-hover:text-primary transition-colors line-clamp-1">
+            <CardHeader className="p-6 relative">
+                <CardTitle className="text-xl font-display font-bold text-white group-hover:text-primary transition-colors tracking-tight uppercase">
                     {blueprint.projectName}
                 </CardTitle>
-                <CardDescription className="line-clamp-2 text-xs sm:text-sm">
+                <CardDescription className="text-muted-foreground/50 text-xs leading-relaxed font-sans mt-2 line-clamp-2 italic">
                     {blueprint.description}
                 </CardDescription>
             </CardHeader>
 
-            <CardContent className="flex-1 p-3 pt-0 sm:p-6 sm:pt-0">
-                <div className="space-y-2 text-sm">
-                    <div className="flex items-center text-muted-foreground">
-                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                        <span className="text-[10px] sm:text-xs">Timeline: {blueprint.timeline}</span>
+            <CardContent className="flex-1 p-6 pt-0">
+                <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                        <Calendar className="w-3 h-3 text-primary" />
+                        <span className="text-[10px] font-mono text-muted-foreground/40 tracking-wider uppercase">SYNTH_PERIOD: {blueprint.timeline}</span>
                     </div>
 
-                    <div className="flex flex-wrap gap-1 mt-2 sm:mt-3">
-                        {blueprint.kpis.slice(0, 2).map((kpi, index) => (
-                            <Badge key={index} variant="outline" className="text-[10px] sm:text-xs px-1.5 py-0">
+                    <div className="flex flex-wrap gap-2 pt-2">
+                        {blueprint.kpis.slice(0, 3).map((kpi, index) => (
+                            <span key={index} className="text-[8px] font-mono text-muted-foreground/30 border border-white/5 px-2 py-0.5 uppercase tracking-tighter">
                                 {kpi}
-                            </Badge>
+                            </span>
                         ))}
-                        {blueprint.kpis.length > 2 && (
-                            <Badge variant="outline" className="text-[10px] sm:text-xs px-1.5 py-0">
-                                +{blueprint.kpis.length - 2}
-                            </Badge>
-                        )}
                     </div>
                 </div>
             </CardContent>
 
-            <CardFooter className="flex gap-2 p-3 sm:p-6 pt-0 sm:pt-0">
+            <CardFooter className="flex gap-4 p-6 pt-0">
                 <Button
-                    variant="outline"
+                    variant="ghost"
                     size="sm"
-                    className="flex-1 h-8 text-xs px-2"
+                    className="flex-1 h-10 text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 hover:text-white border border-white/5 hover:bg-white/5 rounded-none"
                     onClick={handleViewDetails}
                 >
-                    View
+                    VIEW_SPEC
                 </Button>
                 <Button
                     size="sm"
-                    className="flex-1 bg-gradient-to-r from-primary to-primary/80 h-8 text-xs px-2 shadow-md hover:shadow-glow hover:-translate-y-0.5 transition-all duration-300"
+                    className="flex-1 bg-primary text-black h-10 text-[10px] font-mono font-bold uppercase tracking-[0.2em] rounded-none hover:bg-primary/90 transition-all group"
                     onClick={handleUseTemplate}
                 >
-                    Use
-                    <ArrowRight className="w-3 h-3 ml-1" />
+                    INITIALIZE
+                    <ArrowRight className="w-3 h-3 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
             </CardFooter>
+            
+            {/* Selection Corner Glow */}
+            <div className="absolute bottom-0 right-0 w-24 h-24 bg-[radial-gradient(circle_at_bottom_right,rgba(0,255,255,0.05)_0%,transparent_70%)] pointer-events-none" />
         </Card>
     );
 };

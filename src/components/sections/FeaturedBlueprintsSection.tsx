@@ -10,28 +10,30 @@ export const FeaturedBlueprintsSection = () => {
     const featuredBlueprints = getFeaturedBlueprints().slice(0, 3);
 
     return (
-        <section className="py-20 bg-gradient-to-b from-background via-accent/5 to-background">
-            <div className="container mx-auto px-4">
-                {/* Section Header */}
-                <ScrollAnimation type="fade-up" className="text-center mb-12">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-4">
-                        <Sparkles className="w-4 h-4 text-primary" />
-                        <span className="text-sm font-medium text-primary">Explore Templates</span>
+        <section id="demos" className="py-24 md:py-32 relative bg-[#0a0e14] overflow-hidden">
+            {/* Background Schema */}
+            <div className="absolute inset-0 grid-pattern opacity-10 -z-10" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.03)_0%,transparent_70%)] -z-10" />
+
+            <div className="container relative mx-auto px-6">
+                {/* Cinematic Header */}
+                <ScrollAnimation type="fade-up" className="text-center mb-20 md:mb-24">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-mono tracking-[0.2em] text-primary uppercase mb-6">
+                        ASSET_REGISTRY v4.0
                     </div>
 
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-clip-text text-transparent 
-                       bg-gradient-to-r from-foreground via-primary to-foreground">
-                        Featured Demo Blueprints
+                    <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tighter text-white mb-8">
+                        Technical <span className="text-primary italic">Templates</span>.
                     </h2>
 
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Get inspired by professionally crafted website blueprints.
-                        Use them as templates or customize them for your unique needs.
+                    <p className="text-lg text-muted-foreground/60 max-w-2xl mx-auto leading-relaxed">
+                        Pre-architected system nodes for rapid deployment across high-frequency 
+                        digital infrastructure industries.
                     </p>
                 </ScrollAnimation>
 
                 {/* Blueprints Grid */}
-                <StaggerContainer staggerDelay={0.15} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <StaggerContainer staggerDelay={0.15} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
                     {featuredBlueprints.map(blueprint => (
                         <StaggerItem key={blueprint.id}>
                             <DemoBlueprintCard blueprint={blueprint} />
@@ -40,15 +42,15 @@ export const FeaturedBlueprintsSection = () => {
                 </StaggerContainer>
 
                 {/* View All Button */}
-                <ScrollAnimation type="fade-up" delay={0.3} className="text-center">
+                <ScrollAnimation type="fade-up" delay={0.3} className="text-center border-t border-white/5 pt-16">
                     <Button
-                        size="lg"
-                        variant="outline"
+                        size="xl"
+                        variant="ghost"
                         onClick={() => navigate('/demos')}
-                        className="group"
+                        className="group text-white/40 hover:text-primary transition-all font-mono text-xs tracking-[0.3em]"
                     >
-                        View All Demo Blueprints
-                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                        ACCESS_FULL_REGISTRY
+                        <ArrowRight className="w-4 h-4 ml-3 group-hover:translate-x-2 transition-transform" />
                     </Button>
                 </ScrollAnimation>
             </div>

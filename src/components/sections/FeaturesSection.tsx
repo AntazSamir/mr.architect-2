@@ -24,35 +24,39 @@ interface FeatureCardProps {
   isLarge?: boolean;
 }
 
-const variantStyles: Record<ColorVariant, { icon: string; border: string; shadow: string; iconGlow: string; bg: string }> = {
+const variantStyles: Record<ColorVariant, { icon: string; border: string; glow: string; text: string; hoverText: string; glowLine: string }> = {
   primary: {
-    icon: 'bg-primary/20 text-primary',
-    border: 'hover:border-primary/50',
-    shadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.3)]',
-    iconGlow: 'group-hover:shadow-[0_0_20px_hsl(var(--primary)/0.5)]',
-    bg: 'hover:bg-primary/5',
+    icon: 'text-primary bg-primary/10',
+    border: 'group-hover:border-primary/50',
+    glow: 'group-hover:shadow-[0_0_20px_-5px_hsl(var(--primary)/0.4)]',
+    text: 'text-primary',
+    hoverText: 'group-hover:text-primary',
+    glowLine: 'group-hover:via-primary/50'
   },
   accent: {
-    icon: 'bg-accent/20 text-accent',
-    border: 'hover:border-accent/50',
-    shadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--accent)/0.3)]',
-    iconGlow: 'group-hover:shadow-[0_0_20px_hsl(var(--accent)/0.5)]',
-    bg: 'hover:bg-accent/5',
+    icon: 'text-accent bg-accent/10',
+    border: 'group-hover:border-accent/50',
+    glow: 'group-hover:shadow-[0_0_20px_-5px_hsl(var(--accent)/0.4)]',
+    text: 'text-accent',
+    hoverText: 'group-hover:text-accent',
+    glowLine: 'group-hover:via-accent/50'
   },
   success: {
-    icon: 'bg-success/20 text-success',
-    border: 'hover:border-success/50',
-    shadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--success)/0.3)]',
-    iconGlow: 'group-hover:shadow-[0_0_20px_hsl(var(--success)/0.5)]',
-    bg: 'hover:bg-success/5',
+    icon: 'text-success bg-success/10',
+    border: 'group-hover:border-success/50',
+    glow: 'group-hover:shadow-[0_0_20px_-5px_hsl(var(--success)/0.4)]',
+    text: 'text-success',
+    hoverText: 'group-hover:text-success',
+    glowLine: 'group-hover:via-success/50'
   },
   warning: {
-    icon: 'bg-warning/20 text-warning',
-    border: 'hover:border-warning/50',
-    shadow: 'hover:shadow-[0_0_30px_-5px_hsl(var(--warning)/0.3)]',
-    iconGlow: 'group-hover:shadow-[0_0_20px_hsl(var(--warning)/0.5)]',
-    bg: 'hover:bg-warning/5',
-  },
+    icon: 'text-warning bg-warning/10',
+    border: 'group-hover:border-warning/50',
+    glow: 'group-hover:shadow-[0_0_20px_-5px_hsl(var(--warning)/0.4)]',
+    text: 'text-warning',
+    hoverText: 'group-hover:text-warning',
+    glowLine: 'group-hover:via-warning/50'
+  }
 };
 
 function FeatureCard({ icon: Icon, title, description, index, variant, onClick, isLarge }: FeatureCardProps) {
@@ -61,23 +65,38 @@ function FeatureCard({ icon: Icon, title, description, index, variant, onClick, 
   return (
     <StaggerItem
       onClick={onClick}
-      className={`group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl glass-card transition-all duration-500 ${styles.border} ${styles.shadow} ${styles.bg} ${isLarge ? 'col-span-2 sm:col-span-1' : ''} ${onClick ? 'cursor-pointer hover:scale-[1.02]' : ''}`}
+      className={`group relative h-full bg-[#0d1117] border border-white/5 p-8 rounded-sm hover:bg-[#121820] transition-all duration-500 overflow-hidden ${styles.border} ${styles.glow} ${onClick ? 'cursor-pointer' : ''}`}
     >
-      {/* Icon */}
-      <div className={`mb-3 sm:mb-4 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl transition-all duration-300 ${styles.icon} ${styles.iconGlow}`}>
-        <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+      {/* Decorative Node ID */}
+      <div className="absolute top-4 right-4 font-mono text-[8px] text-muted-foreground/30 select-none">
+        NODE_0{index + 1}
       </div>
 
-      {/* Content */}
-      <h3 className="font-display text-sm sm:text-lg font-semibold mb-1 sm:mb-2 text-foreground">{title}</h3>
-      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4">{description}</p>
-      
+      {/* Icon Area */}
+      <div className={`mb-8 inline-flex items-center justify-center w-12 h-12 rounded-sm border border-white/5 transition-all duration-500 ${styles.icon}`}>
+        <Icon className="h-6 w-6" />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative space-y-4">
+        <h3 className={`text-xl font-display font-bold text-white tracking-tight ${styles.hoverText} transition-colors`}>
+          {title.toUpperCase()}
+        </h3>
+        <p className="text-sm text-muted-foreground/60 leading-relaxed font-sans min-h-[60px]">
+          {description}
+        </p>
+      </div>
+
+      {/* Interactive Footer */}
       {onClick && (
-        <div className="flex items-center text-xs font-mono text-primary group-hover:translate-x-1 transition-transform">
-          EXPLORE DEEPER
-          <ArrowRight className="w-3 h-3 ml-2" />
+        <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
+          <span className={`text-[10px] font-mono font-bold tracking-widest ${styles.text}`}>DEPLOY_PROTOCOL</span>
+          <ArrowRight className={`h-4 w-4 ${styles.text} group-hover:translate-x-1 transition-transform`} />
         </div>
       )}
+
+      {/* Selection Glow */}
+      <div className={`absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-transparent to-transparent ${styles.glowLine} transition-all duration-700`} />
     </StaggerItem>
   );
 }
@@ -135,27 +154,28 @@ export function FeaturesSection() {
     ];
 
   return (
-    <section id="features" className="py-24 md:py-32 relative">
-      {/* Background */}
-      <div className="absolute inset-0 bg-secondary/20" />
-      <div className="absolute inset-0 grid-pattern opacity-50" />
+    <section id="features" className="py-24 md:py-32 relative bg-[#0a0e14] overflow-hidden">
+      {/* Background Schema */}
+      <div className="absolute inset-0 grid-pattern opacity-10 -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.03)_0%,transparent_70%)] -z-10" />
 
-      <div className="container relative mx-auto px-4">
-        {/* Header */}
-        <ScrollAnimation type="fade-up" className="max-w-2xl mx-auto text-center mb-16">
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-primary bg-primary/10 border border-primary/20 mb-4">
-            Features
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight mb-4 text-foreground">
-            Everything You Need to Build Faster
+      <div className="container relative mx-auto px-6">
+        {/* Cinematic Header */}
+        <ScrollAnimation type="fade-up" className="max-w-4xl mx-auto text-center mb-24">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-mono tracking-[0.2em] text-primary uppercase mb-6">
+            CORE_SYSTEM_CAPABILITIES v2.0
+          </div>
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold tracking-tighter text-white mb-8">
+            Engineered for <span className="text-primary italic">Precision</span>.
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Generate comprehensive blueprints that work seamlessly with modern AI coding assistants.
+          <p className="text-lg md:text-xl text-muted-foreground/70 max-w-2xl mx-auto leading-relaxed">
+            Eliminate architectural uncertainty. Our synthesis engine generates 
+            production-grade primitives for every layer of your application.
           </p>
         </ScrollAnimation>
 
-        {/* Features Grid */}
-        <StaggerContainer staggerDelay={0.1} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 max-w-6xl mx-auto">
+        {/* Technical Node Grid */}
+        <StaggerContainer staggerDelay={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {features.map((feature, index) => (
             <FeatureCard
               key={feature.title}
@@ -164,7 +184,6 @@ export function FeaturesSection() {
               description={feature.description}
               variant={feature.variant}
               index={index}
-              isLarge={index === 0 || index === 3}
               onClick={feature.path ? () => navigate(feature.path) : undefined}
             />
           ))}

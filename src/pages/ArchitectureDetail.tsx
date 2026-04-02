@@ -253,7 +253,7 @@ export default function ArchitectureDetail() {
     ];
 
     return (
-        <div className="min-h-screen border-t-2 border-primary/20 bg-background selection:bg-primary/30 flex flex-col">
+        <div className="min-h-screen border-t-2 border-primary/20 bg-background selection:bg-primary/30 flex flex-col font-inter">
             <Header />
 
             <main className="flex-1 pt-24 pb-16">
@@ -274,7 +274,7 @@ export default function ArchitectureDetail() {
                                 <div className="p-3 rounded-xl bg-primary/10 border border-primary/30 shadow-sm">
                                     <Zap className="w-6 h-6 text-primary" />
                                 </div>
-                                <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight">Complete Architecture</h1>
+                                <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Complete Architecture</h1>
                             </div>
                             <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
                                 Our platform doesn't just generate code; it engineers scalable systems.
@@ -298,7 +298,7 @@ export default function ArchitectureDetail() {
                                                         <section.icon className="w-5 h-5 text-foreground" />
                                                     </div>
                                                     <div>
-                                                        <CardTitle className="text-xl font-display">{section.title}</CardTitle>
+                                                        <CardTitle className="text-xl">{section.title}</CardTitle>
                                                         <CardDescription className="mt-1">{section.description}</CardDescription>
                                                     </div>
                                                 </div>
@@ -316,7 +316,7 @@ export default function ArchitectureDetail() {
                         <div className="space-y-6 lg:sticky lg:top-24 max-h-none lg:max-h-[calc(100vh-8rem)] overflow-y-auto hidden-scrollbar pb-8 lg:col-span-1">
                             <Card className="glass-card border-border/50">
                                 <CardHeader className="pb-4 border-b border-border/50 bg-secondary/10">
-                                    <CardTitle className="text-sm font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                                    <CardTitle className="text-sm uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                         <Map className="w-4 h-4 text-primary" /> Blueprint Layout
                                     </CardTitle>
                                 </CardHeader>
@@ -339,7 +339,7 @@ export default function ArchitectureDetail() {
 
                             <Card className="glass-card border-border/50">
                                 <CardHeader className="pb-4 border-b border-border/50 bg-secondary/10">
-                                    <CardTitle className="text-sm font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                                    <CardTitle className="text-sm uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                         <Layers className="w-4 h-4 text-accent" /> Tech Stack Model
                                     </CardTitle>
                                 </CardHeader>
