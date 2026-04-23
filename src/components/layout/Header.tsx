@@ -17,13 +17,13 @@ export function Header() {
         className={cn(
           'pointer-events-auto w-full max-w-5xl transition-all duration-500',
           'rounded-sm border border-white/5 shadow-2xl shadow-black/50',
-          'bg-[#0d1117]/80 backdrop-blur-xl group'
+          'bg-[#0d1117]/80 backdrop-blur-xl'
         )}
       >
         <nav className="flex h-16 items-center justify-between px-6 gap-8">
           {/* Technical Brand Node */}
           <a href="/" className="flex items-center gap-3 flex-shrink-0">
-            <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-primary/10 border border-primary/20 group-hover:border-primary transition-all duration-300">
+            <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-primary/10 border border-primary/20 hover:border-primary transition-all duration-300">
               <Bot className="h-5 w-5 text-primary" />
             </div>
             <div className="flex flex-col">
@@ -68,9 +68,9 @@ export function Header() {
               variant="hero"
               size="sm"
               onClick={() => navigate('/create')}
-              className="bg-primary text-black font-bold text-[10px] font-mono uppercase tracking-[0.2em] px-6 rounded-none hover:bg-primary/90 transition-all"
+              className="bg-primary text-black font-bold text-[10px] font-mono uppercase tracking-[0.2em] px-4 rounded-none hover:bg-primary/90 hover:scale-105 hover:translate-y-0 transition-all duration-300 shadow-none hover:shadow-[0_0_20px_rgba(0,255,255,0.3)]"
             >
-              INITIALIZE_SYNTHESIS
+              GENERATE_SYSTEM
             </Button>
           </div>
 
@@ -125,10 +125,10 @@ export function Header() {
               <Button
                 variant="hero"
                 size="lg"
-                className="w-full bg-primary text-black font-bold text-[10px] font-mono uppercase tracking-[0.3em] rounded-none"
+                className="w-full bg-primary text-black font-bold text-[10px] font-mono uppercase tracking-[0.3em] rounded-none hover:bg-primary/90 hover:scale-[1.02] hover:translate-y-0 transition-all duration-300 shadow-none hover:shadow-[0_0_20px_rgba(0,255,255,0.3)]"
                 onClick={() => navigate('/create')}
               >
-                INITIALIZE_SYNTHESIS
+                GENERATE_SYSTEM
               </Button>
             </div>
           </div>

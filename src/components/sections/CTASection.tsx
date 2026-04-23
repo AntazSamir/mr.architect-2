@@ -28,7 +28,7 @@ export const CTASection = forwardRef<HTMLElement>(function CTASection(_, ref) {
               <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
                 {/* Header Badge */}
                 <div className="inline-flex items-center gap-3 px-3 py-1 rounded-sm bg-primary/10 border border-primary/20 text-[10px] font-mono tracking-[0.3em] text-primary uppercase mb-10">
-                  <Zap className="h-3 w-3 animate-pulse" /> INITIALIZE_SYSTEM_SYNTHESIS
+                  <Zap className="h-3 w-3 animate-pulse" /> GENERATE_SYSTEM
                 </div>
 
                 {/* Massive Headline */}
@@ -53,7 +53,7 @@ export const CTASection = forwardRef<HTMLElement>(function CTASection(_, ref) {
                     className="w-full bg-primary text-black font-bold uppercase tracking-widest rounded-sm hover:scale-[1.02] transition-transform group py-8"
                   >
                     <Sparkles className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform" />
-                    GENERATE_SYSTEM_NOW
+                    GENERATE_SYSTEM
                     <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-2 transition-transform" />
                   </Button>
                 </div>
