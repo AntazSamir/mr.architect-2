@@ -220,6 +220,25 @@
     background-size: 50px 50px;
   }
 
+  .perspective-grid {
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: perspective(1000px) rotateX(60deg) translateY(-100px) scale(2.5);
+    mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
+  }
+
+  .nebula-glow {
+    filter: blur(100px);
+    opacity: 0.4;
+    mix-blend-mode: screen;
+  }
+
+  .pill-nav-container {
+    @apply rounded-full border border-white/5 bg-black/40 backdrop-blur-md px-2 py-1;
+  }
+
   .scan-line {
     position: relative;
     overflow: hidden;

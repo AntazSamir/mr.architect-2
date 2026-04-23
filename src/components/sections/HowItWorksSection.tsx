@@ -109,7 +109,7 @@ export function HowItWorksSection() {
             Architectural <span className="text-primary italic">Synthesis</span>
           </h2>
           <p className="text-lg text-muted-foreground/70 max-w-2xl mx-auto leading-relaxed">
-            The protocol for transforming abstract concepts into production-grade 
+            The protocol for transforming abstract concepts into production-grade
             technical blueprints for AI autonomous builders.
           </p>
         </ScrollAnimation>
@@ -121,13 +121,13 @@ export function HowItWorksSection() {
               {steps.map((step, index) => {
                 const Icon = step.icon;
                 const styles = variantStyles[step.variant];
-                
+
                 return (
                   <StaggerItem key={step.number}>
                     <div className="group relative h-full">
                       {/* Card Container */}
                       <div className={`relative h-full p-8 rounded-sm bg-[#0d1117] border border-white/5 ${styles.hoverBorder} transition-all duration-500 overflow-hidden shadow-2xl`}>
-                        
+
                         {/* Blueprint Number Background */}
                         <div className="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-700 pointer-events-none select-none">
                           <span className="text-9xl font-display font-bold tracking-tighter text-white">
@@ -203,4 +203,4 @@ export function HowItWorksSection() {
       </div>
     </section>
   );
-}
+}
