@@ -70,12 +70,12 @@ export const Footer = forwardRef<HTMLElement>(function Footer(_, ref) {
             <h4 className="text-[10px] font-mono font-bold tracking-[0.3em] text-primary uppercase mb-8 opacity-40">LEGAL_PROTOCOL</h4>
             <ul className="space-y-4">
               <li>
-                <a href="/#faq" className="text-xs font-mono text-muted-foreground/60 hover:text-white transition-colors uppercase tracking-widest">
+                <a href="/terms#privacy" className="text-xs font-mono text-muted-foreground/60 hover:text-white transition-colors uppercase tracking-widest">
                   PRIVACY_MANIFEST
                 </a>
               </li>
               <li>
-                <a href="/#faq" className="text-xs font-mono text-muted-foreground/60 hover:text-white transition-colors uppercase tracking-widest">
+                <a href="/terms#terms" className="text-xs font-mono text-muted-foreground/60 hover:text-white transition-colors uppercase tracking-widest">
                   TERMS_CORE
                 </a>
               </li>

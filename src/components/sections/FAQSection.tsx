@@ -132,7 +132,7 @@ const FAQSection = () => {
         >
           <p className="text-sm font-mono text-muted-foreground/40 uppercase tracking-[0.2em]">
             Protocol unresolved?{" "}
-            <a href="mailto:support@mrarchitect.ai" className="text-primary hover:text-white transition-all underline decoration-primary/20 hover:decoration-white">
+            <a href="mailto:support@mrarchitect.ai" className="text-primary hover:text-white transition-all">
               INITIALIZE_SUPPORT_LINK
             </a>
           </p>

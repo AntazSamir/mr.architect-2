@@ -138,6 +138,7 @@ export function FeaturesSection() {
         title: 'Tech Stack',
         description: 'Smart recommendations for frameworks, libraries, and tools based on your requirements.',
         variant: 'warning',
+        path: '/features/tech-stack'
       },
       {
         icon: Terminal,
