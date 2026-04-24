@@ -43,13 +43,18 @@ export const Footer = forwardRef<HTMLElement>(function Footer(_, ref) {
           <div>
             <h4 className="text-[10px] font-mono font-bold tracking-[0.3em] text-primary uppercase mb-8 opacity-40">PROTOCOL_INDEX</h4>
             <ul className="space-y-4">
-              {['Features', 'Synthesis', 'Deployment', 'Documentation'].map((item) => (
+              {['Features', 'Synthesis', 'Deployment'].map((item) => (
                 <li key={item}>
                   <a href={`/#${item.toLowerCase()}`} className="text-xs font-mono text-muted-foreground/60 hover:text-white transition-colors uppercase tracking-widest">
                     {item}
                   </a>
                 </li>
               ))}
+              <li>
+                <a href="/docs" className="text-xs font-mono text-muted-foreground/60 hover:text-white transition-colors uppercase tracking-widest">
+                  Documentation
+                </a>
+              </li>
             </ul>
           </div>
 
